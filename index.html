@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Marshall Ward">
+  <meta name="dcterms.date" content="2020-03-17">
+  <title>Verification and Validation of MOM6</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="./reveal.js/css/reveal.css">
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="./reveal.js/css/theme/nci.css" id="theme">
+  <!-- Explicitly add zenburn for highlight support -->
+  <link rel="stylesheet" href="./reveal.js/lib/css/zenburn.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? './reveal.js/css/print/pdf.css' : './reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="./reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+  <base href="./index.html">
+</head>
+<body>
+  <div class="reveal"
+       style="background: url(img/bg_gfdl.jpg);
+              background-size: cover;">
+
+    <div style="height: 50%; position: absolute; bottom: 0%; left: 0%">
+      <img style="object-fit: contain; width: 50%;" src="img/bg_globe.png">
+    </div>
+
+    <header style="width: 10%; position: absolute; bottom: 2%; right: 2%;">
+      <img src="img/noaa_logo.png">
+    </header>
+
+    <footer style="font-size: 1pc; position: absolute; bottom: 2%; left: 2%;">
+      <!--<code>https://marshallward.org/mom6vv/payucourse/index.html</code>-->
+      <code>index.html</code>
+    </footer>
+
+    <div class="slides">
+
+<section id="title-slide">
+  <!--div class="reveal" style="text-align: right;">
+    <img src="img/noaa_logo.png"
+         style="background: none; border: none; box-shadow: none;
+         width: 30%"
+         alt="NCI">
+  </div-->
+  <h1 class="title">Verification and Validation of MOM6</h1>
+  <p class="author" style="text-align: right;">Marshall Ward</p>
+  <p class="date" style="text-align: right;">17 March 2020</p>
+</section>
+
+<section id="bit-reproducibility" class="title-slide slide level1">
+<h1>Bit reproducibility</h1>
+<ul>
+<li>a + b = b + a</li>
+<li>(a + b) + c != a + (b + c)</li>
+</ul>
+<dl>
+<dt>Methods of reproducibility</dt>
+<dd><ul>
+<li><dl>
+<dt>Aggressive parentheses</dt>
+<dd><ul>
+<li>Compiler must respect them!</li>
+</ul>
+</dd>
+</dl></li>
+<li>Fixed-precision summation</li>
+<li>xfirst/yfirst flags</li>
+<li>rotationally invariant stencils</li>
+</ul>
+</dd>
+</dl>
+</section>
+
+<section id="checksum-validation" class="title-slide slide level1">
+<h1>Checksum validation</h1>
+<ul>
+<li>Compute domain (no halos, no symmetric boundary)</li>
+<li>sum(abs()) (negative zero!)</li>
+<li><dl>
+<dt>"Hash":</dt>
+<dd><ul>
+<li>Min, max, mean (reproducible)</li>
+<li>Bitcount checksums (incl. halo shifted counts)</li>
+</ul>
+</dd>
+</dl></li>
+<li>Paired sums for rotational invariance</li>
+</ul>
+</section>
+
+<section id="dimensional-scaling" class="title-slide slide level1">
+<h1>Dimensional scaling</h1>
+<ul>
+<li><p>Float: (-1)^s * 1.(mmm...m) * 2^(nnn...n)</p>
+<p>Bits: smmm....mnnn....n</p></li>
+<li><p>2^N scaling is an integer shift of yyyy which is reproducibly reversible</p>
+<p>... up to over/underflow of yyyy!</p></li>
+<li><dl>
+<dt>Ideal procedure:</dt>
+<dd><ul>
+<li>Scale at input</li>
+<li>Manipulate rescaled numbers</li>
+<li>De-scale at output, checksum, etc</li>
+</ul>
+</dd>
+</dl></li>
+</ul>
+</section>
+
+<section id="examples-of-dimensional-errors" class="title-slide slide level1">
+<h1>Examples of Dimensional Errors</h1>
+
+</section>
+
+<section id="travis-testing" class="title-slide slide level1">
+<h1>Travis Testing</h1>
+<ul>
+<li>Code validation tests</li>
+<li>Platform independent</li>
+</ul>
+</section>
+
+<section id="test-build-configuration" class="title-slide slide level1">
+<h1>Test build configuration</h1>
+<ul>
+<li>GCC Fortran 9.x</li>
+<li><dl>
+<dt>Full warnings</dt>
+<dd><ul>
+<li>Permit float inequality with zero</li>
+</ul>
+</dd>
+</dl></li>
+<li><dl>
+<dt>Stack initialization</dt>
+<dd><ul>
+<li>Signal NaN for float</li>
+<li>2^(N-1) - 1 for integer, logical</li>
+</ul>
+</dd>
+</dl></li>
+</ul>
+</section>
+
+<section id="invariance-testing" class="title-slide slide level1">
+<h1>Invariance testing</h1>
+<ul>
+<li>Grid type (symmetric vs asymmetric)</li>
+<li>Layout (1x1 vs 1x2)</li>
+<li>Restarts (dt vs 2 x (dt/2) )</li>
+<li>NaN initialization (<code>malloc</code>)</li>
+<li>Dimensional scaling</li>
+<li>OpenMP (single-thread!)</li>
+<li>Rotation (quarter turn) invariance</li>
+</ul>
+</section>
+
+<section id="running-on-travis" class="title-slide slide level1">
+<h1>Running on Travis</h1>
+<ul>
+<li>Makefile is standalone, but can be configured by Travis:
+<ul>
+<li>DO_REGRESSION_TESTS</li>
+<li>MOM_TARGET_SLUG</li>
+<li>MOM_TARGET_LOCAL_BRANCH</li>
+</ul></li>
+</ul>
+</section>
+
+<section id="gaea-regression-tests" class="title-slide slide level1">
+<h1>Gaea regression tests</h1>
+<ul>
+<li>Full suite, platform specific, run on Gaea</li>
+<li>Each development hub would ideally have its own regression tests</li>
+</ul>
+</section>
+
+<section id="todo" class="title-slide slide level1">
+<h1>TODO</h1>
+<ul>
+<li>Valgrind testing</li>
+<li>Code coverage</li>
+<li>Zero-warnings</li>
+</ul>
+<p>&lt;!DOCTYPE html&gt; &lt;html$if(lang)$ lang="$lang$"$endif$$if(dir)$ dir="$dir$"$endif$&gt; &lt;head&gt; &lt;meta charset="utf-8"&gt; &lt;meta name="generator" content="pandoc"&gt; $for(author-meta)$ &lt;meta name="author" content="$author-meta$"&gt; $endfor$ $if(date-meta)$ &lt;meta name="dcterms.date" content="$date-meta$"&gt; $endif$ $if(keywords)$ &lt;meta name="keywords" content="$for(keywords)$$keywords$$sep$, $endfor$"&gt; $endif$ &lt;title&gt;$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$&lt;/title&gt; &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt; &lt;meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"&gt; &lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"&gt; &lt;link rel="stylesheet" href="$revealjs-url$/css/reveal.css"&gt; &lt;style type="text/css"&gt; code{white-space: pre-wrap;} span.smallcaps{font-variant: small-caps;} span.underline{text-decoration: underline;} div.column{display: inline-block; vertical-align: top; width: 50%;} $if(quotes)$ q { quotes: "“" "”" "‘" "’"; } $endif$ &lt;/style&gt; $if(highlighting-css)$ &lt;style type="text/css"&gt; $highlighting-css$ &lt;/style&gt; $endif$ $if(theme)$ &lt;link rel="stylesheet" href="$revealjs-url$/css/theme/$theme$.css" id="theme"&gt; $else$ &lt;link rel="stylesheet" href="$revealjs-url$/css/theme/black.css" id="theme"&gt; $endif$ &lt;!-- Explicitly add zenburn for highlight support --&gt; &lt;link rel="stylesheet" href="$revealjs-url$/lib/css/zenburn.css" id="theme"&gt; $for(css)$ &lt;link rel="stylesheet" href="$css$"/&gt; $endfor$ &lt;!-- Printing and PDF exports --&gt; &lt;script&gt; var link = document.createElement( 'link' ); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = window.location.search.match( /print-pdf/gi ) ? '$revealjs-url$/css/print/pdf.css' : '$revealjs-url$/css/print/paper.css'; document.getElementsByTagName( 'head' )[0].appendChild( link ); &lt;/script&gt; &lt;!--[if lt IE 9]&gt; &lt;script src="$revealjs-url$/lib/js/html5shiv.js"&gt;&lt;/script&gt; &lt;![endif]--&gt; $if(math)$ $math$ $endif$ $for(header-includes)$ $header-includes$ $endfor$ &lt;base href="./index.html"&gt; &lt;/head&gt; &lt;body&gt; $for(include-before)$ $include-before$ $endfor$ &lt;div class="reveal" style="background: url(img/bg_gfdl.jpg); background-size: cover;"&gt;</p>
+<blockquote>
+<dl>
+<dt>&lt;div style="height: 50%; position: absolute; bottom: 0%; left: 0%"&gt;</dt>
+<dd><p>&lt;img style="object-fit: contain; width: 50%;" src="img/bg_globe.png"&gt;</p>
+</dd>
+</dl>
+<p>&lt;/div&gt;</p>
+<dl>
+<dt>&lt;header style="width: 10%; position: absolute; bottom: 2%; right: 2%;"&gt;</dt>
+<dd><p>&lt;img src="img/noaa_logo.png"&gt;</p>
+</dd>
+</dl>
+<p>&lt;/header&gt;</p>
+<dl>
+<dt>&lt;footer style="font-size: 1pc; position: absolute; bottom: 2%; left: 2%;"&gt;</dt>
+<dd><p>&lt;!--&lt;code&gt;<a href="https://marshallward.org/mom6vv/payucourse/$outputfile$">https://marshallward.org/mom6vv/payucourse/$outputfile$</a>&lt;/code&gt;--&gt; &lt;code&gt;$outputfile$&lt;/code&gt;</p>
+</dd>
+</dl>
+<p>&lt;/footer&gt;</p>
+<p>&lt;div class="slides"&gt;</p>
+</blockquote>
+<p>$if(title)$ &lt;section id="$idprefix$title-slide"&gt; &lt;!--div class="reveal" style="text-align: right;"&gt; &lt;img src="img/noaa_logo.png" style="background: none; border: none; box-shadow: none; width: 30%" alt="NCI"&gt; &lt;/div--&gt; &lt;h1 class="title"&gt;$title$&lt;/h1&gt; $if(subtitle)$ &lt;p class="subtitle" style="text-align: left;"&gt;$subtitle$&lt;/p&gt; $endif$ $for(author)$ &lt;p class="author" style="text-align: right;"&gt;$author$&lt;/p&gt; $endfor$ $for(organization)$ &lt;p class="organization" style="text-align: right;"&gt;$organization$&lt;/p&gt; $endfor$ $if(date)$ &lt;p class="date" style="text-align: right;"&gt;$date$&lt;/p&gt; $endif$ &lt;/section&gt; $endif$ $if(toc)$ &lt;section id="$idprefix$TOC"&gt; $table-of-contents$ &lt;/section&gt; $endif$</p>
+<dl>
+<dt>$body$</dt>
+<dd><p>&lt;/div&gt; &lt;/div&gt;</p>
+<p>&lt;script src="$revealjs-url$/lib/js/head.min.js"&gt;&lt;/script&gt; &lt;script src="$revealjs-url$/js/reveal.js"&gt;&lt;/script&gt;</p>
+<p>&lt;script&gt;</p>
+<blockquote>
+<p>// Full list of configuration options available at: // <a href="https://github.com/hakimel/reveal.js#configuration">https://github.com/hakimel/reveal.js#configuration</a> Reveal.initialize({</p>
+</blockquote>
+</dd>
+<dt>$if(controls)$</dt>
+<dd><p>// Display controls in the bottom right corner controls: $controls$,</p>
+</dd>
+</dl>
+<p>$endif$ $if(progress)$ // Display a presentation progress bar progress: $progress$, $endif$ $if(slideNumber)$ // Display the page number of the current slide slideNumber: $slideNumber$, $endif$ // Push each slide change to the browser history $if(history)$ history: $history$, $else$ history: true, $endif$ $if(keyboard)$ // Enable keyboard shortcuts for navigation keyboard: $keyboard$, $endif$ $if(overview)$ // Enable the slide overview mode overview: $overview$, $endif$ $if(center)$ // Vertical centering of slides center: $center$, $endif$ $if(touch)$ // Enables touch navigation on devices with touch input touch: $touch$, $endif$ $if(loop)$ // Loop the presentation loop: $loop$, $endif$ $if(rtl)$ // Change the presentation direction to be RTL rtl: $rtl$, $endif$ $if(fragments)$ // Turns fragments on and off globally fragments: $fragments$, $endif$ $if(embedded)$ // Flags if the presentation is running in an embedded mode, // i.e. contained within a limited portion of the screen embedded: $embedded$, $endif$ $if(help)$ // Flags if we should show a help overlay when the questionmark // key is pressed help: $help$, $endif$ $if(showNotes)$ // Flags if speaker notes should be visible to all viewers showNotes: $showNotes$, $endif$ $if(autoSlide)$ // Number of milliseconds between automatically proceeding to the // next slide, disabled when set to 0, this value can be overwritten // by using a data-autoslide attribute on your slides autoSlide: $autoSlide$, $endif$ $if(autoSlideStoppable)$ // Stop auto-sliding after user input autoSlideStoppable: $autoSlideStoppable$, $endif$ $if(mouseWheel)$ // Enable slide navigation via mouse wheel mouseWheel: $mouseWheel$, $endif$ $if(rollingLinks)$ // Apply a 3D roll to links on hover rollingLinks: $rollingLinks$, $endif$ $if(hideAddressBar)$ // Hides the address bar on mobile devices hideAddressBar: $hideAddressBar$, $endif$ $if(previewLinks)$ // Opens links in an iframe preview overlay previewLinks: $previewLinks$, $endif$ $if(transition)$ // Transition style transition: '$transition$', // none/fade/slide/convex/concave/zoom $endif$ $if(transitionSpeed)$ // Transition speed transitionSpeed: '$transitionSpeed$', // default/fast/slow $endif$ $if(backgroundTransition)$ // Transition style for full page slide backgrounds backgroundTransition: '$backgroundTransition$', // none/fade/slide/convex/concave/zoom $endif$ $if(viewDistance)$ // Number of slides away from the current that are visible viewDistance: $viewDistance$, $endif$ $if(parallaxBackgroundImage)$ // Parallax background image parallaxBackgroundImage: '$parallaxBackgroundImage$', // e.g. "'<a href="https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg">https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg</a>'" $else$ $if(background-image)$ // Parallax background image parallaxBackgroundImage: '$background-image$', // e.g. "'<a href="https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg">https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg</a>'" $endif$ $endif$ $if(parallaxBackgroundSize)$ // Parallax background size parallaxBackgroundSize: '$parallaxBackgroundSize$', // CSS syntax, e.g. "2100px 900px" $endif$ $if(parallaxBackgroundHorizontal)$ // Amount to move parallax background (horizontal and vertical) on slide change // Number, e.g. 100 parallaxBackgroundHorizontal: $parallaxBackgroundHorizontal$, $endif$ $if(parallaxBackgroundVertical)$ parallaxBackgroundVertical: $parallaxBackgroundVertical$, $endif$ $if(width)$ // The "normal" size of the presentation, aspect ratio will be preserved // when the presentation is scaled to fit different resolutions. Can be // specified using percentage units. width: $width$, $endif$ $if(height)$ height: $height$, $endif$ $if(margin)$ // Factor of the display size that should remain empty around the content margin: $margin$, $endif$ $if(minScale)$ // Bounds for smallest/largest possible scale to apply to content minScale: $minScale$, $endif$ $if(maxScale)$ maxScale: $maxScale$, $endif$ $if(mathjax)$ math: { mathjax: '$mathjaxurl$', config: 'TeX-AMS_HTML-full', tex2jax: { inlineMath: [['\(','\)']], displayMath: [['\[','\]']], balanceBraces: true, processEscapes: false, processRefs: true, processEnvironments: true, preview: 'TeX', skipTags: ['script','noscript','style','textarea','pre','code'], ignoreClass: 'tex2jax_ignore', processClass: 'tex2jax_process' }, }, $endif$</p>
+<blockquote>
+<p>// Optional reveal.js plugins dependencies: [ { src: '$revealjs-url$/lib/js/classList.js', condition: function() { return !document.body.classList; } }, { src: '$revealjs-url$/plugin/zoom-js/zoom.js', async: true },</p>
+</blockquote>
+<dl>
+<dt>$if(notes-server)$</dt>
+<dd><p>{ src: '$revealjs-url$/socket.io/socker.io.js', async: true }, { src: '$revealjs-url$/plugin/notes-server/client.js', async: true },</p>
+</dd>
+</dl>
+<p>$endif$ $if(mathjax)$ { src: '$revealjs-url$/plugin/math/math.js', async: true }, $endif$ { src: './reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } }, { src: '$revealjs-url$/plugin/notes/notes.js', async: true } ] }); &lt;/script&gt; $for(include-after)$ $include-after$ $endfor$ &lt;/body&gt; &lt;/html&gt;</p>
+</section>
+    </div>
+  </div>
+
+  <script src="./reveal.js/lib/js/head.min.js"></script>
+  <script src="./reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: './reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: './reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: './reveal.js/plugin/highlight/highlight.js',
+            async: true,
+            condition: function() {
+              return !!document.querySelector( 'pre code' ); },
+            callback: function() {
+              hljs.initHighlightingOnLoad(); }
+          },
+          { src: './reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>

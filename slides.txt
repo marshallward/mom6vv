@@ -1,0 +1,110 @@
+===================================
+Verification and Validation of MOM6
+===================================
+
+.. :subtitle: TODO?
+:author: Marshall Ward
+:description: An overview of the MOM6 testing framework
+:date: 17 March 2020
+
+
+Bit reproducibility
+===================
+
+* a + b = b + a
+* (a + b) + c != a + (b + c)
+
+Methods of reproducibility
+   * Aggressive parentheses
+      * Compiler must respect them!
+   * Fixed-precision summation
+   * xfirst/yfirst flags
+   * rotationally invariant stencils
+
+
+Checksum validation
+===================
+
+* Compute domain (no halos, no symmetric boundary)
+* sum(abs()) (negative zero!)
+* "Hash":
+   * Min, max, mean (reproducible)
+   * Bitcount checksums (incl. halo shifted counts)
+* Paired sums for rotational invariance
+
+
+Dimensional scaling
+===================
+
+* Float: (-1)^s * 1.(mmm...m) * 2^(nnn...n)
+
+  Bits: smmm....mnnn....n
+
+* 2^N scaling is an integer shift of yyyy
+  which is reproducibly reversible
+
+  ... up to over/underflow of yyyy!
+
+* Ideal procedure:
+   * Scale at input
+   * Manipulate rescaled numbers
+   * De-scale at output, checksum, etc
+
+
+Examples of Dimensional Errors
+==============================
+
+
+Travis Testing
+==============
+
+* Code validation tests
+* Platform independent
+
+
+Test build configuration
+========================
+
+* GCC Fortran 9.x
+* Full warnings
+   * Permit float inequality with zero
+* Stack initialization
+   * Signal NaN for float
+   * 2^(N-1) - 1 for integer, logical
+
+
+Invariance testing
+==================
+
+* Grid type (symmetric vs asymmetric)
+* Layout (1x1 vs 1x2)
+* Restarts (dt vs 2 x (dt/2) )
+* NaN initialization (``malloc``)
+* Dimensional scaling
+* OpenMP (single-thread!)
+* Rotation (quarter turn) invariance
+
+
+Running on Travis
+=================
+
+* Makefile is standalone, but can be configured by Travis:
+
+  * DO_REGRESSION_TESTS
+  * MOM_TARGET_SLUG
+  * MOM_TARGET_LOCAL_BRANCH
+
+
+Gaea regression tests
+=====================
+
+* Full suite, platform specific, run on Gaea
+* Each development hub would ideally have its own regression tests
+
+
+TODO
+====
+
+* Valgrind testing
+* Code coverage
+* Zero-warnings
