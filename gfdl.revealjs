@@ -68,11 +68,12 @@ $endfor$
        style="background: url(img/bg_gfdl.jpg);
               background-size: cover;">
 
-    <div style="height: 50vh; position: absolute; bottom: 0%; left: 0%">
-      <img style="height: 50vh; width: 71vh" src="img/bg_globe.png">
+    <!-- Original ratio: 10.04" x 7.08" -->
+    <div style="height: 100vh; position: absolute; bottom: -50vh; left: -40vh">
+      <img style="height: 100vh; width: 142vh" src="img/bg_globe.png">
     </div>
 
-    <header style="width: 10%; position: absolute; bottom: 2%; right: 2%;">
+    <header style="width: 10vh; position: absolute; bottom: 2vh; right: 2vh;">
       <img src="img/noaa_logo.png">
     </header>
 
