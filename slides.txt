@@ -8,6 +8,39 @@ Verification and Validation of MOM6
 :date: 17 March 2020
 
 
+Verification vs Validation
+==========================
+
+* Verification: Are we building the product right
+* Validation: Are we building the right product?
+
+(Barry Boehm)
+
+
+Verification
+============
+
+* Invariance testing
+   * Grid type (symmetric vs asymmetric)
+   * Layout (1x1 vs 1x2)
+   * Restarts (dt vs 2 x (dt/2) )
+   * NaN initialization (``malloc``)
+   * Dimensional scaling
+   * OpenMP (single-thread!)
+   * Rotation (quarter turn) invariance
+
+* e.g. Travis tests
+
+
+Validation
+==========
+
+* Bit reproducibility of existing runs
+   * ("gold plated"?)
+* Are results physical?
+* e.g. Gaea regression tests
+
+
 Bit reproducibility
 ===================
 
@@ -71,18 +104,6 @@ Test build configuration
 * Stack initialization
    * Signal NaN for float
    * 2^(N-1) - 1 for integer, logical
-
-
-Invariance testing
-==================
-
-* Grid type (symmetric vs asymmetric)
-* Layout (1x1 vs 1x2)
-* Restarts (dt vs 2 x (dt/2) )
-* NaN initialization (``malloc``)
-* Dimensional scaling
-* OpenMP (single-thread!)
-* Rotation (quarter turn) invariance
 
 
 Running on Travis
