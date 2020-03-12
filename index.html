@@ -16,7 +16,7 @@
       span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <link rel="stylesheet" href="./reveal.js/css/theme/nci.css" id="theme">
+  <link rel="stylesheet" href="./reveal.js/css/theme/gfdl.css" id="theme">
   <!-- Explicitly add zenburn for highlight support -->
   <link rel="stylesheet" href="./reveal.js/lib/css/zenburn.css" id="theme">
   <!-- Printing and PDF exports -->
@@ -65,51 +65,79 @@
   <p class="date" style="text-align: right;">17 March 2020</p>
 </section>
 
-<section id="verification-vs-validation" class="title-slide slide level1">
-<h1>Verification vs Validation</h1>
-<dl>
-<dt>Verification</dt>
-<dd><p>Am I building the product right?</p>
-</dd>
-<dt>Validation</dt>
-<dd><p>Am I building the right product?</p>
-</dd>
-</dl>
+<section class="slide level2">
+
+<div class="slide">
+
+</div>
+<p>Verification</p>
+<blockquote>
+<p>Am I building the product right?</p>
+</blockquote>
+<p>Validation</p>
+<blockquote>
+<p>Am I building the right product?</p>
+</blockquote>
 <p>Barry Boehm, <em>Software Risk Management</em> (1989)</p>
 </section>
-
 <section id="verification" class="title-slide slide level1">
 <h1>Verification</h1>
+<p>What are the requirement of my model?</p>
 <ul>
-<li><dl>
-<dt>Invariance testing</dt>
-<dd><ul>
-<li>Grid type (symmetric vs asymmetric)</li>
-<li>Layout (1x1 vs 1x2)</li>
-<li>Restarts (dt vs 2 x (dt/2) )</li>
-<li>NaN initialization (<code>malloc</code>)</li>
-<li>Dimensional scaling</li>
-<li>OpenMP (single-thread!)</li>
-<li>Rotation (quarter turn) invariance</li>
+<li>Does it compile on target platforms?</li>
+<li>Do restarts change the answer?</li>
+<li>Does parallelization change the answer?</li>
+<li>...</li>
 </ul>
-</dd>
-</dl></li>
-<li>e.g. Travis tests</li>
-</ul>
+<p>Well-defined criteria that anyone can affirm</p>
 </section>
 
 <section id="validation" class="title-slide slide level1">
 <h1>Validation</h1>
 <ul>
-<li><dl>
-<dt>Bit reproducibility of existing runs</dt>
-<dd><ul>
-<li>("gold plated"?)</li>
+<li>Regression testing of production runs
+<ul>
+<li></li>
+</ul></li>
+<li>Are results physical?</li>
 </ul>
+</section>
+
+<section id="basics-of-bit-reproducibility" class="title-slide slide level1">
+<h1>Basics of Bit Reproducibility</h1>
+<p>IEEE-754 formatting:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Sign</th>
+<th>Exponent</th>
+<th>Significand</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>s</td>
+<td>e e e e e</td>
+<td>x x x x x x</td>
+</tr>
+</tbody>
+</table>
+<p><br /><span class="math display">( − 1)<sup><em>s</em></sup> × 1.<em>x</em><em>x</em><em>x</em>⋯<em>x</em> × 2<sup><em>y</em><em>y</em><em>y</em>⋯<em>y</em></sup></span><br /></p>
+</section>
+
+<section id="do-i-need-bit-reproducibility" class="title-slide slide level1">
+<h1>Do I need bit reproducibility?</h1>
+<ul>
+<li><dl>
+<dt>Not necessarily for validation:</dt>
+<dd><p>Requirements (and assessments) should be resilient to floating point error</p>
 </dd>
 </dl></li>
-<li>Are results physical?</li>
-<li>e.g. Gaea regression tests</li>
+<li><dl>
+<dt>Verification <em>does</em> need bit reproducibility</dt>
+<dd><p>No reliable way to automatically verify</p>
+</dd>
+</dl></li>
 </ul>
 </section>
 
@@ -234,6 +262,20 @@
 <li>Valgrind testing</li>
 <li>Code coverage</li>
 <li>Zero-warnings</li>
+</ul>
+</section>
+
+<section id="and-the-future" class="title-slide slide level1">
+<h1>And the future</h1>
+<ul>
+<li>Cyclomatic (McCabe) complexity</li>
+<li><dl>
+<dt>AST analyzer</dt>
+<dd><ul>
+<li>Fortran lint tools (flint??)</li>
+</ul>
+</dd>
+</dl></li>
 </ul>
 <p>&lt;!DOCTYPE html&gt; &lt;html$if(lang)$ lang="$lang$"$endif$$if(dir)$ dir="$dir$"$endif$&gt; &lt;head&gt; &lt;meta charset="utf-8"&gt; &lt;meta name="generator" content="pandoc"&gt; $for(author-meta)$ &lt;meta name="author" content="$author-meta$"&gt; $endfor$ $if(date-meta)$ &lt;meta name="dcterms.date" content="$date-meta$"&gt; $endif$ $if(keywords)$ &lt;meta name="keywords" content="$for(keywords)$$keywords$$sep$, $endfor$"&gt; $endif$ &lt;title&gt;$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$&lt;/title&gt; &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt; &lt;meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"&gt; &lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"&gt; &lt;link rel="stylesheet" href="$revealjs-url$/css/reveal.css"&gt; &lt;style type="text/css"&gt; code{white-space: pre-wrap;} span.smallcaps{font-variant: small-caps;} span.underline{text-decoration: underline;} div.column{display: inline-block; vertical-align: top; width: 50%;} $if(quotes)$ q { quotes: "“" "”" "‘" "’"; } $endif$ &lt;/style&gt; $if(highlighting-css)$ &lt;style type="text/css"&gt; $highlighting-css$ &lt;/style&gt; $endif$ $if(theme)$ &lt;link rel="stylesheet" href="$revealjs-url$/css/theme/$theme$.css" id="theme"&gt; $else$ &lt;link rel="stylesheet" href="$revealjs-url$/css/theme/black.css" id="theme"&gt; $endif$ &lt;!-- Explicitly add zenburn for highlight support --&gt; &lt;link rel="stylesheet" href="$revealjs-url$/lib/css/zenburn.css" id="theme"&gt; $for(css)$ &lt;link rel="stylesheet" href="$css$"/&gt; $endfor$ &lt;!-- Printing and PDF exports --&gt; &lt;script&gt; var link = document.createElement( 'link' ); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = window.location.search.match( /print-pdf/gi ) ? '$revealjs-url$/css/print/pdf.css' : '$revealjs-url$/css/print/paper.css'; document.getElementsByTagName( 'head' )[0].appendChild( link ); &lt;/script&gt; &lt;!--[if lt IE 9]&gt; &lt;script src="$revealjs-url$/lib/js/html5shiv.js"&gt;&lt;/script&gt; &lt;![endif]--&gt; $if(math)$ $math$ $endif$ $for(header-includes)$ $header-includes$ $endfor$ &lt;base href="./index.html"&gt; &lt;/head&gt; &lt;body&gt; $for(include-before)$ $include-before$ $endfor$ &lt;div class="reveal" style="background: url(img/bg_gfdl.jpg); background-size: cover;"&gt;</p>
 <blockquote>

@@ -8,13 +8,14 @@ Verification and Validation of MOM6
 :date: 17 March 2020
 
 
-Verification vs Validation
-==========================
+.. slide::
 
 Verification
+
    Am I building the product right?
 
 Validation
+
    Am I building the right product?
 
 Barry Boehm, *Software Risk Management* (1989)
@@ -23,15 +24,14 @@ Barry Boehm, *Software Risk Management* (1989)
 Verification
 ============
 
-* Does the code meet requirements?
+What are the requirement of my model?
 
-* Invariance testing
+* Does it compile on target platforms?
+* Do restarts change the answer?
+* Does parallelization change the answer?
+* ...
 
-* Verification tests do not validate the physics
-
-* "Universal" tests of code quality
-   * Every repository can run these tests
-   * Currently configured for Travis CI
+Well-defined criteria that anyone can affirm
 
 
 Validation
@@ -41,6 +41,25 @@ Validation
   *
 
 * Are results physical?
+
+
+Basics of Bit Reproducibility
+=============================
+
+IEEE-754 formatting:
+
+====  = = = = =   = = = = = =
+Sign  Exponent    Significand
+----  ---------   -----------
+s     e e e e e   x x x x x x
+====  = = = = =   = = = = = =
+
+
+
+.. math::
+
+   (-1)^s \times 1.xxx\cdots x \times 2^{yyy\cdots y}
+
 
 
 Do I need bit reproducibility?
