@@ -19,7 +19,7 @@ reveal.js:
 	mv reveal.js-master reveal.js
 	cp gfdl.css reveal.js/css/theme/
 
-index.html: slides.txt gfdl.revealjs
+index.html: slides.txt gfdl.revealjs gfdl.css
 	pandoc ${FLAGS} $^ -o $@
 
 clean:

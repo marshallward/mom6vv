@@ -8,7 +8,7 @@ Verification and Validation of MOM6
 :date: 17 March 2020
 
 
-.. slide::
+----
 
 Verification
 
@@ -43,22 +43,14 @@ Validation
 * Are results physical?
 
 
-Basics of Bit Reproducibility
-=============================
+Floating point review
+=====================
 
-IEEE-754 formatting:
-
-====  = = = = =   = = = = = =
-Sign  Exponent    Significand
-----  ---------   -----------
-s     e e e e e   x x x x x x
-====  = = = = =   = = = = = =
-
-
+.. image:: img/IEEE_754_Double_Floating_Point_Format.svg
 
 .. math::
 
-   (-1)^s \times 1.xxx\cdots x \times 2^{yyy\cdots y}
+   (-1)^s \times 1.xxx\cdots x \times 2^{eee\cdots e}
 
 
 
