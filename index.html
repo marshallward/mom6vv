@@ -65,6 +65,54 @@
   <p class="date" style="text-align: right;">17 March 2020</p>
 </section>
 
+<section id="verification-vs-validation" class="title-slide slide level1">
+<h1>Verification vs Validation</h1>
+<dl>
+<dt>Verification</dt>
+<dd><p>Am I building the product right?</p>
+</dd>
+<dt>Validation</dt>
+<dd><p>Am I building the right product?</p>
+</dd>
+</dl>
+<p>Barry Boehm, <em>Software Risk Management</em> (1989)</p>
+</section>
+
+<section id="verification" class="title-slide slide level1">
+<h1>Verification</h1>
+<ul>
+<li><dl>
+<dt>Invariance testing</dt>
+<dd><ul>
+<li>Grid type (symmetric vs asymmetric)</li>
+<li>Layout (1x1 vs 1x2)</li>
+<li>Restarts (dt vs 2 x (dt/2) )</li>
+<li>NaN initialization (<code>malloc</code>)</li>
+<li>Dimensional scaling</li>
+<li>OpenMP (single-thread!)</li>
+<li>Rotation (quarter turn) invariance</li>
+</ul>
+</dd>
+</dl></li>
+<li>e.g. Travis tests</li>
+</ul>
+</section>
+
+<section id="validation" class="title-slide slide level1">
+<h1>Validation</h1>
+<ul>
+<li><dl>
+<dt>Bit reproducibility of existing runs</dt>
+<dd><ul>
+<li>("gold plated"?)</li>
+</ul>
+</dd>
+</dl></li>
+<li>Are results physical?</li>
+<li>e.g. Gaea regression tests</li>
+</ul>
+</section>
+
 <section id="bit-reproducibility" class="title-slide slide level1">
 <h1>Bit reproducibility</h1>
 <ul>
@@ -157,19 +205,6 @@
 </ul>
 </dd>
 </dl></li>
-</ul>
-</section>
-
-<section id="invariance-testing" class="title-slide slide level1">
-<h1>Invariance testing</h1>
-<ul>
-<li>Grid type (symmetric vs asymmetric)</li>
-<li>Layout (1x1 vs 1x2)</li>
-<li>Restarts (dt vs 2 x (dt/2) )</li>
-<li>NaN initialization (<code>malloc</code>)</li>
-<li>Dimensional scaling</li>
-<li>OpenMP (single-thread!)</li>
-<li>Rotation (quarter turn) invariance</li>
 </ul>
 </section>
 

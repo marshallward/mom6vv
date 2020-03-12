@@ -11,34 +11,46 @@ Verification and Validation of MOM6
 Verification vs Validation
 ==========================
 
-* Verification: Are we building the product right
-* Validation: Are we building the right product?
+Verification
+   Am I building the product right?
 
-(Barry Boehm)
+Validation
+   Am I building the right product?
+
+Barry Boehm, *Software Risk Management* (1989)
 
 
 Verification
 ============
 
-* Invariance testing
-   * Grid type (symmetric vs asymmetric)
-   * Layout (1x1 vs 1x2)
-   * Restarts (dt vs 2 x (dt/2) )
-   * NaN initialization (``malloc``)
-   * Dimensional scaling
-   * OpenMP (single-thread!)
-   * Rotation (quarter turn) invariance
+* Does the code meet requirements?
 
-* e.g. Travis tests
+* Invariance testing
+
+* Verification tests do not validate the physics
+
+* "Universal" tests of code quality
+   * Every repository can run these tests
+   * Currently configured for Travis CI
 
 
 Validation
 ==========
 
-* Bit reproducibility of existing runs
-   * ("gold plated"?)
+* Regression testing of production runs
+  *
+
 * Are results physical?
-* e.g. Gaea regression tests
+
+
+Do I need bit reproducibility?
+==============================
+
+* Not necessarily for validation:
+   Requirements (and assessments) should be resilient to floating point error
+
+* Verification *does* need bit reproducibility
+   No reliable way to automatically verify
 
 
 Bit reproducibility
@@ -129,3 +141,11 @@ TODO
 * Valgrind testing
 * Code coverage
 * Zero-warnings
+
+
+And the future
+==============
+
+* Cyclomatic (McCabe) complexity
+* AST analyzer
+   * Fortran lint tools (flint??)
