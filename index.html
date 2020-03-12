@@ -122,7 +122,7 @@
 </tr>
 </tbody>
 </table>
-<p><br /><span class="math display">( − 1)<sup><em>s</em></sup> × 1.<em>x</em><em>x</em><em>x</em>⋯<em>x</em> × 2<sup><em>y</em><em>y</em><em>y</em>⋯<em>y</em></sup></span><br /></p>
+<p><span class="math display">\[(-1)^s \times 1.xxx\cdots x \times 2^{yyy\cdots y}\]</span></p>
 </section>
 
 <section id="do-i-need-bit-reproducibility" class="title-slide slide level1">
@@ -334,11 +334,28 @@
         slideNumber: true,
         // Push each slide change to the browser history
         history: true,
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
 
         // Optional reveal.js plugins
         dependencies: [
           { src: './reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
           { src: './reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: './reveal.js/plugin/math/math.js', async: true },
           { src: './reveal.js/plugin/highlight/highlight.js',
             async: true,
             condition: function() {

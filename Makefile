@@ -8,7 +8,8 @@ FLAGS=-s \
 	  -V theme=${THEME} \
 	  -V slideNumber=true \
 	  --template=gfdl.revealjs \
-	  --no-highlight
+	  --no-highlight \
+	  --mathjax
 
 all: index.html reveal.js
 
