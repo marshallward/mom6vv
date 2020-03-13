@@ -17,9 +17,9 @@ reveal.js:
 	wget -N ${REPO}
 	unzip master.zip
 	mv reveal.js-master reveal.js
-	cp gfdl.css reveal.js/css/theme/
 
 index.html: slides.txt gfdl.revealjs gfdl.css
+	cp gfdl.css reveal.js/css/theme/
 	pandoc ${FLAGS} $^ -o $@
 
 clean:

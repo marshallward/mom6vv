@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <meta name="author" content="Marshall Ward">
   <meta name="dcterms.date" content="2020-03-17">
   <title>Verification and Validation of MOM6</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -61,7 +60,11 @@
          alt="NCI">
   </div-->
   <h1 class="title">Verification and Validation of MOM6</h1>
-  <p class="author" style="text-align: right;">Marshall Ward</p>
+  <p class="author" style="text-align: right;"><ul>
+<li>Marshall Ward</li>
+<li>Robert Hallberg</li>
+<li>Alistair Adcroft</li>
+</ul></p>
   <p class="date" style="text-align: right;">17 March 2020</p>
 </section>
 
@@ -79,33 +82,70 @@
 </section>
 <section id="verification" class="title-slide slide level1">
 <h1>Verification</h1>
-<p>What are the requirement of my model?</p>
+<p>What are the <em>design specifications</em> of my model?</p>
 <ul>
 <li>Does it compile on target platforms?</li>
-<li>Do restarts change the answer?</li>
-<li>Does parallelization change the answer?</li>
-<li>...</li>
+<li>Are the equations dimensionally consistent?</li>
+<li>Does parallelization change the answers?</li>
 </ul>
-<p>Well-defined criteria that anyone can affirm</p>
+<p><em>Verification is more about satisfying prescribed criteria than being a physically useful simulations</em></p>
 </section>
 
 <section id="validation" class="title-slide slide level1">
 <h1>Validation</h1>
+<p>Does our model meet operational needs? (e.g. High skill Forecast)</p>
 <ul>
-<li>Regression testing of production runs
-<ul>
-<li></li>
-</ul></li>
+<li>Regression testing of production runs</li>
 <li>Are results physical?</li>
 </ul>
+<p><em>Validation is about</em></p>
+</section>
+
+<section id="vv-in-software-engineering" class="title-slide slide level1">
+<h1>V&amp;V in Software Engineering</h1>
+<div class="todo">
+<p>Figures for waterfall, V-model, Spiral, Agile</p>
+</div>
+<p>All software engineering models have a V&amp;V stage</p>
+<p>NOTE: In Agile development - and in MOM6 - V&amp;V are nearly simultaneous</p>
 </section>
 
 <section id="floating-point-review" class="title-slide slide level1">
 <h1>Floating point review</h1>
 <p><img data-src="img/IEEE_754_Double_Floating_Point_Format.svg" alt="image" /></p>
-<p><span class="math display">\[(-1)^s \times 1.xxx\cdots x \times 2^{eee\cdots e}\]</span></p>
+<p><span class="math display">\[(-1)^s \times 1.\{\text{frac}\}\times 2^{\{\text{exp}\}}\]</span></p>
+<ul>
+<li>Smallest fractional diff: <span class="math inline">\(2^{-52} \approx 2.2 \times 10^{-16}\)</span></li>
+<li>17 digits to uniquely specify a result</li>
+</ul>
 </section>
 
+<section>
+<section id="associativity" class="title-slide slide level1">
+<h1>Associativity</h1>
+<ul>
+<li><p><span class="math inline">\(10^{-16} + 1 - 1 = ?\)</span></p>
+<ul>
+<li class="fragment"><span class="math inline">\((10^{-16} + 1) - 1 = 0\)</span></li>
+<li class="fragment"><span class="math inline">\(10^{-16} + (1 - 1) \approx 1.1 \times 10^{-16}\)</span></li>
+</ul></li>
+<li><p><span class="math inline">\(1 + 2 \times 10^{-16} - 10^{-16} = ?\)</span></p>
+<ul>
+<li class="fragment"><span class="math inline">\((1 + 2 \times 10^{-16}) - 10^{-16}
+       \approx 1 + 2.2 \times 10^{-16}\)</span></li>
+<li class="fragment"><span class="math inline">\(1 + (2 \times 10^{-16} - 10^{-16}) = 1\)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="more-associativity" class="slide level2">
+<h2>More associativity</h2>
+<p>Let <span class="math inline">\(s = 1 + 2 \times 10^{-16}\)</span>; what is <span class="math inline">\((s + 1) - 1\)</span>?</p>
+<ul>
+<li class="fragment"><span class="math inline">\(s + 1 = 2\)</span></li>
+<li class="fragment"><span class="math inline">\((s + 1) - 1 = 1 \neq s\)</span></li>
+</ul>
+<p>Manipulation of <span class="title-ref">s</span> removed the least significant bit.</p>
+</section></section>
 <section id="do-i-need-bit-reproducibility" class="title-slide slide level1">
 <h1>Do I need bit reproducibility?</h1>
 <ul>
@@ -470,6 +510,12 @@
 </dd>
 <dt>.fltpt table {</dt>
 <dd><p>margin: auto; border-collapse: collapse; border-spacing: 0; border: 1px solid black;</p>
+</dd>
+</dl>
+<p>}</p>
+<dl>
+<dt>p.author &gt; ul {</dt>
+<dd><p>list-style-type: none</p>
 </dd>
 </dl>
 <p>}</p>

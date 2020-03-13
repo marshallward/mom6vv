@@ -3,7 +3,9 @@ Verification and Validation of MOM6
 ===================================
 
 .. :subtitle: TODO?
-:author: Marshall Ward
+:authors: - Marshall Ward
+          - Robert Hallberg
+          - Alistair Adcroft
 :description: An overview of the MOM6 testing framework
 :date: 17 March 2020
 
@@ -24,23 +26,38 @@ Barry Boehm, *Software Risk Management* (1989)
 Verification
 ============
 
-What are the requirement of my model?
+What are the *design specifications* of my model?
 
 * Does it compile on target platforms?
-* Do restarts change the answer?
-* Does parallelization change the answer?
-* ...
+* Are the equations dimensionally consistent?
+* Does parallelization change the answers?
 
-Well-defined criteria that anyone can affirm
+*Verification is more about satisfying prescribed criteria than being a
+physically useful simulations*
 
 
 Validation
 ==========
 
+Does our model meet operational needs? (e.g. High skill Forecast)
+
 * Regression testing of production runs
-  *
+
 
 * Are results physical?
+
+
+*Validation is about*
+
+
+V&V in Software Engineering
+===========================
+
+.. TODO:: Figures for waterfall, V-model, Spiral, Agile
+
+All software engineering models have a V&V stage
+
+NOTE: In Agile development - and in MOM6 - V&V are nearly simultaneous
 
 
 Floating point review
@@ -50,7 +67,39 @@ Floating point review
 
 .. math::
 
-   (-1)^s \times 1.xxx\cdots x \times 2^{eee\cdots e}
+   (-1)^s \times 1.\{\text{frac}\}\times 2^{\{\text{exp}\}}
+
+* Smallest fractional diff: :math:`2^{-52} \approx 2.2 \times 10^{-16}`
+
+* 17 digits to uniquely specify a result
+
+
+Associativity
+=============
+
+* :math:`10^{-16} + 1 - 1 = ?`
+
+   * :math:`(10^{-16} + 1) - 1 = 0`
+   * :math:`10^{-16} + (1 - 1) \approx 1.1 \times 10^{-16}`
+
+* :math:`1 + 2 \times 10^{-16} - 10^{-16} = ?`
+
+   * :math:`(1 + 2 \times 10^{-16}) - 10^{-16}
+            \approx 1 + 2.2 \times 10^{-16}`
+   * :math:`1 + (2 \times 10^{-16} - 10^{-16}) = 1`
+
+
+More associativity
+------------------
+
+Let :math:`s = 1 + 2 \times 10^{-16}`; what is :math:`(s + 1) - 1`?
+
+   * :math:`s + 1 = 2`
+   * :math:`(s + 1) - 1 = 1 \neq s`
+
+Manipulation of `s` removed the least significant bit.
+
+
 
 
 
