@@ -74,6 +74,16 @@ Floating point review
 * 17 digits to uniquely specify a result
 
 
+Do I need bit reproducibility?
+==============================
+
+* Not necessarily for validation:
+   Requirements (and assessments) should be resilient to floating point error
+
+* Verification *does* need bit reproducibility
+   No reliable way to automatically verify
+
+
 Associativity
 =============
 
@@ -100,31 +110,57 @@ Let :math:`s = 1 + 2 \times 10^{-16}`; what is :math:`(s + 1) - 1`?
 Manipulation of `s` removed the least significant bit.
 
 
+Multiplication associativity
+============================
+
+Multiplication is less sensitive, but nonetheless depends on associativity:
+
+If :math:`a = b = 1.5`, and :math:`c = 1 + 2^{-52}`, then
+
+.. math::
+
+   (a \times b) \times c &= 2.25 + 2^{-51} \\
+   a \times (b \times c) &= 2.25 + 2^{-50}
+
+Note power-of-two (radix) multiplication is reversible (up to
 
 
-
-Do I need bit reproducibility?
+Preserving order of operations
 ==============================
 
-* Not necessarily for validation:
-   Requirements (and assessments) should be resilient to floating point error
+Testing requires that compilers respect parentheses:
 
-* Verification *does* need bit reproducibility
-   No reliable way to automatically verify
+GCC Fortran::
+
+   gfortran -fprotect-parens ...    # default
+
+Intel Fortran::
+
+   ifort -assume protect-parens     # Not default
+
+Note: Standards-compilant compilers will honor parentheses (J3/18-007r1, 10.1.5)
+
+.. TODO Is Intel default behavior in violation of standard?
 
 
-Bit reproducibility
-===================
+Parallel summation
+==================
 
-* a + b = b + a
-* (a + b) + c != a + (b + c)
+Problem is extended to parallel sums:
 
-Methods of reproducibility
-   * Aggressive parentheses
-      * Compiler must respect them!
-   * Fixed-precision summation
-   * xfirst/yfirst flags
-   * rotationally invariant stencils
+See hallberg & adcroft
+
+
+Algorithmic ordering
+====================
+
+Show xfirst/yfirst flag example
+
+
+Rotational invariance
+=====================
+
+Show bob's pictures
 
 
 Checksum validation

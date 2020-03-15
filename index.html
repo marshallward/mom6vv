@@ -120,6 +120,22 @@
 </ul>
 </section>
 
+<section id="do-i-need-bit-reproducibility" class="title-slide slide level1">
+<h1>Do I need bit reproducibility?</h1>
+<ul>
+<li><dl>
+<dt>Not necessarily for validation:</dt>
+<dd><p>Requirements (and assessments) should be resilient to floating point error</p>
+</dd>
+</dl></li>
+<li><dl>
+<dt>Verification <em>does</em> need bit reproducibility</dt>
+<dd><p>No reliable way to automatically verify</p>
+</dd>
+</dl></li>
+</ul>
+</section>
+
 <section>
 <section id="associativity" class="title-slide slide level1">
 <h1>Associativity</h1>
@@ -146,44 +162,41 @@
 </ul>
 <p>Manipulation of <span class="title-ref">s</span> removed the least significant bit.</p>
 </section></section>
-<section id="do-i-need-bit-reproducibility" class="title-slide slide level1">
-<h1>Do I need bit reproducibility?</h1>
-<ul>
-<li><dl>
-<dt>Not necessarily for validation:</dt>
-<dd><p>Requirements (and assessments) should be resilient to floating point error</p>
-</dd>
-</dl></li>
-<li><dl>
-<dt>Verification <em>does</em> need bit reproducibility</dt>
-<dd><p>No reliable way to automatically verify</p>
-</dd>
-</dl></li>
-</ul>
+<section id="multiplication-associativity" class="title-slide slide level1">
+<h1>Multiplication associativity</h1>
+<p>Multiplication is less sensitive, but nonetheless depends on associativity:</p>
+<p>If <span class="math inline">\(a = b = 1.5\)</span>, and <span class="math inline">\(c = 1 + 2^{-52}\)</span>, then</p>
+<p><span class="math display">\[\begin{aligned}
+(a \times b) \times c &amp;= 2.25 + 2^{-51} \\
+a \times (b \times c) &amp;= 2.25 + 2^{-50}
+\end{aligned}\]</span></p>
+<p>Note power-of-two (radix) multiplication is reversible (up to</p>
 </section>
 
-<section id="bit-reproducibility" class="title-slide slide level1">
-<h1>Bit reproducibility</h1>
-<ul>
-<li>a + b = b + a</li>
-<li>(a + b) + c != a + (b + c)</li>
-</ul>
-<dl>
-<dt>Methods of reproducibility</dt>
-<dd><ul>
-<li><dl>
-<dt>Aggressive parentheses</dt>
-<dd><ul>
-<li>Compiler must respect them!</li>
-</ul>
-</dd>
-</dl></li>
-<li>Fixed-precision summation</li>
-<li>xfirst/yfirst flags</li>
-<li>rotationally invariant stencils</li>
-</ul>
-</dd>
-</dl>
+<section id="preserving-order-of-operations" class="title-slide slide level1">
+<h1>Preserving order of operations</h1>
+<p>Testing requires that compilers respect parentheses:</p>
+<p>GCC Fortran:</p>
+<pre><code>gfortran -fprotect-parens ...    # default</code></pre>
+<p>Intel Fortran:</p>
+<pre><code>ifort -assume protect-parens     # Not default</code></pre>
+<p>Note: Standards-compilant compilers will honor parentheses (J3/18-007r1, 10.1.5)</p>
+</section>
+
+<section id="parallel-summation" class="title-slide slide level1">
+<h1>Parallel summation</h1>
+<p>Problem is extended to parallel sums:</p>
+<p>See hallberg &amp; adcroft</p>
+</section>
+
+<section id="algorithmic-ordering" class="title-slide slide level1">
+<h1>Algorithmic ordering</h1>
+<p>Show xfirst/yfirst flag example</p>
+</section>
+
+<section id="rotational-invariance" class="title-slide slide level1">
+<h1>Rotational invariance</h1>
+<p>Show bob's pictures</p>
 </section>
 
 <section id="checksum-validation" class="title-slide slide level1">
