@@ -32,22 +32,19 @@ What are the *design specifications* of my model?
 * Are the equations dimensionally consistent?
 * Does parallelization change the answers?
 
-*Verification is more about satisfying prescribed criteria than being a
-physically useful simulations*
+*Verification is the confirmation of design specifications.*
 
 
 Validation
 ==========
 
-Does our model meet operational needs? (e.g. High skill Forecast)
+Does our model meet operational needs?
 
-* Regression testing of production runs
-
-
-* Are results physical?
-
-
-*Validation is about*
+* Does it produce realistic simulations?
+* Are relevant physical features present?
+* Can I reproduce my old simulations?
+   
+*Validation is an assessment of the final product.*
 
 
 V&V in Software Engineering
@@ -58,6 +55,39 @@ V&V in Software Engineering
 All software engineering models have a V&V stage
 
 NOTE: In Agile development - and in MOM6 - V&V are nearly simultaneous
+
+
+Life cycle of a contribution
+============================
+
+Figure here of patch going into a MOM6 repo
+   - Trigger Travis testing
+   - Manual GitLab testing
+   - Review
+   - Merge
+
+
+Integration across hubs
+=======================
+
+Include Alistair's hub figure here
+
+
+
+Verification Test Suite
+=======================
+
+Version of Bob's table here
+
+List the "invariance tests" that we require for travis.
+
+All hubs should
+
+
+Bit reproducibility
+===================
+
+https://twitter.com/Foone/status/1126996260026605568
 
 
 Floating point review
@@ -72,16 +102,6 @@ Floating point review
 * Smallest fractional diff: :math:`2^{-52} \approx 2.2 \times 10^{-16}`
 
 * 17 digits to uniquely specify a result
-
-
-Do I need bit reproducibility?
-==============================
-
-* Not necessarily for validation:
-   Requirements (and assessments) should be resilient to floating point error
-
-* Verification *does* need bit reproducibility
-   No reliable way to automatically verify
 
 
 Associativity
@@ -248,5 +268,7 @@ And the future
 ==============
 
 * Cyclomatic (McCabe) complexity
+
 * AST analyzer
-   * Fortran lint tools (flint??)
+
+* Fortran lint tools (flint??)

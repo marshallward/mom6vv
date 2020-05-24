@@ -88,17 +88,18 @@
 <li>Are the equations dimensionally consistent?</li>
 <li>Does parallelization change the answers?</li>
 </ul>
-<p><em>Verification is more about satisfying prescribed criteria than being a physically useful simulations</em></p>
+<p><em>Verification is the confirmation of design specifications.</em></p>
 </section>
 
 <section id="validation" class="title-slide slide level1">
 <h1>Validation</h1>
-<p>Does our model meet operational needs? (e.g. High skill Forecast)</p>
+<p>Does our model meet operational needs?</p>
 <ul>
-<li>Regression testing of production runs</li>
-<li>Are results physical?</li>
+<li>Does it produce realistic simulations?</li>
+<li>Are relevant physical features present?</li>
+<li>Can I reproduce my old simulations?</li>
 </ul>
-<p><em>Validation is about</em></p>
+<p><em>Validation is an assessment of the final product.</em></p>
 </section>
 
 <section id="vv-in-software-engineering" class="title-slide slide level1">
@@ -110,6 +111,37 @@
 <p>NOTE: In Agile development - and in MOM6 - V&amp;V are nearly simultaneous</p>
 </section>
 
+<section id="life-cycle-of-a-contribution" class="title-slide slide level1">
+<h1>Life cycle of a contribution</h1>
+<dl>
+<dt>Figure here of patch going into a MOM6 repo</dt>
+<dd><ul>
+<li>Trigger Travis testing</li>
+<li>Manual GitLab testing</li>
+<li>Review</li>
+<li>Merge</li>
+</ul>
+</dd>
+</dl>
+</section>
+
+<section id="integration-across-hubs" class="title-slide slide level1">
+<h1>Integration across hubs</h1>
+<p>Include Alistair's hub figure here</p>
+</section>
+
+<section id="verification-test-suite" class="title-slide slide level1">
+<h1>Verification Test Suite</h1>
+<p>Version of Bob's table here</p>
+<p>List the "invariance tests" that we require for travis.</p>
+<p>All hubs should</p>
+</section>
+
+<section id="bit-reproducibility" class="title-slide slide level1">
+<h1>Bit reproducibility</h1>
+<p><a href="https://twitter.com/Foone/status/1126996260026605568">https://twitter.com/Foone/status/1126996260026605568</a></p>
+</section>
+
 <section id="floating-point-review" class="title-slide slide level1">
 <h1>Floating point review</h1>
 <p><img data-src="img/IEEE_754_Double_Floating_Point_Format.svg" alt="image" /></p>
@@ -117,22 +149,6 @@
 <ul>
 <li>Smallest fractional diff: <span class="math inline">\(2^{-52} \approx 2.2 \times 10^{-16}\)</span></li>
 <li>17 digits to uniquely specify a result</li>
-</ul>
-</section>
-
-<section id="do-i-need-bit-reproducibility" class="title-slide slide level1">
-<h1>Do I need bit reproducibility?</h1>
-<ul>
-<li><dl>
-<dt>Not necessarily for validation:</dt>
-<dd><p>Requirements (and assessments) should be resilient to floating point error</p>
-</dd>
-</dl></li>
-<li><dl>
-<dt>Verification <em>does</em> need bit reproducibility</dt>
-<dd><p>No reliable way to automatically verify</p>
-</dd>
-</dl></li>
 </ul>
 </section>
 
@@ -170,19 +186,24 @@
 (a \times b) \times c &amp;= 2.25 + 2^{-51} \\
 a \times (b \times c) &amp;= 2.25 + 2^{-50}
 \end{aligned}\]</span></p>
-<p>Note power-of-two (radix) multiplication is reversible (up to</p>
+<p>Note power-of-two (radix) multiplication is reversible (up to over/underflow!)</p>
 </section>
 
-<section id="preserving-order-of-operations" class="title-slide slide level1">
-<h1>Preserving order of operations</h1>
-<p>Testing requires that compilers respect parentheses:</p>
+<section>
+<section id="integrity-of-parentheses" class="title-slide slide level1">
+<h1>Integrity of parentheses</h1>
+<p>V&amp;V requires integrity of parentheses</p>
 <p>GCC Fortran:</p>
-<pre><code>gfortran -fprotect-parens ...    # default</code></pre>
+<pre><code>gfortran -fprotect-parens ...    # default
+gfortran -Ofast ...              # Sets -fno-protect-parens</code></pre>
 <p>Intel Fortran:</p>
 <pre><code>ifort -assume protect-parens     # Not default</code></pre>
-<p>Note: Standards-compilant compilers will honor parentheses (J3/18-007r1, 10.1.5)</p>
+<p>Note: Standard requires (J3/18-007r1, 10.1.5)</p>
 </section>
-
+<section id="kahan-summation" class="slide level2">
+<h2>Kahan summation</h2>
+<p>Attach here? See <a href="https://groups.google.com/forum/#!topic/comp.lang.fortran/D-tFxYgHa_4">https://groups.google.com/forum/#!topic/comp.lang.fortran/D-tFxYgHa_4</a></p>
+</section></section>
 <section id="parallel-summation" class="title-slide slide level1">
 <h1>Parallel summation</h1>
 <p>Problem is extended to parallel sums:</p>
@@ -303,13 +324,8 @@ a \times (b \times c) &amp;= 2.25 + 2^{-50}
 <h1>And the future</h1>
 <ul>
 <li>Cyclomatic (McCabe) complexity</li>
-<li><dl>
-<dt>AST analyzer</dt>
-<dd><ul>
+<li>AST analyzer</li>
 <li>Fortran lint tools (flint??)</li>
-</ul>
-</dd>
-</dl></li>
 </ul>
 <p>&lt;!DOCTYPE html&gt; &lt;html$if(lang)$ lang="$lang$"$endif$$if(dir)$ dir="$dir$"$endif$&gt; &lt;head&gt; &lt;meta charset="utf-8"&gt; &lt;meta name="generator" content="pandoc"&gt; $for(author-meta)$ &lt;meta name="author" content="$author-meta$"&gt; $endfor$ $if(date-meta)$ &lt;meta name="dcterms.date" content="$date-meta$"&gt; $endif$ $if(keywords)$ &lt;meta name="keywords" content="$for(keywords)$$keywords$$sep$, $endfor$"&gt; $endif$ &lt;title&gt;$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$&lt;/title&gt; &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt; &lt;meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"&gt; &lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"&gt; &lt;link rel="stylesheet" href="$revealjs-url$/css/reveal.css"&gt; &lt;style type="text/css"&gt; code{white-space: pre-wrap;} span.smallcaps{font-variant: small-caps;} span.underline{text-decoration: underline;} div.column{display: inline-block; vertical-align: top; width: 50%;} $if(quotes)$ q { quotes: "“" "”" "‘" "’"; } $endif$ &lt;/style&gt; $if(highlighting-css)$ &lt;style type="text/css"&gt; $highlighting-css$ &lt;/style&gt; $endif$ $if(theme)$ &lt;link rel="stylesheet" href="$revealjs-url$/css/theme/$theme$.css" id="theme"&gt; $else$ &lt;link rel="stylesheet" href="$revealjs-url$/css/theme/black.css" id="theme"&gt; $endif$ &lt;!-- Explicitly add zenburn for highlight support --&gt; &lt;link rel="stylesheet" href="$revealjs-url$/lib/css/zenburn.css" id="theme"&gt; $for(css)$ &lt;link rel="stylesheet" href="$css$"/&gt; $endfor$ &lt;!-- Printing and PDF exports --&gt; &lt;script&gt; var link = document.createElement( 'link' ); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = window.location.search.match( /print-pdf/gi ) ? '$revealjs-url$/css/print/pdf.css' : '$revealjs-url$/css/print/paper.css'; document.getElementsByTagName( 'head' )[0].appendChild( link ); &lt;/script&gt; &lt;!--[if lt IE 9]&gt; &lt;script src="$revealjs-url$/lib/js/html5shiv.js"&gt;&lt;/script&gt; &lt;![endif]--&gt; $if(math)$ $math$ $endif$ $for(header-includes)$ $header-includes$ $endfor$ &lt;base href="./index.html"&gt; &lt;/head&gt; &lt;body&gt; $for(include-before)$ $include-before$ $endfor$ &lt;div class="reveal" style="background: url(img/bg_gfdl.jpg); background-size: cover;"&gt;</p>
 <blockquote>
