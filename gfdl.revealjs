@@ -16,7 +16,7 @@ $endif$
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="$revealjs-url$/css/reveal.css">
+  <link rel="stylesheet" href="$revealjs-url$/dist/reveal.css">
   <style type="text/css">
       code{white-space: pre-wrap;}
       span.smallcaps{font-variant: small-caps;}
@@ -34,10 +34,10 @@ $endif$
 $if(theme)$
   <link rel="stylesheet" href="$revealjs-url$/css/theme/$theme$.css" id="theme">
 $else$
-  <link rel="stylesheet" href="$revealjs-url$/css/theme/black.css" id="theme">
+  <link rel="stylesheet" href="$revealjs-url$/dist/theme/black.css" id="theme">
 $endif$
   <!-- Explicitly add zenburn for highlight support -->
-  <link rel="stylesheet" href="$revealjs-url$/lib/css/zenburn.css" id="theme">
+  <link rel="stylesheet" href="$revealjs-url$/plugin/highlight/zenburn.css" id="theme">
 $for(css)$
   <link rel="stylesheet" href="$css$"/>
 $endfor$
@@ -46,7 +46,7 @@ $endfor$
     var link = document.createElement( 'link' );
     link.rel = 'stylesheet';
     link.type = 'text/css';
-    link.href = window.location.search.match( /print-pdf/gi ) ? '$revealjs-url$/css/print/pdf.css' : '$revealjs-url$/css/print/paper.css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '$revealjs-url$/css/print/pdf.scss' : '$revealjs-url$/css/print/paper.scss';
     document.getElementsByTagName( 'head' )[0].appendChild( link );
   </script>
   <!--[if lt IE 9]>
@@ -117,8 +117,8 @@ $body$
     </div>
   </div>
 
-  <script src="$revealjs-url$/lib/js/head.min.js"></script>
-  <script src="$revealjs-url$/js/reveal.js"></script>
+  <script src="$revealjs-url$/dist/reveal.js"></script>
+  <script src="$revealjs-url$/plugin/math/math.js"></script>
 
   <script>
 
@@ -272,18 +272,18 @@ $if(mathjax)$
         math: {
           mathjax: '$mathjaxurl$',
           config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
+          //TeX: {
+          //  inlineMath: [['\\(','\\)']],
+          //  displayMath: [['\\[','\\]']],
+          //  balanceBraces: true,
+          //  processEscapes: false,
+          //  processRefs: true,
+          //  processEnvironments: true,
+          //  preview: 'TeX',
+          //  skipTags: ['script','noscript','style','textarea','pre','code'],
+          //  ignoreClass: 'tex2jax_ignore',
+          //  processClass: 'tex2jax_process'
+          //},
         },
 $endif$
 
@@ -306,7 +306,8 @@ $endif$
               hljs.initHighlightingOnLoad(); }
           },
           { src: '$revealjs-url$/plugin/notes/notes.js', async: true }
-        ]
+        ],
+        plugins : [ RevealMath ],
       });
     </script>
   $for(include-after)$

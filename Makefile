@@ -22,7 +22,7 @@ reveal.js/css/theme/gfdl.css: gfdl.css
 	cp gfdl.css reveal.js/css/theme/
 
 index.html: slides.txt gfdl.revealjs reveal.js/css/theme/gfdl.css
-	pandoc ${FLAGS} $^ -o $@
+	pandoc ${FLAGS} $< -o $@
 
 clean:
 	rm -f index.html 

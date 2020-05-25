@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="./reveal.js/css/reveal.css">
+  <link rel="stylesheet" href="./reveal.js/dist/reveal.css">
   <style type="text/css">
       code{white-space: pre-wrap;}
       span.smallcaps{font-variant: small-caps;}
@@ -17,13 +17,13 @@
   </style>
   <link rel="stylesheet" href="./reveal.js/css/theme/gfdl.css" id="theme">
   <!-- Explicitly add zenburn for highlight support -->
-  <link rel="stylesheet" href="./reveal.js/lib/css/zenburn.css" id="theme">
+  <link rel="stylesheet" href="./reveal.js/plugin/highlight/zenburn.css" id="theme">
   <!-- Printing and PDF exports -->
   <script>
     var link = document.createElement( 'link' );
     link.rel = 'stylesheet';
     link.type = 'text/css';
-    link.href = window.location.search.match( /print-pdf/gi ) ? './reveal.js/css/print/pdf.css' : './reveal.js/css/print/paper.css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? './reveal.js/css/print/pdf.scss' : './reveal.js/css/print/paper.scss';
     document.getElementsByTagName( 'head' )[0].appendChild( link );
   </script>
   <!--[if lt IE 9]>
@@ -327,223 +327,12 @@ gfortran -Ofast ...              # Sets -fno-protect-parens</code></pre>
 <li>AST analyzer</li>
 <li>Fortran lint tools (flint??)</li>
 </ul>
-<p>&lt;!DOCTYPE html&gt; &lt;html$if(lang)$ lang="$lang$"$endif$$if(dir)$ dir="$dir$"$endif$&gt; &lt;head&gt; &lt;meta charset="utf-8"&gt; &lt;meta name="generator" content="pandoc"&gt; $for(author-meta)$ &lt;meta name="author" content="$author-meta$"&gt; $endfor$ $if(date-meta)$ &lt;meta name="dcterms.date" content="$date-meta$"&gt; $endif$ $if(keywords)$ &lt;meta name="keywords" content="$for(keywords)$$keywords$$sep$, $endfor$"&gt; $endif$ &lt;title&gt;$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$&lt;/title&gt; &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt; &lt;meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"&gt; &lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"&gt; &lt;link rel="stylesheet" href="$revealjs-url$/css/reveal.css"&gt; &lt;style type="text/css"&gt; code{white-space: pre-wrap;} span.smallcaps{font-variant: small-caps;} span.underline{text-decoration: underline;} div.column{display: inline-block; vertical-align: top; width: 50%;} $if(quotes)$ q { quotes: "“" "”" "‘" "’"; } $endif$ &lt;/style&gt; $if(highlighting-css)$ &lt;style type="text/css"&gt; $highlighting-css$ &lt;/style&gt; $endif$ $if(theme)$ &lt;link rel="stylesheet" href="$revealjs-url$/css/theme/$theme$.css" id="theme"&gt; $else$ &lt;link rel="stylesheet" href="$revealjs-url$/css/theme/black.css" id="theme"&gt; $endif$ &lt;!-- Explicitly add zenburn for highlight support --&gt; &lt;link rel="stylesheet" href="$revealjs-url$/lib/css/zenburn.css" id="theme"&gt; $for(css)$ &lt;link rel="stylesheet" href="$css$"/&gt; $endfor$ &lt;!-- Printing and PDF exports --&gt; &lt;script&gt; var link = document.createElement( 'link' ); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = window.location.search.match( /print-pdf/gi ) ? '$revealjs-url$/css/print/pdf.css' : '$revealjs-url$/css/print/paper.css'; document.getElementsByTagName( 'head' )[0].appendChild( link ); &lt;/script&gt; &lt;!--[if lt IE 9]&gt; &lt;script src="$revealjs-url$/lib/js/html5shiv.js"&gt;&lt;/script&gt; &lt;![endif]--&gt; $if(math)$ $math$ $endif$ $for(header-includes)$ $header-includes$ $endfor$ &lt;base href="./index.html"&gt; &lt;/head&gt; &lt;body&gt; $for(include-before)$ $include-before$ $endfor$ &lt;div class="reveal" style="background: url(img/bg_gfdl.jpg); background-size: cover;"&gt;</p>
-<blockquote>
-<p>&lt;!-- Original ratio: 10.04" x 7.08" --&gt; &lt;div style="height: 100vh; position: absolute; bottom: -50vh; left: -40vh"&gt; &lt;img style="height: 100vh; width: 142vh" src="img/bg_globe.png"&gt; &lt;/div&gt;</p>
-<dl>
-<dt>&lt;header style="width: 10vh; position: absolute; bottom: 2vh; right: 2vh;"&gt;</dt>
-<dd><p>&lt;img src="img/noaa_logo.png"&gt;</p>
-</dd>
-</dl>
-<p>&lt;/header&gt;</p>
-<dl>
-<dt>&lt;footer style="font-size: 1pc; position: absolute; bottom: 2%; left: 2%;"&gt;</dt>
-<dd><p>&lt;!--&lt;code&gt;<a href="https://marshallward.org/mom6vv/payucourse/$outputfile$">https://marshallward.org/mom6vv/payucourse/$outputfile$</a>&lt;/code&gt;--&gt; &lt;code&gt;$outputfile$&lt;/code&gt;</p>
-</dd>
-</dl>
-<p>&lt;/footer&gt;</p>
-<p>&lt;div class="slides"&gt;</p>
-</blockquote>
-<p>$if(title)$ &lt;section id="$idprefix$title-slide"&gt; &lt;!--div class="reveal" style="text-align: right;"&gt; &lt;img src="img/noaa_logo.png" style="background: none; border: none; box-shadow: none; width: 30%" alt="NCI"&gt; &lt;/div--&gt; &lt;h1 class="title"&gt;$title$&lt;/h1&gt; $if(subtitle)$ &lt;p class="subtitle" style="text-align: left;"&gt;$subtitle$&lt;/p&gt; $endif$ $for(author)$ &lt;p class="author" style="text-align: right;"&gt;$author$&lt;/p&gt; $endfor$ $for(organization)$ &lt;p class="organization" style="text-align: right;"&gt;$organization$&lt;/p&gt; $endfor$ $if(date)$ &lt;p class="date" style="text-align: right;"&gt;$date$&lt;/p&gt; $endif$ &lt;/section&gt; $endif$ $if(toc)$ &lt;section id="$idprefix$TOC"&gt; $table-of-contents$ &lt;/section&gt; $endif$</p>
-<dl>
-<dt>$body$</dt>
-<dd><p>&lt;/div&gt; &lt;/div&gt;</p>
-<p>&lt;script src="$revealjs-url$/lib/js/head.min.js"&gt;&lt;/script&gt; &lt;script src="$revealjs-url$/js/reveal.js"&gt;&lt;/script&gt;</p>
-<p>&lt;script&gt;</p>
-<blockquote>
-<p>// Full list of configuration options available at: // <a href="https://github.com/hakimel/reveal.js#configuration">https://github.com/hakimel/reveal.js#configuration</a> Reveal.initialize({</p>
-</blockquote>
-</dd>
-<dt>$if(controls)$</dt>
-<dd><p>// Display controls in the bottom right corner controls: $controls$,</p>
-</dd>
-</dl>
-<p>$endif$ $if(progress)$ // Display a presentation progress bar progress: $progress$, $endif$ $if(slideNumber)$ // Display the page number of the current slide slideNumber: $slideNumber$, $endif$ // Push each slide change to the browser history $if(history)$ history: $history$, $else$ history: true, $endif$ $if(keyboard)$ // Enable keyboard shortcuts for navigation keyboard: $keyboard$, $endif$ $if(overview)$ // Enable the slide overview mode overview: $overview$, $endif$ $if(center)$ // Vertical centering of slides center: $center$, $endif$ $if(touch)$ // Enables touch navigation on devices with touch input touch: $touch$, $endif$ $if(loop)$ // Loop the presentation loop: $loop$, $endif$ $if(rtl)$ // Change the presentation direction to be RTL rtl: $rtl$, $endif$ $if(fragments)$ // Turns fragments on and off globally fragments: $fragments$, $endif$ $if(embedded)$ // Flags if the presentation is running in an embedded mode, // i.e. contained within a limited portion of the screen embedded: $embedded$, $endif$ $if(help)$ // Flags if we should show a help overlay when the questionmark // key is pressed help: $help$, $endif$ $if(showNotes)$ // Flags if speaker notes should be visible to all viewers showNotes: $showNotes$, $endif$ $if(autoSlide)$ // Number of milliseconds between automatically proceeding to the // next slide, disabled when set to 0, this value can be overwritten // by using a data-autoslide attribute on your slides autoSlide: $autoSlide$, $endif$ $if(autoSlideStoppable)$ // Stop auto-sliding after user input autoSlideStoppable: $autoSlideStoppable$, $endif$ $if(mouseWheel)$ // Enable slide navigation via mouse wheel mouseWheel: $mouseWheel$, $endif$ $if(rollingLinks)$ // Apply a 3D roll to links on hover rollingLinks: $rollingLinks$, $endif$ $if(hideAddressBar)$ // Hides the address bar on mobile devices hideAddressBar: $hideAddressBar$, $endif$ $if(previewLinks)$ // Opens links in an iframe preview overlay previewLinks: $previewLinks$, $endif$ $if(transition)$ // Transition style transition: '$transition$', // none/fade/slide/convex/concave/zoom $endif$ $if(transitionSpeed)$ // Transition speed transitionSpeed: '$transitionSpeed$', // default/fast/slow $endif$ $if(backgroundTransition)$ // Transition style for full page slide backgrounds backgroundTransition: '$backgroundTransition$', // none/fade/slide/convex/concave/zoom $endif$ $if(viewDistance)$ // Number of slides away from the current that are visible viewDistance: $viewDistance$, $endif$ $if(parallaxBackgroundImage)$ // Parallax background image parallaxBackgroundImage: '$parallaxBackgroundImage$', // e.g. "'<a href="https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg">https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg</a>'" $else$ $if(background-image)$ // Parallax background image parallaxBackgroundImage: '$background-image$', // e.g. "'<a href="https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg">https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg</a>'" $endif$ $endif$ $if(parallaxBackgroundSize)$ // Parallax background size parallaxBackgroundSize: '$parallaxBackgroundSize$', // CSS syntax, e.g. "2100px 900px" $endif$ $if(parallaxBackgroundHorizontal)$ // Amount to move parallax background (horizontal and vertical) on slide change // Number, e.g. 100 parallaxBackgroundHorizontal: $parallaxBackgroundHorizontal$, $endif$ $if(parallaxBackgroundVertical)$ parallaxBackgroundVertical: $parallaxBackgroundVertical$, $endif$ $if(width)$ // The "normal" size of the presentation, aspect ratio will be preserved // when the presentation is scaled to fit different resolutions. Can be // specified using percentage units. width: $width$, $endif$ $if(height)$ height: $height$, $endif$ $if(margin)$ // Factor of the display size that should remain empty around the content margin: $margin$, $endif$ $if(minScale)$ // Bounds for smallest/largest possible scale to apply to content minScale: $minScale$, $endif$ $if(maxScale)$ maxScale: $maxScale$, $endif$ $if(mathjax)$ math: { mathjax: '$mathjaxurl$', config: 'TeX-AMS_HTML-full', tex2jax: { inlineMath: [['\(','\)']], displayMath: [['\[','\]']], balanceBraces: true, processEscapes: false, processRefs: true, processEnvironments: true, preview: 'TeX', skipTags: ['script','noscript','style','textarea','pre','code'], ignoreClass: 'tex2jax_ignore', processClass: 'tex2jax_process' }, }, $endif$</p>
-<blockquote>
-<p>// Optional reveal.js plugins dependencies: [ { src: '$revealjs-url$/lib/js/classList.js', condition: function() { return !document.body.classList; } }, { src: '$revealjs-url$/plugin/zoom-js/zoom.js', async: true },</p>
-</blockquote>
-<dl>
-<dt>$if(notes-server)$</dt>
-<dd><p>{ src: '$revealjs-url$/socket.io/socker.io.js', async: true }, { src: '$revealjs-url$/plugin/notes-server/client.js', async: true },</p>
-</dd>
-</dl>
-<p>$endif$ $if(mathjax)$ { src: '$revealjs-url$/plugin/math/math.js', async: true }, $endif$ { src: './reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } }, { src: '$revealjs-url$/plugin/notes/notes.js', async: true } ] }); &lt;/script&gt; $for(include-after)$ $include-after$ $endfor$ &lt;/body&gt; &lt;/html&gt;</p>
-<dl>
-<dt>/**</dt>
-<dd><p>* GFDL theme for reveal.js. Nearly identical to the <span class="title-ref">black.css</span> theme. */</p>
-</dd>
-</dl>
-<p>@import url(../../lib/font/source-sans-pro/source-sans-pro.css); section.has-light-background, section.has-light-background h1, section.has-light-background h2, section.has-light-background h3, section.has-light-background h4, section.has-light-background h5, section.has-light-background h6 { color: #222; }</p>
-<p>/******************************************<strong>* * GLOBAL STYLES</strong>*******************************************/ body { background: #222; background-color: #222; }</p>
-<dl>
-<dt>.reveal {</dt>
-<dd><p>font-family: "Source Sans Pro", Helvetica, sans-serif; font-size: 38px; font-weight: normal; color: #fff; }</p>
-</dd>
-<dt>::selection {</dt>
-<dd><p>color: #fff; background: #bee4fd; text-shadow: none; }</p>
-</dd>
-</dl>
-<p>.reveal .slides &gt; section, .reveal .slides &gt; section &gt; section { line-height: 1.3; font-weight: inherit; }</p>
-<p>/******************************************<strong>* * HEADERS</strong>*******************************************/ .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 { margin: 0 0 20px 0; color: #fff; font-family: "Source Sans Pro", Helvetica, sans-serif; font-weight: 600; line-height: 1.2; letter-spacing: normal; text-transform: uppercase; text-shadow: none; word-wrap: break-word; }</p>
-<dl>
-<dt>.reveal h1 {</dt>
-<dd><p>font-size: 2.0em; }</p>
-</dd>
-<dt>.reveal h2 {</dt>
-<dd><p>font-size: 1.6em; }</p>
-</dd>
-<dt>.reveal h3 {</dt>
-<dd><p>font-size: 1.3em; }</p>
-</dd>
-<dt>.reveal h4 {</dt>
-<dd><p>font-size: 1em; }</p>
-</dd>
-<dt>.reveal h1 {</dt>
-<dd><p>text-shadow: none; }</p>
-</dd>
-</dl>
-<p>/******************************************<strong>* * OTHER</strong>*******************************************/ .reveal p { margin: 20px 0; line-height: 1.3; }</p>
-<p>/* Ensure certain elements are never larger than the slide itself */ .reveal img, .reveal video, .reveal iframe { max-width: 95%; max-height: 95%; }</p>
-<p>.reveal strong, .reveal b { font-weight: bold; }</p>
-<dl>
-<dt>.reveal em {</dt>
-<dd><p>font-style: italic; }</p>
-</dd>
-</dl>
-<p>.reveal ol, .reveal dl, .reveal ul { display: inline-block; text-align: left; margin: 0 0 0 1em; }</p>
-<dl>
-<dt>.reveal ol {</dt>
-<dd><p>list-style-type: decimal; }</p>
-</dd>
-<dt>.reveal ul {</dt>
-<dd><p>list-style-type: disc; }</p>
-</dd>
-<dt>.reveal ul ul {</dt>
-<dd><p>list-style-type: square; }</p>
-</dd>
-<dt>.reveal ul ul ul {</dt>
-<dd><p>list-style-type: circle; }</p>
-</dd>
-</dl>
-<p>.reveal ul ul, .reveal ul ol, .reveal ol ol, .reveal ol ul { display: block; margin-left: 40px; }</p>
-<dl>
-<dt>.reveal dt {</dt>
-<dd><p>font-weight: bold; }</p>
-</dd>
-<dt>.reveal dd {</dt>
-<dd><p>margin-left: 40px; }</p>
-</dd>
-</dl>
-<p>.reveal q, .reveal blockquote { quotes: none; }</p>
-<dl>
-<dt>.reveal blockquote {</dt>
-<dd><p>display: block; position: relative; width: 70%; margin: 20px auto; padding: 5px; font-style: italic; background: rgba(255, 255, 255, 0.05); box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2); }</p>
-</dd>
-</dl>
-<p>.reveal blockquote p:first-child, .reveal blockquote p:last-child { display: inline-block; }</p>
-<dl>
-<dt>.reveal q {</dt>
-<dd><p>font-style: italic; }</p>
-</dd>
-<dt>.reveal pre {</dt>
-<dd><p>display: block; position: relative; width: 90%; margin: 20px auto; text-align: left; font-size: 0.55em; font-family: monospace; line-height: 1.2em; word-wrap: break-word; box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3); }</p>
-</dd>
-<dt>.reveal code {</dt>
-<dd><p>font-family: monospace; }</p>
-</dd>
-<dt>.reveal pre code {</dt>
-<dd><p>display: block; padding: 5px; overflow: auto; max-height: 400px; word-wrap: normal; }</p>
-</dd>
-<dt>.reveal table {</dt>
-<dd><p>margin: auto; border-collapse: collapse; border-spacing: 0;</p>
-</dd>
-</dl>
-<p>}</p>
-<dl>
-<dt>.reveal table th {</dt>
-<dd><p>font-weight: bold; }</p>
-</dd>
-</dl>
-<p>.reveal table th, .reveal table td { text-align: left; padding: 0.2em 0.5em 0.2em 0.5em; border-bottom: 1px solid; }</p>
-<p>.reveal table th[align="center"], .reveal table td[align="center"] { text-align: center; }</p>
-<p>.reveal table th[align="right"], .reveal table td[align="right"] { text-align: right; }</p>
-<dl>
-<dt>.reveal table tr:last-child td {</dt>
-<dd><p>border-bottom: none; }</p>
-</dd>
-<dt>.reveal sup {</dt>
-<dd><p>vertical-align: super; }</p>
-</dd>
-<dt>.reveal sub {</dt>
-<dd><p>vertical-align: sub; }</p>
-</dd>
-<dt>.reveal small {</dt>
-<dd><p>display: inline-block; font-size: 0.6em; line-height: 1.2em; vertical-align: top; }</p>
-</dd>
-<dt>.reveal small * {</dt>
-<dd><p>vertical-align: top; }</p>
-</dd>
-<dt>/******************************************<strong>* * LINKS</strong>******************************************<em>/ .reveal a { /</em>color: #42affa;*/</dt>
-<dd><p>color: #fff; text-decoration: none; -webkit-transition: color 0.15s ease; -moz-transition: color 0.15s ease; transition: color 0.15s ease; }</p>
-</dd>
-<dt>.reveal a:link {</dt>
-<dd><p>color: #fff; text-shadow: none; border: none; }</p>
-</dd>
-<dt>.reveal a:visited {</dt>
-<dd><p>color: #fff; text-shadow: none; border: none; }</p>
-</dd>
-<dt>.reveal a:hover {</dt>
-<dd><p>color: #8dcffc; text-shadow: none; border: none; }</p>
-</dd>
-<dt>.reveal .roll span:after {</dt>
-<dd><p>color: #fff; background: #068de9; }</p>
-</dd>
-</dl>
-<p>/******************************************<strong>* * IMAGES</strong>*******************************************/ .reveal section img { margin: 15px 0px; background: rgba(255, 255, 255, 0.12); border: 4px solid #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); }</p>
-<dl>
-<dt>.reveal section video {</dt>
-<dd><p>margin: 15px 0px; background: rgba(255, 255, 255, 0.12); border: 4px solid #000; box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); }</p>
-</dd>
-<dt>.reveal section img.plain {</dt>
-<dd><p>border: 0; box-shadow: none; }</p>
-</dd>
-<dt>.reveal a img {</dt>
-<dd><p>-webkit-transition: all 0.15s linear; -moz-transition: all 0.15s linear; transition: all 0.15s linear; }</p>
-</dd>
-<dt>.reveal a:hover img {</dt>
-<dd><p>background: rgba(255, 255, 255, 0.2); border-color: #42affa; box-shadow: 0 0 20px rgba(0, 0, 0, 0.55); }</p>
-</dd>
-</dl>
-<p>/******************************************<strong>* * NAVIGATION CONTROLS</strong>*******************************************/ .reveal .controls .navigate-left, .reveal .controls .navigate-left.enabled { border-right-color: #42affa; }</p>
-<p>.reveal .controls .navigate-right, .reveal .controls .navigate-right.enabled { border-left-color: #42affa; }</p>
-<p>.reveal .controls .navigate-up, .reveal .controls .navigate-up.enabled { border-bottom-color: #42affa; }</p>
-<p>.reveal .controls .navigate-down, .reveal .controls .navigate-down.enabled { border-top-color: #42affa; }</p>
-<dl>
-<dt>.reveal .controls .navigate-left.enabled:hover {</dt>
-<dd><p>border-right-color: #8dcffc; }</p>
-</dd>
-<dt>.reveal .controls .navigate-right.enabled:hover {</dt>
-<dd><p>border-left-color: #8dcffc; }</p>
-</dd>
-<dt>.reveal .controls .navigate-up.enabled:hover {</dt>
-<dd><p>border-bottom-color: #8dcffc; }</p>
-</dd>
-<dt>.reveal .controls .navigate-down.enabled:hover {</dt>
-<dd><p>border-top-color: #8dcffc; }</p>
-</dd>
-</dl>
-<p>/******************************************<strong>* * PROGRESS BAR</strong>*******************************************/ .reveal .progress { background: rgba(0, 0, 0, 0.2); }</p>
-<dl>
-<dt>.reveal .progress span {</dt>
-<dd><p>background: #42affa; -webkit-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985); -moz-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985); transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985); }</p>
-</dd>
-</dl>
 </section>
     </div>
   </div>
 
-  <script src="./reveal.js/lib/js/head.min.js"></script>
-  <script src="./reveal.js/js/reveal.js"></script>
+  <script src="./reveal.js/dist/reveal.js"></script>
+  <script src="./reveal.js/plugin/math/math.js"></script>
 
   <script>
 
@@ -557,18 +346,18 @@ gfortran -Ofast ...              # Sets -fno-protect-parens</code></pre>
         math: {
           mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
           config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
+          //TeX: {
+          //  inlineMath: [['\\(','\\)']],
+          //  displayMath: [['\\[','\\]']],
+          //  balanceBraces: true,
+          //  processEscapes: false,
+          //  processRefs: true,
+          //  processEnvironments: true,
+          //  preview: 'TeX',
+          //  skipTags: ['script','noscript','style','textarea','pre','code'],
+          //  ignoreClass: 'tex2jax_ignore',
+          //  processClass: 'tex2jax_process'
+          //},
         },
 
         // Optional reveal.js plugins
@@ -584,7 +373,8 @@ gfortran -Ofast ...              # Sets -fno-protect-parens</code></pre>
               hljs.initHighlightingOnLoad(); }
           },
           { src: './reveal.js/plugin/notes/notes.js', async: true }
-        ]
+        ],
+        plugins : [ RevealMath ],
       });
     </script>
     </body>
