@@ -12,11 +12,11 @@ Verification and Validation of MOM6
 
 ----
 
-Verification
+**Verification**
 
    Am I building the product right?
 
-Validation
+**Validation**
 
    Am I building the right product?
 
@@ -47,14 +47,21 @@ Does our model meet operational needs?
 *Validation is an assessment of the final product.*
 
 
-V&V in Software Engineering
-===========================
+V&V in Development
+==================
 
-.. TODO:: Figures for waterfall, V-model, Spiral, Agile
+.. list-table::
 
-All software engineering models have a V&V stage
+   * - .. image:: img/waterfall.svg
+          :width: 75%
+          :target: https://en.wikipedia.org/wiki/File:Waterfall_model.svg
+        
+     - .. image:: img/v_model.svg
+          :target: https://commons.wikimedia.org/wiki/File:Systems_Engineering_Process_II.svg
 
-NOTE: In Agile development - and in MOM6 - V&V are nearly simultaneous
+.. image:: img/agile.jpeg
+   :width: 50%
+   :target: https://medium.com/open-product-management/crash-article-in-agile-development-da960861259e
 
 
 Life cycle of a contribution
