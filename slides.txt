@@ -95,7 +95,10 @@ All hubs should
 Bit reproducibility
 ===================
 
-https://twitter.com/Foone/status/1126996260026605568
+.. figure:: img/pilotwings_repro.mp4
+   :target: https://twitter.com/Foone/status/1126996260026605568
+   
+   Identical code and input, different math libraries
 
 
 Floating point review
