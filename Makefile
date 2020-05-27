@@ -21,8 +21,11 @@ reveal.js:
 reveal.js/css/theme/gfdl.css: gfdl.css
 	cp gfdl.css reveal.js/css/theme/
 
-index.html: slides.txt gfdl.revealjs reveal.js/css/theme/gfdl.css
+index.html: slides.txt gfdl.revealjs reveal.js/css/theme/gfdl.css img/gitrepos.svg
 	pandoc ${FLAGS} $< -o $@
+
+img/%.svg: dot/%.dot
+	dot -Tsvg $^ > $@
 
 clean:
 	rm -f index.html 

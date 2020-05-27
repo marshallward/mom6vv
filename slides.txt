@@ -53,7 +53,7 @@ V&V in Development
 .. list-table::
 
    * - .. image:: img/waterfall.svg
-          :width: 75%
+          :width: 60%
           :target: https://en.wikipedia.org/wiki/File:Waterfall_model.svg
         
      - .. image:: img/v_model.svg
@@ -74,10 +74,11 @@ Figure here of patch going into a MOM6 repo
    - Merge
 
 
-Integration across hubs
-=======================
+Source Integration
+==================
 
-Include Alistair's hub figure here
+.. image:: img/gitrepos.svg
+   :width: 55%
 
 
 
