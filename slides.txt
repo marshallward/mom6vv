@@ -164,6 +164,30 @@ Floating point review
 
 * 17 digits to uniquely specify a result
 
+* Two unique representations of zero: :math:`\pm 0`
+
+.. notes::
+
+   Probably old news to everyone, but just as a quick review:
+
+   Floating point numbers consist of three fields:
+
+   - A sign bit
+
+   - A power-of-two exponent (plus an offset)
+
+   - A fractional field (52 bits, in double precision)
+
+   There are a few other considerations here, like the Inf and NaN cases, or
+   denormal numbers, but we don't need to discuss these for now.
+
+   The main thing to note for now is that the smallest fractional value is
+   2^-52, or about 2.2 x 10^-16.  This defines a threshhold for
+   reproducibility.
+
+   The other thing to quickly note is that both +/-0 exist in this format,
+   which we'll mention later.
+
 
 Associativity
 =============

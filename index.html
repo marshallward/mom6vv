@@ -212,7 +212,20 @@
 <ul>
 <li>Smallest fractional diff: <span class="math inline">\(2^{-52} \approx 2.2 \times 10^{-16}\)</span></li>
 <li>17 digits to uniquely specify a result</li>
+<li>Two unique representations of zero: <span class="math inline">\(\pm 0\)</span></li>
 </ul>
+<aside class="notes">
+<p>Probably old news to everyone, but just as a quick review:</p>
+<p>Floating point numbers consist of three fields:</p>
+<ul>
+<li>A sign bit</li>
+<li>A power-of-two exponent (plus an offset)</li>
+<li>A fractional field (52 bits, in double precision)</li>
+</ul>
+<p>There are a few other considerations here, like the Inf and NaN cases, or denormal numbers, but we don't need to discuss these for now.</p>
+<p>The main thing to note for now is that the smallest fractional value is 2^-52, or about 2.2 x 10^-16. This defines a threshhold for reproducibility.</p>
+<p>The other thing to quickly note is that both +/-0 exist in this format, which we'll mention later.</p>
+</aside>
 </section>
 
 <section>
