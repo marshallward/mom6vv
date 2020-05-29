@@ -248,6 +248,14 @@ body {
   border: 0;
   box-shadow: none; }
 
+.reveal section img.float {
+  margin: 15px 0px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 4px solid #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  float: left;
+}
+
 .reveal a img {
   -webkit-transition: all 0.15s linear;
   -moz-transition: all 0.15s linear;

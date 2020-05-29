@@ -6,7 +6,7 @@ Verification and Validation of MOM6
           - Robert Hallberg
           - Alistair Adcroft
 :description: An overview of the MOM6 testing framework
-:date: 17 March 2020
+:date: 2020 June 8
 
 
 ----
@@ -88,6 +88,13 @@ V&V in MOM6
 
 .. image:: img/mom_submit.svg
    :width: 20%
+   :class: float
+
+Some text here..
+
+* Bullet 1
+
+* Bullet 2
 
 
 MOM6 Verification
@@ -273,13 +280,6 @@ Dimensional scaling
 
 Examples of Dimensional Errors
 ==============================
-
-
-Travis Testing
-==============
-
-* Code validation tests
-* Platform independent
 
 
 Test build configuration
