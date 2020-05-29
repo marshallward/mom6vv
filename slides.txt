@@ -2,7 +2,6 @@
 Verification and Validation of MOM6
 ===================================
 
-.. :subtitle: TODO?
 :authors: - Marshall Ward
           - Robert Hallberg
           - Alistair Adcroft
@@ -43,7 +42,7 @@ Does our model meet operational needs?
 * Does it produce realistic simulations?
 * Are relevant physical features present?
 * Can I reproduce my old simulations?
-   
+
 *Validation is an assessment of the final product.*
 
 
@@ -52,44 +51,88 @@ V&V in Development
 
 .. list-table::
 
-   * - .. image:: img/waterfall.svg
+   * - .. figure:: img/waterfall.svg
           :width: 60%
           :target: https://en.wikipedia.org/wiki/File:Waterfall_model.svg
-        
-     - .. image:: img/v_model.svg
+
+          Waterfall
+
+     - .. figure:: img/v_model.svg
           :target: https://commons.wikimedia.org/wiki/File:Systems_Engineering_Process_II.svg
 
-.. image:: img/agile.jpeg
+          V-model
+
+.. figure:: img/agile.jpeg
    :width: 50%
    :target: https://medium.com/open-product-management/crash-article-in-agile-development-da960861259e
 
 
-Life cycle of a contribution
-============================
+.. notes::
+   All software development models rely on some form of verification or
+   validation.
 
-Figure here of patch going into a MOM6 repo
-   - Trigger Travis testing
-   - Manual GitLab testing
-   - Review
-   - Merge
+   The waterfall method (upper left) has a single stage of development, like
+   building a bridge or launching a space rocket, so validation is not
+   possible.  Verification must be extremely thorough.
+
+   More iterative models like the V-model treat the development process as
+   verification, and then use validation to re-define the verification steps.
+
+   Modern Agile methods define multiple development cycles, including
+   verification and validation after each "scrum".  Scrum-like methods can
+   blur the distinction between verification and validation.
 
 
-Source Integration
-==================
+V&V in MOM6
+===========
+
+.. image:: img/mom_submit.svg
+   :width: 20%
+
+
+MOM6 Verification
+=================
+
+.. image:: img/mom_verify.svg
+   :width: 55%
+
+
+MOM6 Validation
+===============
+
+.. TODO
+
+* Site-specific
+
+* Gaea Pipeline
+
+* Human validation
+
+
+Hub Validation
+==============
 
 .. image:: img/gitrepos.svg
    :width: 55%
 
 
+Verification Tests
+==================
 
-Verification Test Suite
-=======================
+==========  =================================
+Test        Description
+==========  =================================
+grid        Symmetric/Asymmetric memory grids
+layout      1×1 and 2×1 domain decomposition
+rotation    Index rotation
+restart     Restart at mid-run
+repro       Optimized reproducible mode
+openmp      OpenMP (single-thread)
+nan         NaN array initialization
+dim         Dimensional scaling
+==========  =================================
 
-Version of Bob's table here
-
-List the "invariance tests" that we require for travis.
-
-All hubs should
+Each test requires bit reproducibility
 
 
 Bit reproducibility
@@ -97,7 +140,7 @@ Bit reproducibility
 
 .. figure:: img/pilotwings_repro.mp4
    :target: https://twitter.com/Foone/status/1126996260026605568
-   
+
    Identical code and input, different math libraries
 
 

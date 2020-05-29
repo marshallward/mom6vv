@@ -11,6 +11,8 @@ FLAGS=-s \
 	  --no-highlight \
 	  --mathjax
 
+DOTFIGURES=img/gitrepos.svg img/mom_submit.svg img/mom_verify.svg
+
 all: index.html reveal.js
 
 reveal.js:
@@ -21,7 +23,7 @@ reveal.js:
 reveal.js/css/theme/gfdl.css: gfdl.css
 	cp gfdl.css reveal.js/css/theme/
 
-index.html: slides.txt gfdl.revealjs reveal.js/css/theme/gfdl.css img/gitrepos.svg
+index.html: slides.txt gfdl.revealjs reveal.js/css/theme/gfdl.css $(DOTFIGURES)
 	pandoc ${FLAGS} $< -o $@
 
 img/%.svg: dot/%.dot

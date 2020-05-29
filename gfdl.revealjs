@@ -119,6 +119,7 @@ $body$
 
   <script src="$revealjs-url$/dist/reveal.js"></script>
   <script src="$revealjs-url$/plugin/math/math.js"></script>
+  <script src="$revealjs-url$/plugin/notes/notes.js"></script>
 
   <script>
 
@@ -307,7 +308,7 @@ $endif$
           },
           { src: '$revealjs-url$/plugin/notes/notes.js', async: true }
         ],
-        plugins : [ RevealMath ],
+        plugins : [ RevealMath, RevealNotes ],
       });
     </script>
   $for(include-after)$

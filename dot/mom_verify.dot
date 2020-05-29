@@ -1,0 +1,47 @@
+digraph testing {
+    label = "Verification"
+    labeljust = r
+    node [
+        style = filled,
+        fontname = helvetica
+    ]
+
+    concentrate = true
+    bgcolor = transparent
+
+    submit [label = "Submit to CI\n(Travis)"]
+
+    build1 [label="Symmetric"];
+    build2 [label="Asymmetric"];
+    build3 [label="OpenMP"];
+
+    build_verify [label="Verify builds", shape=rectangle]
+
+    test1 [label="Grid Memory"]
+    test2 [label="Dimensions"]
+    test3 [label="Rotation"]
+    test4 [label="Initialization"]
+
+    verify_results [label="Verify results", shape=rectangle]
+
+    validate [label="Local validation"]
+
+    submit -> {build1, build2, build3}
+    {build1, build2, build3} -> build_verify
+    build_verify -> {test1, test2, test3, test4}
+    {test1, test2, test3, test4} -> verify_results
+    verify_results -> validate
+
+    subgraph cluster_build {
+        style=filled
+        label="Compile"
+        labeljust = r
+        build1; build2; build3
+    }
+    subgraph cluster_test {
+        style=filled
+        label="Run tests"; 
+        labeljust = r
+        test1; test2; test3; test4
+    }
+}

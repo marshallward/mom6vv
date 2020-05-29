@@ -107,38 +107,91 @@
 <table>
 <tbody>
 <tr class="odd">
-<td><a href="https://en.wikipedia.org/wiki/File:Waterfall_model.svg"><img data-src="img/waterfall.svg" style="width:60.0%" alt="image" /></a></td>
-<td><a href="https://commons.wikimedia.org/wiki/File:Systems_Engineering_Process_II.svg"><img data-src="img/v_model.svg" alt="image" /></a></td>
+<td><img data-src="img/waterfall.svg" title="fig:" style="width:60.0%" alt="Waterfall" /></td>
+<td><img data-src="img/v_model.svg" title="fig:" alt="V-model" /></td>
 </tr>
 </tbody>
 </table>
-<p><a href="https://medium.com/open-product-management/crash-article-in-agile-development-da960861259e"><img data-src="img/agile.jpeg" style="width:50.0%" alt="image" /></a></p>
+<figure>
+<img data-src="img/agile.jpeg" style="width:50.0%" alt="" />
+</figure>
+<aside class="notes">
+<p>All software development models rely on some form of verification or validation.</p>
+<p>The waterfall method (upper left) has a single stage of development, like building a bridge or launching a space rocket, so validation is not possible. Verification must be extremely thorough.</p>
+<p>More iterative models like the V-model treat the development process as verification, and then use validation to re-define the verification steps.</p>
+<p>Modern Agile methods define multiple development cycles, including verification and validation after each "scrum". Scrum-like methods can blur the distinction between verification and validation.</p>
+</aside>
 </section>
 
-<section id="life-cycle-of-a-contribution" class="title-slide slide level1">
-<h1>Life cycle of a contribution</h1>
-<dl>
-<dt>Figure here of patch going into a MOM6 repo</dt>
-<dd><ul>
-<li>Trigger Travis testing</li>
-<li>Manual GitLab testing</li>
-<li>Review</li>
-<li>Merge</li>
+<section id="vv-in-mom6" class="title-slide slide level1">
+<h1>V&amp;V in MOM6</h1>
+<p><img data-src="img/mom_submit.svg" style="width:20.0%" alt="image" /></p>
+</section>
+
+<section id="mom6-verification" class="title-slide slide level1">
+<h1>MOM6 Verification</h1>
+<p><img data-src="img/mom_verify.svg" style="width:55.0%" alt="image" /></p>
+</section>
+
+<section id="mom6-validation" class="title-slide slide level1">
+<h1>MOM6 Validation</h1>
+<ul>
+<li>Site-specific</li>
+<li>Gaea Pipeline</li>
+<li>Human validation</li>
 </ul>
-</dd>
-</dl>
 </section>
 
-<section id="source-integration" class="title-slide slide level1">
-<h1>Source Integration</h1>
+<section id="hub-validation" class="title-slide slide level1">
+<h1>Hub Validation</h1>
 <p><img data-src="img/gitrepos.svg" style="width:55.0%" alt="image" /></p>
 </section>
 
-<section id="verification-test-suite" class="title-slide slide level1">
-<h1>Verification Test Suite</h1>
-<p>Version of Bob's table here</p>
-<p>List the "invariance tests" that we require for travis.</p>
-<p>All hubs should</p>
+<section id="verification-tests" class="title-slide slide level1">
+<h1>Verification Tests</h1>
+<table>
+<thead>
+<tr class="header">
+<th>Test</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>grid</td>
+<td>Symmetric/Asymmetric memory grids</td>
+</tr>
+<tr class="even">
+<td>layout</td>
+<td>1×1 and 2×1 domain decomposition</td>
+</tr>
+<tr class="odd">
+<td>rotation</td>
+<td>Index rotation</td>
+</tr>
+<tr class="even">
+<td>restart</td>
+<td>Restart at mid-run</td>
+</tr>
+<tr class="odd">
+<td>repro</td>
+<td>Optimized reproducible mode</td>
+</tr>
+<tr class="even">
+<td>openmp</td>
+<td>OpenMP (single-thread)</td>
+</tr>
+<tr class="odd">
+<td>nan</td>
+<td>NaN array initialization</td>
+</tr>
+<tr class="even">
+<td>dim</td>
+<td>Dimensional scaling</td>
+</tr>
+</tbody>
+</table>
+<p>Each test requires bit reproducibility</p>
 </section>
 
 <section id="bit-reproducibility" class="title-slide slide level1">
@@ -339,6 +392,7 @@ gfortran -Ofast ...              # Sets -fno-protect-parens</code></pre>
 
   <script src="./reveal.js/dist/reveal.js"></script>
   <script src="./reveal.js/plugin/math/math.js"></script>
+  <script src="./reveal.js/plugin/notes/notes.js"></script>
 
   <script>
 
@@ -380,7 +434,7 @@ gfortran -Ofast ...              # Sets -fno-protect-parens</code></pre>
           },
           { src: './reveal.js/plugin/notes/notes.js', async: true }
         ],
-        plugins : [ RevealMath ],
+        plugins : [ RevealMath, RevealNotes ],
       });
     </script>
     </body>

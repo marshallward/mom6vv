@@ -1,0 +1,25 @@
+digraph mom_pr {
+    node [
+        style = filled,
+        fontname = helvetica
+    ]
+
+    concentrate = true
+    bgcolor = transparent
+    rankdir = TB
+
+    subgraph main {
+        master -> merged
+    }
+
+    subgraph branch {
+        v_and_v [
+            label = "V&V",
+            shape = tripleoctagon,
+        ]
+        master -> fork [weight=0]
+        fork -> feature
+        feature -> v_and_v
+        v_and_v -> merged [weight=0]
+    }
+}
