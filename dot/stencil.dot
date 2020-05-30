@@ -1,5 +1,18 @@
 graph stencil {
-    node [label="", shape=circle]
+    node [
+        label = ""
+        shape = circle
+        style = filled
+        fillcolor = white
+        fontname = helvetica
+        fontcolor = white
+    ]
+    bgcolor = transparent
+
+    11 [label="A", fillcolor=red]
+    12 [label="B", fillcolor=blue]
+    21 [label="C", fillcolor=green]
+    22 [label="D", fillcolor=black]
 
     //{node[shape=none]
     //    00; 01; 02; 03
@@ -7,16 +20,6 @@ graph stencil {
     //    13; 23
     //    30; 31; 32; 33
     //}
-
-    subgraph cluster1 {
-        node [style=filled, color=red]
-        11 ; 22
-    }
-
-    subgraph cluster2 {
-        node [style=filled, color=blue]
-        12 ; 21
-    }
 
     {rank = same; 00 -- 01 -- 02 -- 03}
     {rank = same; 10 -- 11 -- 12 -- 13}

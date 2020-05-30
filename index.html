@@ -320,7 +320,20 @@ gfortran -Ofast ...              # Sets -fno-protect-parens</code></pre>
 
 <section id="rotational-invariance-1" class="title-slide slide level1">
 <h1>Rotational invariance</h1>
-<p><img data-src="img/stencil.svg" alt="image" /></p>
+<p><span class="math inline">\(\phi^{(c)}_{i,j} = \frac{1}{4} (\phi_a + \phi_b + \phi_c + \phi_d)\)</span></p>
+<p><img data-src="img/stencil.svg" class="float float" alt="image" /></p>
+<table>
+<tbody>
+<tr class="odd">
+<td><img data-src="img/stencil1.svg" alt="image" /></td>
+<td><span class="math inline">\(\frac{1}{4} ( (\phi_A + \phi_B) + (\phi_C + \phi_D) )\)</span></td>
+</tr>
+<tr class="even">
+<td><img data-src="img/stencil2.svg" alt="image" /></td>
+<td><span class="math inline">\(\frac{1}{4} ( (\phi_A + \phi_D) + (\phi_B + \phi_C) )\)</span></td>
+</tr>
+</tbody>
+</table>
 </section>
 
 <section id="rotational-invariance-2" class="title-slide slide level1">
@@ -419,6 +432,23 @@ gfortran -Ofast ...              # Sets -fno-protect-parens</code></pre>
 <li>AST analyzer</li>
 <li>Fortran lint tools (flint??)</li>
 </ul>
+</section>
+
+<section id="development-guidelines" class="title-slide slide level1">
+<h1>Development Guidelines</h1>
+<ol type="1">
+<li>Use parentheses!
+<ol type="a">
+<li>Are they honored?</li>
+<li>Am I preserving residuals?</li>
+</ol></li>
+<li>Use <code>reproducible_sum()</code>
+<ol type="a">
+<li>Even better: Don't do global sums!</li>
+</ol></li>
+<li>Use rotationally invariant stencils</li>
+<li>Aggressively run the verification tests</li>
+</ol>
 </section>
     </div>
   </div>

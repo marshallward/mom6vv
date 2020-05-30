@@ -342,7 +342,20 @@ More like an index rotation...
 Rotational invariance
 =====================
 
+:math:`\phi^{(c)}_{i,j} = \frac{1}{4} (\phi_a + \phi_b + \phi_c + \phi_d)`
+
 .. image:: img/stencil.svg
+   :class: float
+
+.. list-table::
+
+   * - .. image:: img/stencil1.svg
+
+     - :math:`\frac{1}{4} ( (\phi_A + \phi_B) + (\phi_C + \phi_D) )`
+
+   * - .. image:: img/stencil2.svg
+       
+     - :math:`\frac{1}{4} ( (\phi_A + \phi_D) + (\phi_B + \phi_C) )`
 
 
 Rotational invariance
@@ -421,3 +434,20 @@ And the future
 * AST analyzer
 
 * Fortran lint tools (flint??)
+
+
+Development Guidelines
+======================
+
+1. Use parentheses!
+
+   a. Are they honored?
+   b. Am I preserving residuals?
+
+2. Use ``reproducible_sum()``
+
+   a. Even better: Don't do global sums!
+
+3. Use rotationally invariant stencils
+
+4. Aggressively run the verification tests
