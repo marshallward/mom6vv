@@ -9,6 +9,7 @@ digraph mom_pr {
     rankdir = TB
 
     subgraph main {
+        master [label="dev/gfdl"]
         master -> merged
     }
 
@@ -16,6 +17,7 @@ digraph mom_pr {
         v_and_v [
             label = "V&V",
             shape = tripleoctagon,
+            pencolor = red,
         ]
         master -> fork [weight=0]
         fork -> feature

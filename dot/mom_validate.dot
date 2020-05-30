@@ -1,0 +1,46 @@
+digraph testing {
+    label = "GFDL Validation"
+    labeljust = r
+    node [
+        style = filled,
+        fontname = helvetica
+    ]
+
+    concentrate = true
+    bgcolor = transparent
+
+    submit [label = "Submit to Gaea"]
+
+    build1 [label="Ocean-only"];
+    build2 [label="Ocean-ice"];
+    build3 [label="Coupled"];
+
+    build_verify [label="Verify builds", shape=rectangle]
+
+    test1 [label="Ocean-only"]
+    test2 [label="Coupled"]
+    test3 [label="Ocean-ice"]
+
+    verify_results [label="Verify results", shape=rectangle]
+
+    validate [label="Local validation"]
+
+    submit -> {build1, build2, build3}
+    {build1, build2, build3} -> build_verify
+    build_verify -> {test1, test2, test3}
+    {test1, test2, test3} -> verify_results
+    verify_results -> validate
+
+    subgraph cluster_build {
+        style=filled
+        label="Compile"
+        labeljust = r
+        build1; build2; build3
+    }
+    subgraph cluster_test {
+        style=filled
+        label="Run tests"; 
+        labeljust = r
+        test1; test2; test3
+    }
+}

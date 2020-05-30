@@ -11,7 +11,9 @@ FLAGS=-s \
 	  --no-highlight \
 	  --mathjax
 
-DOTFIGURES=img/gitrepos.svg img/mom_submit.svg img/mom_verify.svg
+#DOTFIGURES=img/gitrepos.svg img/mom_submit.svg img/mom_verify.svg
+DOTFILES=$(wildcard dot/*.dot)
+DOTFIGURES=$(patsubst %.dot,%.svg,$(subst dot/,img/,$(DOTFILES)))
 
 all: index.html reveal.js
 
@@ -31,3 +33,4 @@ img/%.svg: dot/%.dot
 
 clean:
 	rm -f index.html 
+	rm -f $(DOTFIGURES)

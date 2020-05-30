@@ -60,9 +60,9 @@
   </div-->
   <h1 class="title">Verification and Validation of MOM6</h1>
   <p class="author" style="text-align: right;"><ul>
-<li>Marshall Ward</li>
-<li>Robert Hallberg</li>
 <li>Alistair Adcroft</li>
+<li>Robert Hallberg</li>
+<li><strong>Marshall Ward</strong></li>
 </ul></p>
   <p class="date" style="text-align: right;">2020 June 8</p>
 </section>
@@ -125,30 +125,22 @@
 <section id="vv-in-mom6" class="title-slide slide level1">
 <h1>V&amp;V in MOM6</h1>
 <p><img data-src="img/mom_submit.svg" class="float float" style="width:20.0%" alt="image" /></p>
-<p>Some text here..</p>
 <ul>
-<li>Bullet 1</li>
-<li>Bullet 2</li>
+<li>Fork from a community repository</li>
+<li>Apply any modifications</li>
+<li>Submit as Pull Request™</li>
+<li>Trigger V&amp;V events
+<ul>
+<li>Automated verification</li>
+<li>Manual validation</li>
+</ul></li>
 </ul>
+<p>All contributions must pass verification and validation before merge.</p>
 </section>
 
 <section id="mom6-verification" class="title-slide slide level1">
 <h1>MOM6 Verification</h1>
 <p><img data-src="img/mom_verify.svg" style="width:55.0%" alt="image" /></p>
-</section>
-
-<section id="mom6-validation" class="title-slide slide level1">
-<h1>MOM6 Validation</h1>
-<ul>
-<li>Site-specific</li>
-<li>Gaea Pipeline</li>
-<li>Human validation</li>
-</ul>
-</section>
-
-<section id="hub-validation" class="title-slide slide level1">
-<h1>Hub Validation</h1>
-<p><img data-src="img/gitrepos.svg" style="width:55.0%" alt="image" /></p>
 </section>
 
 <section id="verification-tests" class="title-slide slide level1">
@@ -198,6 +190,21 @@
 <p>Each test requires bit reproducibility</p>
 </section>
 
+<section id="mom6-validation" class="title-slide slide level1">
+<h1>MOM6 Validation</h1>
+<p><img data-src="img/mom_validate.svg" class="float float" style="width:50.0%" alt="image" /></p>
+<ul>
+<li>Site-specific</li>
+<li>Gaea Pipeline</li>
+<li>Human validation</li>
+</ul>
+</section>
+
+<section id="hub-validation" class="title-slide slide level1">
+<h1>Hub Validation</h1>
+<p><img data-src="img/gitrepos.svg" style="width:55.0%" alt="image" /></p>
+</section>
+
 <section id="bit-reproducibility" class="title-slide slide level1">
 <h1>Bit reproducibility</h1>
 <figure>
@@ -228,44 +235,67 @@
 </aside>
 </section>
 
-<section>
-<section id="associativity" class="title-slide slide level1">
-<h1>Associativity</h1>
-<ul>
-<li><p><span class="math inline">\(10^{-16} + 1 - 1 = ?\)</span></p>
-<ul>
-<li class="fragment"><span class="math inline">\((10^{-16} + 1) - 1 = 0\)</span></li>
-<li class="fragment"><span class="math inline">\(10^{-16} + (1 - 1) \approx 1.1 \times 10^{-16}\)</span></li>
-</ul></li>
-<li><p><span class="math inline">\(1 + 2 \times 10^{-16} - 10^{-16} = ?\)</span></p>
-<ul>
-<li class="fragment"><span class="math inline">\((1 + 2 \times 10^{-16}) - 10^{-16}
-       \approx 1 + 2.2 \times 10^{-16}\)</span></li>
-<li class="fragment"><span class="math inline">\(1 + (2 \times 10^{-16} - 10^{-16}) = 1\)</span></li>
-</ul></li>
-</ul>
-</section>
-<section id="more-associativity" class="slide level2">
-<h2>More associativity</h2>
-<p>Let <span class="math inline">\(s = 1 + 2 \times 10^{-16}\)</span>; what is <span class="math inline">\((s + 1) - 1\)</span>?</p>
-<ul>
-<li class="fragment"><span class="math inline">\(s + 1 = 2\)</span></li>
-<li class="fragment"><span class="math inline">\((s + 1) - 1 = 1 \neq s\)</span></li>
-</ul>
-<p>Manipulation of <span class="title-ref">s</span> removed the least significant bit.</p>
-</section></section>
-<section id="multiplication-associativity" class="title-slide slide level1">
-<h1>Multiplication associativity</h1>
-<p>Multiplication is less sensitive, but nonetheless depends on associativity:</p>
-<p>If <span class="math inline">\(a = b = 1.5\)</span>, and <span class="math inline">\(c = 1 + 2^{-52}\)</span>, then</p>
+<section id="addition-associativity" class="title-slide slide level1">
+<h1>Addition Associativity</h1>
+<p>What is <span class="math inline">\(10^{-16} + 1 - 1\)</span>?</p>
 <p><span class="math display">\[\begin{aligned}
-(a \times b) \times c &amp;= 2.25 + 2^{-51} \\
-a \times (b \times c) &amp;= 2.25 + 2^{-50}
+(10^{-16} + 1) - 1 &amp;= 0 \\
+10^{-16} + (1 - 1) &amp;\equiv 10^{-16}
 \end{aligned}\]</span></p>
-<p>Note power-of-two (radix) multiplication is reversible (up to over/underflow!)</p>
+<p>Residuals below <span class="math inline">\(2\times10^{-16}\)</span> may be lost.</p>
+<aside class="notes">
+<p>10^-16 is below the 2x10^-16 threshold, so is lost in the first summation.</p>
+<p>Cancellation in the second summation preserves this value.</p>
+</aside>
+</section>
+
+<section id="more-addition-examples" class="title-slide slide level1">
+<h1>More Addition Examples</h1>
+<p>Let <span class="math inline">\(s = 1 + 2 \times 10^{-16}\)</span>. What is <span class="math inline">\((s + 1) - 1\)</span>?</p>
+<p><span class="math display">\[\begin{aligned}
+s + 1 &amp;= 2 \\
+(s + 1) - 1 &amp;= 1 \neq s
+\end{aligned}\]</span></p>
+<p>Manipulation of <span class="math inline">\(s\)</span> shifted the least resolvable value.</p>
+<aside class="notes">
+<p>The example here is making the same point as the last one, but showing that the least resolvable value can change (or "float") during a calculation.</p>
+<p>Even though we can initially resolve the 2 x 10^-16 fraction, this fraction is immediately lost once we add +1 to the result, shifting the fraction.</p>
+<p>So it's not enough to just look for resolvable residuals, because this "floats" to fit the value.</p>
+</aside>
 </section>
 
 <section>
+<section id="multiplication-associativity" class="title-slide slide level1">
+<h1>Multiplication associativity</h1>
+<p>If <span class="math inline">\(a = b = 1.5\)</span>, and <span class="math inline">\(c = 1 + 2^{-52}\)</span>, then</p>
+<p><span class="math display">\[\begin{aligned}
+(a \times b) \times c &amp;\equiv 2.25 + 2^{-51} \\
+a \times (b \times c) &amp;\equiv 2.25 + 2^{-50}
+\end{aligned}\]</span></p>
+<p>(Actual results depend on rounding rules)</p>
+<aside class="notes">
+<p>Associativity of multiplication is overall less volatile, since the largest variations are handled in the exponent.</p>
+<p>The fractional part can only increase the exponent, and at most only one bit is lost: (1 &lt;= 1.xxx * 1.xxx &lt; 4)</p>
+<p>But it is still revelant, and trailing bits can be lost, as seen in the example here.</p>
+<p>Note however that multiplication of the exponent 2^{exp} is a pure integer operation and is a reversible operation, up to over/underflow. (It also just happens to also manipulate the {frac}).</p>
+</aside>
+</section>
+<section id="sample-program" class="slide level2">
+<h2>Sample program</h2>
+<pre class="fortran"><code>program rounding
+  use iso_fortran_env, only : real64
+  implicit none
+
+  real(kind=real64) :: a, b, c
+
+  a = 1.5
+  b = 1.5
+  c = 1.0000000000000002_real64
+
+  print &#39;(a, es23.17)&#39;, &quot;(a * b) * c = &quot;, (a * b) * c
+  print &#39;(a, es23.17)&#39;, &quot;a * (b * c) = &quot;, a * (b * c)
+end program rounding</code></pre>
+</section></section>
 <section id="integrity-of-parentheses" class="title-slide slide level1">
 <h1>Integrity of parentheses</h1>
 <p>V&amp;V requires integrity of parentheses</p>
@@ -276,24 +306,26 @@ gfortran -Ofast ...              # Sets -fno-protect-parens</code></pre>
 <pre><code>ifort -assume protect-parens     # Not default</code></pre>
 <p>Note: Standard requires (J3/18-007r1, 10.1.5)</p>
 </section>
-<section id="kahan-summation" class="slide level2">
-<h2>Kahan summation</h2>
-<p>Attach here? See <a href="https://groups.google.com/forum/#!topic/comp.lang.fortran/D-tFxYgHa_4">https://groups.google.com/forum/#!topic/comp.lang.fortran/D-tFxYgHa_4</a></p>
-</section></section>
+
 <section id="parallel-summation" class="title-slide slide level1">
 <h1>Parallel summation</h1>
 <p>Problem is extended to parallel sums:</p>
 <p>See hallberg &amp; adcroft</p>
 </section>
 
-<section id="algorithmic-ordering" class="title-slide slide level1">
-<h1>Algorithmic ordering</h1>
-<p>Show xfirst/yfirst flag example</p>
+<section id="rotational-invariance" class="title-slide slide level1">
+<h1>Rotational Invariance</h1>
+<p>More like an index rotation...</p>
 </section>
 
-<section id="rotational-invariance" class="title-slide slide level1">
+<section id="rotational-invariance-1" class="title-slide slide level1">
 <h1>Rotational invariance</h1>
-<p>Show bob's pictures</p>
+<p><img data-src="img/stencil.svg" alt="image" /></p>
+</section>
+
+<section id="rotational-invariance-2" class="title-slide slide level1">
+<h1>Rotational invariance</h1>
+<p>When all else fails, re-order the algorithm...</p>
 </section>
 
 <section id="checksum-validation" class="title-slide slide level1">
@@ -368,14 +400,6 @@ gfortran -Ofast ...              # Sets -fno-protect-parens</code></pre>
 <li>MOM_TARGET_SLUG</li>
 <li>MOM_TARGET_LOCAL_BRANCH</li>
 </ul></li>
-</ul>
-</section>
-
-<section id="gaea-regression-tests" class="title-slide slide level1">
-<h1>Gaea regression tests</h1>
-<ul>
-<li>Full suite, platform specific, run on Gaea</li>
-<li>Each development hub would ideally have its own regression tests</li>
 </ul>
 </section>
 

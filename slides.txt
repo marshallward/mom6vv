@@ -2,9 +2,10 @@
 Verification and Validation of MOM6
 ===================================
 
-:authors: - Marshall Ward
-          - Robert Hallberg
-          - Alistair Adcroft
+:authors:
+   - Alistair Adcroft
+   - Robert Hallberg
+   - **Marshall Ward**
 :description: An overview of the MOM6 testing framework
 :date: 2020 June 8
 
@@ -90,36 +91,25 @@ V&V in MOM6
    :width: 20%
    :class: float
 
-Some text here..
+* Fork from a community repository
 
-* Bullet 1
+* Apply any modifications
 
-* Bullet 2
+* Submit as Pull Request™
+
+* Trigger V&V events
+
+  * Automated verification
+
+  * Manual validation
+
+All contributions must pass verification and validation before merge.
 
 
 MOM6 Verification
 =================
 
 .. image:: img/mom_verify.svg
-   :width: 55%
-
-
-MOM6 Validation
-===============
-
-.. TODO
-
-* Site-specific
-
-* Gaea Pipeline
-
-* Human validation
-
-
-Hub Validation
-==============
-
-.. image:: img/gitrepos.svg
    :width: 55%
 
 
@@ -140,6 +130,27 @@ dim         Dimensional scaling
 ==========  =================================
 
 Each test requires bit reproducibility
+
+
+MOM6 Validation
+===============
+
+.. image:: img/mom_validate.svg
+   :width: 50%
+   :class: float
+
+* Site-specific
+
+* Gaea Pipeline
+
+* Human validation
+
+
+Hub Validation
+==============
+
+.. image:: img/gitrepos.svg
+   :width: 55%
 
 
 Bit reproducibility
@@ -189,45 +200,105 @@ Floating point review
    which we'll mention later.
 
 
-Associativity
-=============
+Addition Associativity
+======================
 
-* :math:`10^{-16} + 1 - 1 = ?`
+What is :math:`10^{-16} + 1 - 1`?
 
-   * :math:`(10^{-16} + 1) - 1 = 0`
-   * :math:`10^{-16} + (1 - 1) \approx 1.1 \times 10^{-16}`
+.. math::
 
-* :math:`1 + 2 \times 10^{-16} - 10^{-16} = ?`
+   (10^{-16} + 1) - 1 &= 0 \\
+   10^{-16} + (1 - 1) &\equiv 10^{-16}
 
-   * :math:`(1 + 2 \times 10^{-16}) - 10^{-16}
-            \approx 1 + 2.2 \times 10^{-16}`
-   * :math:`1 + (2 \times 10^{-16} - 10^{-16}) = 1`
+Residuals below :math:`2\times10^{-16}` may be lost.
+
+.. notes::
+
+   10^-16 is below the 2x10^-16 threshold, so is lost in the first summation.
+
+   Cancellation in the second summation preserves this value.
 
 
-More associativity
-------------------
+More Addition Examples
+======================
 
-Let :math:`s = 1 + 2 \times 10^{-16}`; what is :math:`(s + 1) - 1`?
+Let :math:`s = 1 + 2 \times 10^{-16}`.  What is :math:`(s + 1) - 1`?
 
-   * :math:`s + 1 = 2`
-   * :math:`(s + 1) - 1 = 1 \neq s`
+.. math::
 
-Manipulation of `s` removed the least significant bit.
+   s + 1 &= 2 \\
+   (s + 1) - 1 &= 1 \neq s
+
+Manipulation of :math:`s` shifted the least resolvable value.
+
+.. notes::
+
+   The example here is making the same point as the last one, but showing that
+   the least resolvable value can change (or "float") during a calculation.
+
+   Even though we can initially resolve the 2 x 10^-16 fraction, this fraction
+   is immediately lost once we add +1 to the result, shifting the fraction.
+
+   So it's not enough to just look for resolvable residuals, because this
+   "floats" to fit the value.
+
+
+.. More addition examples
+   ----------------------
+
+   * :math:`1 + 2 \times 10^{-16} - 10^{-16} = ?`
+
+      * :math:`(1 + 2 \times 10^{-16}) - 10^{-16}
+               \approx 1 + 2.2 \times 10^{-16}`
+      * :math:`1 + (2 \times 10^{-16} - 10^{-16}) = 1`
 
 
 Multiplication associativity
 ============================
 
-Multiplication is less sensitive, but nonetheless depends on associativity:
-
 If :math:`a = b = 1.5`, and :math:`c = 1 + 2^{-52}`, then
 
 .. math::
 
-   (a \times b) \times c &= 2.25 + 2^{-51} \\
-   a \times (b \times c) &= 2.25 + 2^{-50}
+   (a \times b) \times c &\equiv 2.25 + 2^{-51} \\
+   a \times (b \times c) &\equiv 2.25 + 2^{-50}
 
-Note power-of-two (radix) multiplication is reversible (up to over/underflow!)
+(Actual results depend on rounding rules)
+
+.. notes::
+
+   Associativity of multiplication is overall less volatile, since the largest
+   variations are handled in the exponent.
+
+   The fractional part can only increase the exponent, and at most only one bit
+   is lost:  (1 <= 1.xxx * 1.xxx < 4)
+
+   But it is still revelant, and trailing bits can be lost, as seen in the
+   example here.
+
+   Note however that multiplication of the exponent 2^{exp} is a pure integer
+   operation and is a reversible operation, up to over/underflow.
+   (It also just happens to also manipulate the {frac}).
+
+
+Sample program
+--------------
+
+.. code:: fortran
+
+   program rounding
+     use iso_fortran_env, only : real64
+     implicit none
+
+     real(kind=real64) :: a, b, c
+
+     a = 1.5
+     b = 1.5
+     c = 1.0000000000000002_real64
+
+     print '(a, es23.17)', "(a * b) * c = ", (a * b) * c
+     print '(a, es23.17)', "a * (b * c) = ", a * (b * c)
+   end program rounding
 
 
 Integrity of parentheses
@@ -246,11 +317,12 @@ Intel Fortran::
 
 Note: Standard requires (J3/18-007r1, 10.1.5)
 
-Kahan summation
----------------
 
-Attach here? See
-https://groups.google.com/forum/#!topic/comp.lang.fortran/D-tFxYgHa_4
+.. Kahan summation
+   ---------------
+
+   Attach here? See
+   https://groups.google.com/forum/#!topic/comp.lang.fortran/D-tFxYgHa_4
 
 
 Parallel summation
@@ -261,16 +333,22 @@ Problem is extended to parallel sums:
 See hallberg & adcroft
 
 
-Algorithmic ordering
-====================
+Rotational Invariance
+=====================
 
-Show xfirst/yfirst flag example
+More like an index rotation...
 
 
 Rotational invariance
 =====================
 
-Show bob's pictures
+.. image:: img/stencil.svg
+
+
+Rotational invariance
+=====================
+
+When all else fails, re-order the algorithm...
 
 
 Checksum validation
@@ -325,13 +403,6 @@ Running on Travis
   * DO_REGRESSION_TESTS
   * MOM_TARGET_SLUG
   * MOM_TARGET_LOCAL_BRANCH
-
-
-Gaea regression tests
-=====================
-
-* Full suite, platform specific, run on Gaea
-* Each development hub would ideally have its own regression tests
 
 
 TODO
