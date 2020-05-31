@@ -120,6 +120,7 @@ $body$
   <script src="$revealjs-url$/dist/reveal.js"></script>
   <script src="$revealjs-url$/plugin/math/math.js"></script>
   <script src="$revealjs-url$/plugin/notes/notes.js"></script>
+  <script src="$revealjs-url$/plugin/highlight/highlight.js"></script>
 
   <script>
 
@@ -296,19 +297,9 @@ $if(notes-server)$
           { src: '$revealjs-url$/socket.io/socker.io.js', async: true },
           { src: '$revealjs-url$/plugin/notes-server/client.js', async: true },
 $endif$
-$if(mathjax)$
-          { src: '$revealjs-url$/plugin/math/math.js', async: true },
-$endif$
-          { src: './reveal.js/plugin/highlight/highlight.js',
-            async: true,
-            condition: function() {
-              return !!document.querySelector( 'pre code' ); },
-            callback: function() {
-              hljs.initHighlightingOnLoad(); }
-          },
           { src: '$revealjs-url$/plugin/notes/notes.js', async: true }
         ],
-        plugins : [ RevealMath, RevealNotes ],
+        plugins : [ RevealMath, RevealNotes, RevealHighlight],
       });
     </script>
   $for(include-after)$
