@@ -386,6 +386,11 @@ gfortran -Ofast ...              # Sets -fno-protect-parens</code></pre>
 end subroutine advect_tracer</code></pre>
 </section>
 
+<section id="negative-zero" class="title-slide slide level1">
+<h1>Negative zero?</h1>
+<p>TODO</p>
+</section>
+
 <section id="solution-validation" class="title-slide slide level1">
 <h1>Solution validation</h1>
 <p><code>ocean.stats</code>:</p>
@@ -432,19 +437,7 @@ h-point: mean=  -7.3645997170533087E+02 min=  -4.4154552337742143E+03 max=   4.2
 h-point: c=     62532 ocean_model_z-e
  column: mean=  -7.4335128058531780E+02 min=  -2.0367396644260416E+03 max=  -2.5739527589596594E-13 ocean_model_z-e_xyave
  column: c=       830 ocean_model_z-e_xyave</code></pre>
-<ul>
-<li>Compute domain (no halos, no symmetric boundary)</li>
-<li>sum(abs()) (negative zero!)</li>
-<li><dl>
-<dt>"Hash":</dt>
-<dd><ul>
-<li>Min, max, mean (reproducible)</li>
-<li>Bitcount checksums (incl. halo shifted counts)</li>
-</ul>
-</dd>
-</dl></li>
-<li>Paired sums for rotational invariance</li>
-</ul>
+<p>Record min, max, mean, and bitcount for every diagnostic.</p>
 </section>
 
 <section id="test-build-configuration" class="title-slide slide level1">
