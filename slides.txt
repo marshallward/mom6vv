@@ -105,6 +105,20 @@ V&V in MOM6
 
 All contributions must pass verification and validation before merge.
 
+.. notes::
+
+   A contributer first creates a fork of the active development branch, say
+   ``dev/gfdl``.
+
+   Contributor works on their new feature.  Meanwhile, ``dev/gfdl`` is also
+   evolving.
+
+   Once completed, the contributer submits it as a Pull Request via GitHub.
+
+   The submission must meet the design criteria of the source code.  This is
+   satisfied by pass through verification and validation before being
+   considered for contribution.
+
 
 MOM6 Verification
 =================
@@ -113,7 +127,7 @@ MOM6 Verification
    :width: 35%
    :class: float
 
-Verification is automatically submitted to a CI system (currently Travis)
+Verification is automatically submitted to a CI (e.g. Travis)
 
 * Build all compile-time configs
 
@@ -151,6 +165,8 @@ MOM6 Validation
    :width: 50%
    :class: float
 
+TODO
+
 * Site-specific
 
 * Gaea Pipeline
@@ -162,11 +178,20 @@ Hub Validation
 ==============
 
 .. image:: img/gitrepos.svg
-   :width: 55%
+   :width: 50%
+   :class: float
+
+Local validation accumulate over time, and are eventually presented as
+``dev/master`` update
+
+Each partner validates the contribution.  Upon consensus, all changes (e.g.
+``dev/gfdl``) are merged into ``dev/master``.
 
 
 Bit reproducibility
 ===================
+
+Verification requires bit reproducibility
 
 .. figure:: img/pilotwings_repro.mp4
    :target: https://twitter.com/Foone/status/1126996260026605568
@@ -354,38 +379,59 @@ How to compute means or global sums?
 
 2. Fixed-precision arithmetic:
 
-
    .. image:: img/fixedprec.svg
 
-See hallberg & adcroft
+   (Hallberg and Adcroft, Parallel Computing (2014))
 
 
-Dimensional scaling
+Associative Scaling
 ===================
 
-* Float: (-1)^s * 1.(mmm...m) * 2^(nnn...n)
+Recall the floating point format: 
 
-  Bits: smmm....mnnn....n
+.. math:: 
 
-* 2^N scaling is an integer shift of yyyy
-  which is reproducibly reversible
+   \phi \equiv (-1)^s \times 2^M \times  (1 + \alpha)
 
-  ... up to over/underflow of yyyy!
+Power-of-two multiplication is associative, i.e.
 
-* Ideal procedure:
-   * Scale at input
-   * Manipulate rescaled numbers
-   * De-scale at output, checksum, etc
+.. math::
+
+   2^N \times \phi \times 2^{-N} \equiv \phi
 
 
-Examples of Dimensional Errors
-==============================
+Dimension Scaling
+=================
+
+Rescale quantities by dimensions should be invariant:
+
+.. math::
+
+   u^{n+1} &= u^{n} +  \Delta t \times \text{diffu} \\
+   {\color{yellow}2^{L-T}} u^{n+1} &= {\color{yellow}2^{L-T}} u^{n}
+      + {\color{yellow}2^T} \Delta t
+      \times {\color{yellow}2^{L - 2T}} \text{diffu}
+
+
+Supported dimensions
+====================
+
+=========   =================
+Dimension   Name
+=========   =================
+T           Time
+L           Horizontal length
+Z           Vertical position
+H           Layer thickness
+Q           Enthalpy
+R           (Potential?) Density
+=========   =================
 
 
 Rotational Invariance
 =====================
 
-More like an index rotation...
+TODO
 
 
 Invariant stencils
@@ -426,6 +472,7 @@ When all else fails, re-order the algorithm...
 
    subroutine advect_tracer(...)
       ! ...
+      x_first = modulo(turns, 2) == 1
       if (x_first) then
          call advect_x(...)
          call advect_y(...)
@@ -439,11 +486,11 @@ When all else fails, re-order the algorithm...
 Negative zero?
 ==============
 
-TODO
+TODO?
 
 
-Solution validation
-===================
+Solution verification
+=====================
 
 ``ocean.stats``::
 
@@ -456,8 +503,8 @@ Solution validation
 Solution regressions are detected in total energy, mass, etc.
 
 
-Diagnostic validation
-=====================
+Diagnostic verification
+=======================
 
 
 ``chksum_diag``::
@@ -504,47 +551,45 @@ Record min, max, mean, and bitcount for every diagnostic.
    * negative zero?
 
 
-Test build configuration
-========================
+.. Test build configuration
+   ========================
+   
+   * GCC Fortran 9.x
+   * Full warnings
+      * Permit float inequality with zero
+   * Stack initialization
+      * Signal NaN for float
+      * 2^(N-1) - 1 for integer, logical
 
-* GCC Fortran 9.x
-* Full warnings
-   * Permit float inequality with zero
-* Stack initialization
-   * Signal NaN for float
-   * 2^(N-1) - 1 for integer, logical
+
+.. And the future
+   ==============
+   
+   * Cyclomatic (McCabe) complexity
+   
+   * AST analyzer
+   
+   * Fortran lint tools (flint??)
 
 
-Running on Travis
-=================
+Testing Results
+===============
 
-* Makefile is standalone, but can be configured by Travis:
+Over 40 issues and bugs have been detected and fixed:
 
-  * DO_REGRESSION_TESTS
-  * MOM_TARGET_SLUG
-  * MOM_TARGET_LOCAL_BRANCH
+* Dimensions:
 
+* Indexing:
+
+* Rotations:
 
 TODO
-====
-
-* Valgrind testing
-* Code coverage
-* Zero-warnings
-
-
-And the future
-==============
-
-* Cyclomatic (McCabe) complexity
-
-* AST analyzer
-
-* Fortran lint tools (flint??)
 
 
 Development Guidelines
 ======================
+
+0. Verification must have bit reproducibility
 
 1. Use parentheses!
 
@@ -556,5 +601,3 @@ Development Guidelines
    a. Even better: Don't do global sums!
 
 3. Use rotationally invariant stencils
-
-4. Aggressively run the verification tests

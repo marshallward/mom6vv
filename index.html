@@ -136,12 +136,18 @@
 </ul></li>
 </ul>
 <p>All contributions must pass verification and validation before merge.</p>
+<aside class="notes">
+<p>A contributer first creates a fork of the active development branch, say <code>dev/gfdl</code>.</p>
+<p>The work on their new feature. Meanwhile, <code>dev/gfdl</code> is also evolving.</p>
+<p>Once completed, the contributer submits it as a Pull Request via GitHub.</p>
+<p>The submission must meet the design criteria of the source code. This is satisfied by pass through verification and validation before being considered for contribution.</p>
+</aside>
 </section>
 
 <section id="mom6-verification" class="title-slide slide level1">
 <h1>MOM6 Verification</h1>
 <p><img data-src="img/mom_verify.svg" class="float float" style="width:35.0%" alt="image" /></p>
-<p>Verification is automatically submitted to a CI system (currently Travis)</p>
+<p>Verification is automatically submitted to a CI (e.g. Travis)</p>
 <ul>
 <li>Build all compile-time configs</li>
 <li>Setup test configurations</li>
@@ -200,6 +206,7 @@
 <section id="mom6-validation" class="title-slide slide level1">
 <h1>MOM6 Validation</h1>
 <p><img data-src="img/mom_validate.svg" class="float float" style="width:50.0%" alt="image" /></p>
+<p>TODO</p>
 <ul>
 <li>Site-specific</li>
 <li>Gaea Pipeline</li>
@@ -209,11 +216,14 @@
 
 <section id="hub-validation" class="title-slide slide level1">
 <h1>Hub Validation</h1>
-<p><img data-src="img/gitrepos.svg" style="width:55.0%" alt="image" /></p>
+<p><img data-src="img/gitrepos.svg" class="float float" style="width:50.0%" alt="image" /></p>
+<p>Local validation accumulate over time, and are eventually presented as <code>dev/master</code> update</p>
+<p>Each partner validates the contribution. Upon consensus, all changes (e.g. <code>dev/gfdl</code>) are merged into <code>dev/master</code>.</p>
 </section>
 
 <section id="bit-reproducibility" class="title-slide slide level1">
 <h1>Bit reproducibility</h1>
+<p>Verification requires bit reproducibility</p>
 <figure>
 <video data-src="img/pilotwings_repro.mp4" controls=""><a href="img/pilotwings_repro.mp4"></a></video><figcaption>Identical code and input, different math libraries</figcaption>
 </figure>
@@ -321,38 +331,71 @@ gfortran -Ofast ...              # Sets -fno-protect-parens</code></pre>
 <li><p>Enforce ordering:</p>
 <p><span class="math display">\[\sum{\phi} = (\phi_1 + (\phi_2 + ( \phi_3 + ... )))\]</span></p></li>
 <li><p>Fixed-precision arithmetic:</p>
-<p><img data-src="img/fixedprec.svg" alt="image" /></p></li>
+<p><img data-src="img/fixedprec.svg" alt="image" /></p>
+<p>(Hallberg and Adcroft, Parallel Computing (2014))</p></li>
 </ol>
-<p>See hallberg &amp; adcroft</p>
 </section>
 
-<section id="dimensional-scaling" class="title-slide slide level1">
-<h1>Dimensional scaling</h1>
-<ul>
-<li><p>Float: (-1)^s * 1.(mmm...m) * 2^(nnn...n)</p>
-<p>Bits: smmm....mnnn....n</p></li>
-<li><p>2^N scaling is an integer shift of yyyy which is reproducibly reversible</p>
-<p>... up to over/underflow of yyyy!</p></li>
-<li><dl>
-<dt>Ideal procedure:</dt>
-<dd><ul>
-<li>Scale at input</li>
-<li>Manipulate rescaled numbers</li>
-<li>De-scale at output, checksum, etc</li>
-</ul>
-</dd>
-</dl></li>
-</ul>
+<section id="associative-scaling" class="title-slide slide level1">
+<h1>Associative Scaling</h1>
+<p>Recall the floating point format:</p>
+<p><span class="math display">\[\phi \equiv (-1)^s \times 2^M \times  (1 + \alpha)\]</span></p>
+<p>Power-of-two multiplication is associative, i.e.</p>
+<p><span class="math display">\[2^N \times \phi \times 2^{-N} \equiv \phi\]</span></p>
 </section>
 
-<section id="examples-of-dimensional-errors" class="title-slide slide level1">
-<h1>Examples of Dimensional Errors</h1>
+<section id="dimension-scaling" class="title-slide slide level1">
+<h1>Dimension Scaling</h1>
+<p>Rescale quantities by dimensions should be invariant:</p>
+<p><span class="math display">\[\begin{aligned}
+u^{n+1} &amp;= u^{n} +  \Delta t \times \text{diffu} \\
+{\color{yellow}2^{L-T}} u^{n+1} &amp;= {\color{yellow}2^{L-T}} u^{n}
+   + {\color{yellow}2^T} \Delta t
+   \times {\color{yellow}2^{L - 2T}} \text{diffu}
+\end{aligned}\]</span></p>
+</section>
 
+<section id="supported-dimensions" class="title-slide slide level1">
+<h1>Supported dimensions</h1>
+<table>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T</td>
+<td>Time</td>
+</tr>
+<tr class="even">
+<td>L</td>
+<td>Horizontal length</td>
+</tr>
+<tr class="odd">
+<td>Z</td>
+<td>Vertical position</td>
+</tr>
+<tr class="even">
+<td>H</td>
+<td>Layer thickness</td>
+</tr>
+<tr class="odd">
+<td>Q</td>
+<td>Enthalpy</td>
+</tr>
+<tr class="even">
+<td>R</td>
+<td>(Potential?) Density</td>
+</tr>
+</tbody>
+</table>
 </section>
 
 <section id="rotational-invariance" class="title-slide slide level1">
 <h1>Rotational Invariance</h1>
-<p>More like an index rotation...</p>
+<p>TODO</p>
 </section>
 
 <section id="invariant-stencils" class="title-slide slide level1">
@@ -383,6 +426,7 @@ gfortran -Ofast ...              # Sets -fno-protect-parens</code></pre>
 <p>When all else fails, re-order the algorithm...</p>
 <pre class="fortran"><code>subroutine advect_tracer(...)
    ! ...
+   x_first = modulo(turns, 2) == 1
    if (x_first) then
       call advect_x(...)
       call advect_y(...)
@@ -395,11 +439,11 @@ end subroutine advect_tracer</code></pre>
 
 <section id="negative-zero" class="title-slide slide level1">
 <h1>Negative zero?</h1>
-<p>TODO</p>
+<p>TODO?</p>
 </section>
 
-<section id="solution-validation" class="title-slide slide level1">
-<h1>Solution validation</h1>
+<section id="solution-verification" class="title-slide slide level1">
+<h1>Solution verification</h1>
 <p><code>ocean.stats</code>:</p>
 <pre><code>Step,       Day,  Truncs,      Energy/Mass,      Maximum CFL,  Mean Sea Level,  Total Mass,  Mean Salin, Mean Temp, Frac Mass Err,   Salin Err,    Temp Err
           [days]                 [m2 s-2]           [Nondim]       [m]             [kg]         [PSU]      [degC]       [Nondim]        [PSU]        [degC]
@@ -409,8 +453,8 @@ end subroutine advect_tracer</code></pre>
 <p>Solution regressions are detected in total energy, mass, etc.</p>
 </section>
 
-<section id="diagnostic-validation" class="title-slide slide level1">
-<h1>Diagnostic validation</h1>
+<section id="diagnostic-verification" class="title-slide slide level1">
+<h1>Diagnostic verification</h1>
 <p><code>chksum_diag</code>:</p>
 <pre><code>u-point: mean=   1.1239682303793666E-04 min=  -6.7187595818683776E-03 max=   3.3480219779204019E-02 ocean_model-u
 u-point: c=     21851 ocean_model-u
@@ -447,61 +491,21 @@ h-point: c=     62532 ocean_model_z-e
 <p>Record min, max, mean, and bitcount for every diagnostic.</p>
 </section>
 
-<section id="test-build-configuration" class="title-slide slide level1">
-<h1>Test build configuration</h1>
+<section id="testing-results" class="title-slide slide level1">
+<h1>Testing Results</h1>
+<p>Over 40 issues and bugs have been detected and fixed:</p>
 <ul>
-<li>GCC Fortran 9.x</li>
-<li><dl>
-<dt>Full warnings</dt>
-<dd><ul>
-<li>Permit float inequality with zero</li>
+<li>Dimensions:</li>
+<li>Indexing:</li>
+<li>Rotations:</li>
 </ul>
-</dd>
-</dl></li>
-<li><dl>
-<dt>Stack initialization</dt>
-<dd><ul>
-<li>Signal NaN for float</li>
-<li>2^(N-1) - 1 for integer, logical</li>
-</ul>
-</dd>
-</dl></li>
-</ul>
-</section>
-
-<section id="running-on-travis" class="title-slide slide level1">
-<h1>Running on Travis</h1>
-<ul>
-<li>Makefile is standalone, but can be configured by Travis:
-<ul>
-<li>DO_REGRESSION_TESTS</li>
-<li>MOM_TARGET_SLUG</li>
-<li>MOM_TARGET_LOCAL_BRANCH</li>
-</ul></li>
-</ul>
-</section>
-
-<section id="todo" class="title-slide slide level1">
-<h1>TODO</h1>
-<ul>
-<li>Valgrind testing</li>
-<li>Code coverage</li>
-<li>Zero-warnings</li>
-</ul>
-</section>
-
-<section id="and-the-future" class="title-slide slide level1">
-<h1>And the future</h1>
-<ul>
-<li>Cyclomatic (McCabe) complexity</li>
-<li>AST analyzer</li>
-<li>Fortran lint tools (flint??)</li>
-</ul>
+<p>TODO</p>
 </section>
 
 <section id="development-guidelines" class="title-slide slide level1">
 <h1>Development Guidelines</h1>
-<ol type="1">
+<ol start="0" type="1">
+<li>Verification must have bit reproducibility</li>
 <li>Use parentheses!
 <ol type="a">
 <li>Are they honored?</li>
@@ -512,7 +516,6 @@ h-point: c=     62532 ocean_model_z-e
 <li>Even better: Don't do global sums!</li>
 </ol></li>
 <li>Use rotationally invariant stencils</li>
-<li>Aggressively run the verification tests</li>
 </ol>
 </section>
     </div>
