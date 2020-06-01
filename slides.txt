@@ -140,7 +140,9 @@ All builds must pass verification.
 
 
 Verification Tests
-==================
+------------------
+
+.. TODO This is too long!
 
 ==========  =================================
 Test        Description
@@ -156,6 +158,20 @@ dim         Dimensional scaling
 ==========  =================================
 
 Each test requires bit reproducibility
+
+
+Tests in Action
+===============
+
+(TODO: make this pretty)
+
+A successful test:
+
+   https://travis-ci.org/github/marshallward/MOM6/jobs/687171621
+
+A failed test:
+
+   https://travis-ci.org/github/marshallward/MOM6/jobs/687177632
 
 
 MOM6 Validation
@@ -181,11 +197,11 @@ Hub Validation
    :width: 50%
    :class: float
 
-Local validation accumulate over time, and are eventually presented as
-``dev/master`` update
+Local contributions accumulate over time, becoming a ``dev/master`` PR.
 
-Each partner validates the contribution.  Upon consensus, all changes (e.g.
-``dev/gfdl``) are merged into ``dev/master``.
+Local hub submits PR, and each hub validates the PR.
+
+Upon consensus, PR is merged into ``dev/master``.
 
 
 Bit reproducibility
@@ -203,6 +219,7 @@ Floating point review
 =====================
 
 .. image:: img/IEEE_754_Double_Floating_Point_Format.svg
+   :target: https://commons.wikimedia.org/wiki/File:Float_example.svg
 
 .. math::
 
@@ -381,7 +398,7 @@ How to compute means or global sums?
 
    .. image:: img/fixedprec.svg
 
-   (Hallberg and Adcroft, Parallel Computing (2014))
+   Hallberg and Adcroft, Parallel Computing (2014)
 
 
 Associative Scaling
@@ -413,19 +430,23 @@ Rescale quantities by dimensions should be invariant:
       \times {\color{yellow}2^{L - 2T}} \text{diffu}
 
 
-Supported dimensions
-====================
+Dimensional factors
+===================
 
-=========   =================
-Dimension   Name
-=========   =================
-T           Time
-L           Horizontal length
-Z           Vertical position
-H           Layer thickness
-Q           Enthalpy
-R           (Potential?) Density
-=========   =================
+===== =======  =================
+Unit  Scaling  Name
+===== =======  =================
+m     Z        Vertical length
+m     L        Horizontal length
+s     T        Time
+kg/m3 R        Density
+J/kg  Q        Enthalpy
+===== =======  =================
+
+.. notes::
+   The currently tracked units are shown in this table.
+
+   Enthalpy is the fundamental 
 
 
 Rotational Invariance
@@ -577,13 +598,59 @@ Testing Results
 
 Over 40 issues and bugs have been detected and fixed:
 
-* Dimensions:
+TODO:
 
-* Indexing:
+* Move these examples to the test descriptions
 
-* Rotations:
+* Move the "over 40 bugs" comment to the conclusions
 
-TODO
+
+Dimensional scaling example
+---------------------------
+
+https://github.com/NOAA-GFDL/MOM6/pull/921
+
+.. code:: fortran
+
+   Kd_lay(i,j,k-1) = Kd_lay(i,j,k-1) + 0.5**KS_extra(i,K)
+   Kd_lay(i,j,k)   = Kd_lay(i,j,k)   + 0.5**KS_extra(i,K)
+
+:math:`\ldots + \left(\tfrac{1}{2}\right)^{\kappa_S}`?
+
+.. notes::
+
+   Actually discovered during implementation of the dimensional scaling, rather
+   than detected by the dimensional scaling test.  But it's the sort of thing
+   that would have been found...
+
+
+Rotational example
+------------------
+
+https://github.com/NOAA-GFDL/MOM6/pull/1050
+
+.. code:: fortran
+
+   subroutine thickness_diffuse_full
+      !...
+      Work_u(I,j) = Work_u(I,j) + G_scale * (...)
+      Work_v(i,J) = Work_v(i,J) - G_scale * (...)
+      !...
+   end subroutine thickness_diffuse_full
+
+
+Indexing example
+----------------
+
+Assumed 1-based start index
+
+.. code:: fortran
+
+   subroutine register_time_deriv(...)
+      real, dimension(:,:,:), target :: f_ptr
+      real, dimension(:,:,:), target :: deriv_ptr
+
+Fails for 0-based symmetric memory grids!
 
 
 Development Guidelines

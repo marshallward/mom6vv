@@ -138,12 +138,13 @@
 <p>All contributions must pass verification and validation before merge.</p>
 <aside class="notes">
 <p>A contributer first creates a fork of the active development branch, say <code>dev/gfdl</code>.</p>
-<p>The work on their new feature. Meanwhile, <code>dev/gfdl</code> is also evolving.</p>
+<p>Contributor works on their new feature. Meanwhile, <code>dev/gfdl</code> is also evolving.</p>
 <p>Once completed, the contributer submits it as a Pull Request via GitHub.</p>
 <p>The submission must meet the design criteria of the source code. This is satisfied by pass through verification and validation before being considered for contribution.</p>
 </aside>
 </section>
 
+<section>
 <section id="mom6-verification" class="title-slide slide level1">
 <h1>MOM6 Verification</h1>
 <p><img data-src="img/mom_verify.svg" class="float float" style="width:35.0%" alt="image" /></p>
@@ -155,9 +156,8 @@
 </ul>
 <p>All builds must pass verification.</p>
 </section>
-
-<section id="verification-tests" class="title-slide slide level1">
-<h1>Verification Tests</h1>
+<section id="verification-tests" class="slide level2">
+<h2>Verification Tests</h2>
 <table>
 <thead>
 <tr class="header">
@@ -201,6 +201,18 @@
 </tbody>
 </table>
 <p>Each test requires bit reproducibility</p>
+</section></section>
+<section id="tests-in-action" class="title-slide slide level1">
+<h1>Tests in Action</h1>
+<p>(TODO: make this pretty)</p>
+<p>A successful test:</p>
+<blockquote>
+<p><a href="https://travis-ci.org/github/marshallward/MOM6/jobs/687171621">https://travis-ci.org/github/marshallward/MOM6/jobs/687171621</a></p>
+</blockquote>
+<p>A failed test:</p>
+<blockquote>
+<p><a href="https://travis-ci.org/github/marshallward/MOM6/jobs/687177632">https://travis-ci.org/github/marshallward/MOM6/jobs/687177632</a></p>
+</blockquote>
 </section>
 
 <section id="mom6-validation" class="title-slide slide level1">
@@ -217,8 +229,9 @@
 <section id="hub-validation" class="title-slide slide level1">
 <h1>Hub Validation</h1>
 <p><img data-src="img/gitrepos.svg" class="float float" style="width:50.0%" alt="image" /></p>
-<p>Local validation accumulate over time, and are eventually presented as <code>dev/master</code> update</p>
-<p>Each partner validates the contribution. Upon consensus, all changes (e.g. <code>dev/gfdl</code>) are merged into <code>dev/master</code>.</p>
+<p>Local contributions accumulate over time, becoming a <code>dev/master</code> PR.</p>
+<p>Local hub submits PR, and each hub validates the PR.</p>
+<p>Upon consensus, PR is merged into <code>dev/master</code>.</p>
 </section>
 
 <section id="bit-reproducibility" class="title-slide slide level1">
@@ -231,7 +244,7 @@
 
 <section id="floating-point-review" class="title-slide slide level1">
 <h1>Floating point review</h1>
-<p><img data-src="img/IEEE_754_Double_Floating_Point_Format.svg" alt="image" /></p>
+<p><a href="https://commons.wikimedia.org/wiki/File:Float_example.svg"><img data-src="img/IEEE_754_Double_Floating_Point_Format.svg" alt="image" /></a></p>
 <p><span class="math display">\[(-1)^s \times 1.\{\text{frac}\}\times 2^{\{\text{exp}\}}\]</span></p>
 <ul>
 <li>Smallest fractional diff: <span class="math inline">\(2^{-52} \approx 2.2 \times 10^{-16}\)</span></li>
@@ -332,7 +345,7 @@ gfortran -Ofast ...              # Sets -fno-protect-parens</code></pre>
 <p><span class="math display">\[\sum{\phi} = (\phi_1 + (\phi_2 + ( \phi_3 + ... )))\]</span></p></li>
 <li><p>Fixed-precision arithmetic:</p>
 <p><img data-src="img/fixedprec.svg" alt="image" /></p>
-<p>(Hallberg and Adcroft, Parallel Computing (2014))</p></li>
+<p>Hallberg and Adcroft, Parallel Computing (2014)</p></li>
 </ol>
 </section>
 
@@ -355,42 +368,48 @@ u^{n+1} &amp;= u^{n} +  \Delta t \times \text{diffu} \\
 \end{aligned}\]</span></p>
 </section>
 
-<section id="supported-dimensions" class="title-slide slide level1">
-<h1>Supported dimensions</h1>
+<section id="dimensional-factors" class="title-slide slide level1">
+<h1>Dimensional factors</h1>
 <table>
 <thead>
 <tr class="header">
-<th>Dimension</th>
+<th>Unit</th>
+<th>Scaling</th>
 <th>Name</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>T</td>
-<td>Time</td>
+<td>m</td>
+<td>Z</td>
+<td>Vertical length</td>
 </tr>
 <tr class="even">
+<td>m</td>
 <td>L</td>
 <td>Horizontal length</td>
 </tr>
 <tr class="odd">
-<td>Z</td>
-<td>Vertical position</td>
+<td>s</td>
+<td>T</td>
+<td>Time</td>
 </tr>
 <tr class="even">
-<td>H</td>
-<td>Layer thickness</td>
+<td>kg/m3</td>
+<td>R</td>
+<td>Density</td>
 </tr>
 <tr class="odd">
+<td>J/kg</td>
 <td>Q</td>
 <td>Enthalpy</td>
 </tr>
-<tr class="even">
-<td>R</td>
-<td>(Potential?) Density</td>
-</tr>
 </tbody>
 </table>
+<aside class="notes">
+<p>The currently tracked units are shown in this table.</p>
+<p>Enthalpy is the fundamental</p>
+</aside>
 </section>
 
 <section id="rotational-invariance" class="title-slide slide level1">
@@ -491,6 +510,7 @@ h-point: c=     62532 ocean_model_z-e
 <p>Record min, max, mean, and bitcount for every diagnostic.</p>
 </section>
 
+<section>
 <section id="testing-results" class="title-slide slide level1">
 <h1>Testing Results</h1>
 <p>Over 40 issues and bugs have been detected and fixed:</p>
@@ -501,7 +521,22 @@ h-point: c=     62532 ocean_model_z-e
 </ul>
 <p>TODO</p>
 </section>
-
+<section id="dimensional-scaling-example" class="slide level2">
+<h2>Dimensional scaling example</h2>
+<pre class="fortran"><code>Kd_lay(i,j,k-1) = Kd_lay(i,j,k-1) + 0.5**KS_extra(i,K)
+Kd_lay(i,j,k)   = Kd_lay(i,j,k)   + 0.5**KS_extra(i,K)</code></pre>
+<p><span class="math inline">\(\ldots + \left(\tfrac{1}{2}\right)^{\kappa_S}\)</span>?</p>
+</section>
+<section id="rotational-example" class="slide level2">
+<h2>Rotational example</h2>
+<p><a href="https://github.com/NOAA-GFDL/MOM6/pull/1050">https://github.com/NOAA-GFDL/MOM6/pull/1050</a></p>
+<pre class="fortran"><code>subroutine thickness_diffusefull
+   !...
+   Work_u(I,j) = Work_u(I,j) + G_scale * (...)
+   Work_v(i,J) = Work_v(i,J) - G_scale * (...)
+   !...
+end subroutine thickness_diffusefull</code></pre>
+</section></section>
 <section id="development-guidelines" class="title-slide slide level1">
 <h1>Development Guidelines</h1>
 <ol start="0" type="1">
