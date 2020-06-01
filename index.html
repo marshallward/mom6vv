@@ -514,28 +514,54 @@ h-point: c=     62532 ocean_model_z-e
 <section id="testing-results" class="title-slide slide level1">
 <h1>Testing Results</h1>
 <p>Over 40 issues and bugs have been detected and fixed:</p>
+<p>TODO:</p>
 <ul>
-<li>Dimensions:</li>
-<li>Indexing:</li>
-<li>Rotations:</li>
+<li>Move these examples to the test descriptions</li>
+<li>Move the "over 40 bugs" comment to the conclusions</li>
 </ul>
-<p>TODO</p>
 </section>
 <section id="dimensional-scaling-example" class="slide level2">
 <h2>Dimensional scaling example</h2>
+<p><a href="https://github.com/NOAA-GFDL/MOM6/pull/921">https://github.com/NOAA-GFDL/MOM6/pull/921</a></p>
 <pre class="fortran"><code>Kd_lay(i,j,k-1) = Kd_lay(i,j,k-1) + 0.5**KS_extra(i,K)
 Kd_lay(i,j,k)   = Kd_lay(i,j,k)   + 0.5**KS_extra(i,K)</code></pre>
 <p><span class="math inline">\(\ldots + \left(\tfrac{1}{2}\right)^{\kappa_S}\)</span>?</p>
+<aside class="notes">
+<p>Actually discovered during implementation of the dimensional scaling, rather than detected by the dimensional scaling test. But it's the sort of thing that would have been found...</p>
+</aside>
 </section>
 <section id="rotational-example" class="slide level2">
 <h2>Rotational example</h2>
 <p><a href="https://github.com/NOAA-GFDL/MOM6/pull/1050">https://github.com/NOAA-GFDL/MOM6/pull/1050</a></p>
-<pre class="fortran"><code>subroutine thickness_diffusefull
+<pre class="fortran"><code>subroutine thickness_diffuse_full
    !...
    Work_u(I,j) = Work_u(I,j) + G_scale * (...)
    Work_v(i,J) = Work_v(i,J) - G_scale * (...)
    !...
-end subroutine thickness_diffusefull</code></pre>
+end subroutine thickness_diffuse_full</code></pre>
+</section>
+<section id="indexing-example" class="slide level2">
+<h2>Indexing example</h2>
+<p>Assumed 1-based start index</p>
+<pre class="fortran"><code>subroutine register_time_deriv(...)
+   real, dimension(:,:,:), target :: f_ptr
+   real, dimension(:,:,:), target :: deriv_ptr
+   ! ...
+end subroutine register_time_deriv</code></pre>
+<p>Fails for 0-based symmetric memory grids!</p>
+</section>
+<section id="another-indexing-example" class="slide level2">
+<h2>Another indexing example</h2>
+<p>78d2dc3ee9a018f30bc666bd574e21fb7786403d</p>
+<p>Extended domain to accommodate symmetric grids:</p>
+<pre class="fortran"><code>do J=js,je ; do i=is,ie
+   h_vel = 0.5*((htot_fast(i,j) + htot_fast(i+1,j)) + h_neglect)
+   uDml_diag(I,j) = uDml_diag(I,j) / (0.01*h_vel) * G%IdyCu(I,j) * (PSI(0.)-PSI(-.01))
+enddo ; enddo</code></pre>
+<pre class="fortran"><code>do J=js,je ; do i=is-1,ie
+   h_vel = 0.5*((htot_fast(i,j) + htot_fast(i+1,j)) + h_neglect)
+   uDml_diag(I,j) = uDml_diag(I,j) / (0.01*h_vel) * G%IdyCu(I,j) * (PSI(0.)-PSI(-.01))
+enddo ; enddo</code></pre>
 </section></section>
 <section id="development-guidelines" class="title-slide slide level1">
 <h1>Development Guidelines</h1>
