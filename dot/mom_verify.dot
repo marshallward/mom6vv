@@ -1,5 +1,6 @@
 digraph testing {
-    label = "Verification"
+    fontname = helvetica
+    fontcolor = white
     labeljust = r
     node [
         style = filled,
@@ -35,12 +36,14 @@ digraph testing {
     subgraph cluster_build {
         style=filled
         label="Compile"
+        bgcolor = grey
         labeljust = r
         build1; build2; build3
     }
     subgraph cluster_test {
         style=filled
         label="Run tests"; 
+        bgcolor = grey
         labeljust = r
         test1; test2; test3; test4
     }

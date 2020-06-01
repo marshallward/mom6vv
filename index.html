@@ -140,7 +140,14 @@
 
 <section id="mom6-verification" class="title-slide slide level1">
 <h1>MOM6 Verification</h1>
-<p><img data-src="img/mom_verify.svg" style="width:55.0%" alt="image" /></p>
+<p><img data-src="img/mom_verify.svg" class="float float" style="width:35.0%" alt="image" /></p>
+<p>Verification is automatically submitted to a CI system (currently Travis)</p>
+<ul>
+<li>Build all compile-time configs</li>
+<li>Setup test configurations</li>
+<li>Run invariance tests</li>
+</ul>
+<p>All builds must pass verification.</p>
 </section>
 
 <section id="verification-tests" class="title-slide slide level1">
@@ -304,7 +311,7 @@ end program rounding</code></pre>
 gfortran -Ofast ...              # Sets -fno-protect-parens</code></pre>
 <p>Intel Fortran</p>
 <pre class="sh"><code>ifort -assume protect-parens     # Not default</code></pre>
-<p>Note: Language standard requires it! (J3/18-007r1, 10.1.5)</p>
+<p>Note: Ignoring parentheses is non-compliant! (J3/18-007r1, 10.1.5)</p>
 </section>
 
 <section id="parallel-summation" class="title-slide slide level1">
@@ -314,7 +321,7 @@ gfortran -Ofast ...              # Sets -fno-protect-parens</code></pre>
 <li><p>Enforce ordering:</p>
 <p><span class="math display">\[\sum{\phi} = (\phi_1 + (\phi_2 + ( \phi_3 + ... )))\]</span></p></li>
 <li><p>Fixed-precision arithmetic:</p>
-<p>TODO</p></li>
+<p><img data-src="img/fixedprec.svg" alt="image" /></p></li>
 </ol>
 <p>See hallberg &amp; adcroft</p>
 </section>
@@ -500,7 +507,7 @@ h-point: c=     62532 ocean_model_z-e
 <li>Are they honored?</li>
 <li>Am I preserving residuals?</li>
 </ol></li>
-<li>Use <code>reproducible_sum()</code>
+<li>Use <code>reproducing_sum()</code>
 <ol type="a">
 <li>Even better: Don't do global sums!</li>
 </ol></li>

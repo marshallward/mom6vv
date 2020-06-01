@@ -110,7 +110,19 @@ MOM6 Verification
 =================
 
 .. image:: img/mom_verify.svg
-   :width: 55%
+   :width: 35%
+   :class: float
+
+Verification is automatically submitted to a CI system (currently Travis)
+
+* Build all compile-time configs
+
+* Setup test configurations
+
+* Run invariance tests
+
+All builds must pass verification.
+
 
 
 Verification Tests
@@ -319,7 +331,7 @@ Intel Fortran
 
    ifort -assume protect-parens     # Not default
 
-Note: Language standard requires it!  (J3/18-007r1, 10.1.5)
+Note: Ignoring parentheses is non-compliant!  (J3/18-007r1, 10.1.5)
 
 
 .. Kahan summation
@@ -342,7 +354,8 @@ How to compute means or global sums?
 
 2. Fixed-precision arithmetic:
 
-   TODO
+
+   .. image:: img/fixedprec.svg
 
 See hallberg & adcroft
 
@@ -538,7 +551,7 @@ Development Guidelines
    a. Are they honored?
    b. Am I preserving residuals?
 
-2. Use ``reproducible_sum()``
+2. Use ``reproducing_sum()``
 
    a. Even better: Don't do global sums!
 

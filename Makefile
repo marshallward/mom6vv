@@ -31,6 +31,9 @@ index.html: slides.txt gfdl.revealjs reveal.js/css/theme/gfdl.css $(DOTFIGURES)
 img/%.svg: dot/%.dot
 	dot -Tsvg $^ > $@
 
+img/fixedprec.svg: dot/fixedprec.dot
+	dot -Tsvg:cairo $^ > $@
+
 clean:
 	rm -f index.html 
 	rm -f $(DOTFIGURES)
