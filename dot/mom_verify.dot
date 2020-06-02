@@ -12,6 +12,8 @@ digraph testing {
 
     submit [label = "Submit to CI\n(Travis)"]
 
+    codestyle [label = "Code Style Check"]
+
     build1 [label="Symmetric"];
     build2 [label="Asymmetric"];
     build3 [label="OpenMP"];
@@ -27,7 +29,8 @@ digraph testing {
 
     validate [label="Local validation"]
 
-    submit -> {build1, build2, build3}
+    submit -> codestyle
+    codestyle -> {build1, build2, build3}
     {build1, build2, build3} -> build_verify
     build_verify -> {test1, test2, test3, test4}
     {test1, test2, test3, test4} -> verify_results

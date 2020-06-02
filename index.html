@@ -45,8 +45,7 @@
     </header>
 
     <footer style="font-size: 1pc; position: absolute; bottom: 2%; left: 2%;">
-      <!--<code>https://marshallward.org/mom6vv/payucourse/index.html</code>-->
-      <code>index.html</code>
+      <code>https://marshallward.org/mom6vv</code>
     </footer>
 
     <div class="slides">
@@ -127,8 +126,8 @@
 <p><img data-src="img/mom_submit.svg" class="float float" style="width:20.0%" alt="image" /></p>
 <ul>
 <li>Fork from a community repository</li>
-<li>Apply any modifications</li>
-<li>Submit as Pull Request™</li>
+<li>Implement feature</li>
+<li>Submit as Pull Request™ (PR)</li>
 <li>Trigger V&amp;V events
 <ul>
 <li>Automated verification</li>
@@ -147,14 +146,13 @@
 <section>
 <section id="mom6-verification" class="title-slide slide level1">
 <h1>MOM6 Verification</h1>
-<p><img data-src="img/mom_verify.svg" class="float float" style="width:35.0%" alt="image" /></p>
 <p>Verification is automatically submitted to a CI (e.g. Travis)</p>
+<p><img data-src="img/mom_verify.svg" class="float float" style="width:50.0%" alt="image" /></p>
 <ul>
-<li>Build all compile-time configs</li>
-<li>Setup test configurations</li>
-<li>Run invariance tests</li>
+<li>Build configs</li>
+<li>Setup experiments</li>
+<li>Run tests</li>
 </ul>
-<p>All builds must pass verification.</p>
 </section>
 <section id="verification-tests" class="slide level2">
 <h2>Verification Tests</h2>
@@ -217,13 +215,18 @@
 
 <section id="mom6-validation" class="title-slide slide level1">
 <h1>MOM6 Validation</h1>
-<p><img data-src="img/mom_validate.svg" class="float float" style="width:50.0%" alt="image" /></p>
-<p>TODO</p>
-<ul>
-<li>Site-specific</li>
-<li>Gaea Pipeline</li>
-<li>Human validation</li>
-</ul>
+<p><img data-src="img/mom_validate.svg" style="width:80.0%" alt="image" /></p>
+<p>Over 60 tests, requiring five executables, and tested on three compilers</p>
+<aside class="notes">
+<p>This slide describes the GFDL validation process, but every center will customize its own validation process.</p>
+<p>The GFDL validation process is illustrated in this diagram.</p>
+<p>Only a subset of the tests are shown here, for the sake of space and readability.</p>
+<p>At least five different types of executables are required, describing different states of model coupling.</p>
+<p>All runs are tested on the GNU, Intel, and PGI compilers.</p>
+<p>After confirming that the code can be compiled in every case, we then run over sixty tests, times the number of compilers.</p>
+<p>Testing typically requires nearly a half hour over 30 compute nodes.</p>
+<p>Completion of this test ensures bit reproducibility of all very wide range of production runs which are considered essential to GFDL.</p>
+</aside>
 </section>
 
 <section id="hub-validation" class="title-slide slide level1">
@@ -235,15 +238,24 @@
 </section>
 
 <section id="bit-reproducibility" class="title-slide slide level1">
-<h1>Bit reproducibility</h1>
+<h1>Bit Reproducibility</h1>
 <p>Verification requires bit reproducibility</p>
 <figure>
 <video data-src="img/pilotwings_repro.mp4" controls=""><a href="img/pilotwings_repro.mp4"></a></video><figcaption>Identical code and input, different math libraries</figcaption>
 </figure>
+<aside class="notes">
+<p>This is two instances of the opening demo of the 1991 Super Nintendo game, "Pilotwings".</p>
+<p>In the initial release, the plane would make a graceful landing. But in a later version, the plan would crash spectacularly.</p>
+<p>People later inspected the data and discovered that the instruction code was identical. So what happenend?</p>
+<p>The cartridge included a mathematical coprocessor (NEC DSP-1) for its 3D calculations. The second iteration of the coprocessor (DSP-1b) reordered some of its arithmetic to improve the accuracy of various calculations.</p>
+<p>Unfortunately this also resulted in tiny course corrections in the flight, which eventually led to the demise of the biplane in the video.</p>
+<p>The moral of the story is that when working with limited precision, one must be very careful!</p>
+<p>(Confession: this was fixed-precision arithmetic, but it's basically the same problem.)</p>
+</aside>
 </section>
 
 <section id="floating-point-review" class="title-slide slide level1">
-<h1>Floating point review</h1>
+<h1>Floating Point Review</h1>
 <p><a href="https://commons.wikimedia.org/wiki/File:Float_example.svg"><img data-src="img/IEEE_754_Double_Floating_Point_Format.svg" alt="image" /></a></p>
 <p><span class="math display">\[(-1)^s \times 1.\{\text{frac}\}\times 2^{\{\text{exp}\}}\]</span></p>
 <ul>

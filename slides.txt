@@ -69,6 +69,7 @@ V&V in Development
 
 
 .. notes::
+
    All software development models rely on some form of verification or
    validation.
 
@@ -93,9 +94,9 @@ V&V in MOM6
 
 * Fork from a community repository
 
-* Apply any modifications
+* Implement feature
 
-* Submit as Pull Request™
+* Submit as Pull Request™ (PR)
 
 * Trigger V&V events
 
@@ -123,19 +124,19 @@ All contributions must pass verification and validation before merge.
 MOM6 Verification
 =================
 
-.. image:: img/mom_verify.svg
-   :width: 35%
-   :class: float
-
 Verification is automatically submitted to a CI (e.g. Travis)
 
-* Build all compile-time configs
+.. image:: img/mom_verify.svg
+   :width: 50%
+   :class: float
 
-* Setup test configurations
+* Build configs
 
-* Run invariance tests
+* Setup experiments
 
-All builds must pass verification.
+* Run tests
+
+.. All builds must pass verification.
 
 
 
@@ -178,16 +179,32 @@ MOM6 Validation
 ===============
 
 .. image:: img/mom_validate.svg
-   :width: 50%
-   :class: float
+   :width: 80%
 
-TODO
+Over 60 tests, requiring five executables, and tested on three compilers
 
-* Site-specific
+.. notes::
 
-* Gaea Pipeline
+   This slide describes the GFDL validation process, but every center will
+   customize its own validation process.
 
-* Human validation
+   The GFDL validation process is illustrated in this diagram.
+
+   Only a subset of the tests are shown here, for the sake of space and
+   readability.
+
+   At least five different types of executables are required, describing
+   different states of model coupling.
+
+   All runs are tested on the GNU, Intel, and PGI compilers.
+
+   After confirming that the code can be compiled in every case, we then run
+   over sixty tests, times the number of compilers.
+
+   Testing typically requires nearly a half hour over 30 compute nodes.
+
+   Completion of this test ensures bit reproducibility of all very wide range
+   of production runs which are considered essential to GFDL.
 
 
 Hub Validation
@@ -204,7 +221,7 @@ Local hub submits PR, and each hub validates the PR.
 Upon consensus, PR is merged into ``dev/master``.
 
 
-Bit reproducibility
+Bit Reproducibility
 ===================
 
 Verification requires bit reproducibility
@@ -214,8 +231,32 @@ Verification requires bit reproducibility
 
    Identical code and input, different math libraries
 
+.. notes::
 
-Floating point review
+   This is two instances of the opening demo of the 1991 Super Nintendo game,
+   "Pilotwings".
+
+   In the initial release, the plane would make a graceful landing.  But in a
+   later version, the plan would crash spectacularly.
+
+   People later inspected the data and discovered that the instruction code was
+   identical.  So what happenend?
+
+   The cartridge included a mathematical coprocessor (NEC DSP-1) for its 3D
+   calculations.  The second iteration of the coprocessor (DSP-1b) reordered
+   some of its arithmetic to improve the accuracy of various calculations.
+
+   Unfortunately this also resulted in tiny course corrections in the flight,
+   which eventually led to the demise of the biplane in the video.
+
+   The moral of the story is that when working with limited precision, one must
+   be very careful!
+
+   (Confession: this was fixed-precision arithmetic, but it's basically the
+   same problem.)
+
+
+Floating Point Review
 =====================
 
 .. image:: img/IEEE_754_Double_Floating_Point_Format.svg

@@ -22,6 +22,7 @@ digraph mom_pr {
         master -> fork [weight=0]
         fork -> feature
         feature -> v_and_v
+        v_and_v:w -> feature:w [style=dashed]
         v_and_v -> merged [weight=0]
     }
 }

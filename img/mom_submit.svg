@@ -47,7 +47,7 @@
 <text text-anchor="middle" x="108.6" y="-94.3" font-family="Helvetica,sans-Serif" font-size="14.00">V&amp;V</text>
 </g>
 <!-- v_and_v&#45;&gt;merged -->
-<g id="edge5" class="edge">
+<g id="edge6" class="edge">
 <title>v_and_v&#45;&gt;merged</title>
 <path fill="none" stroke="black" d="M89.22,-74.44C80.68,-64.5 70.64,-52.81 61.99,-42.74"/>
 <polygon fill="black" stroke="black" points="64.57,-40.38 55.4,-35.07 59.26,-44.94 64.57,-40.38"/>
@@ -57,6 +57,12 @@
 <title>feature</title>
 <ellipse fill="lightgrey" stroke="black" cx="108.6" cy="-178" rx="38.19" ry="18"/>
 <text text-anchor="middle" x="108.6" y="-174.3" font-family="Helvetica,sans-Serif" font-size="14.00">feature</text>
+</g>
+<!-- v_and_v&#45;&gt;feature -->
+<g id="edge5" class="edge">
+<title>v_and_v:w&#45;&gt;feature:w</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M68.6,-98C53.94,-98 51.37,-152.35 60.87,-171.45"/>
+<polygon fill="black" stroke="black" points="58.7,-174.21 68.6,-178 63.23,-168.87 58.7,-174.21"/>
 </g>
 <!-- fork&#45;&gt;feature -->
 <g id="edge3" class="edge">
