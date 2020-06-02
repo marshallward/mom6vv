@@ -147,12 +147,7 @@
 <section id="mom6-verification" class="title-slide slide level1">
 <h1>MOM6 Verification</h1>
 <p>Verification is automatically submitted to a CI (e.g. Travis)</p>
-<p><img data-src="img/mom_verify.svg" class="float float" style="width:50.0%" alt="image" /></p>
-<ul>
-<li>Build configs</li>
-<li>Setup experiments</li>
-<li>Run tests</li>
-</ul>
+<p><img data-src="img/mom_verify.svg" style="width:50.0%" alt="image" /></p>
 </section>
 <section id="verification-tests" class="slide level2">
 <h2>Verification Tests</h2>
@@ -216,7 +211,7 @@
 <section id="mom6-validation" class="title-slide slide level1">
 <h1>MOM6 Validation</h1>
 <p><img data-src="img/mom_validate.svg" style="width:80.0%" alt="image" /></p>
-<p>Over 60 tests, requiring five executables, and tested on three compilers</p>
+<p>Current validation includes over 60 tests</p>
 <aside class="notes">
 <p>This slide describes the GFDL validation process, but every center will customize its own validation process.</p>
 <p>The GFDL validation process is illustrated in this diagram.</p>
@@ -351,13 +346,12 @@ gfortran -Ofast ...              # Sets -fno-protect-parens</code></pre>
 
 <section id="parallel-summation" class="title-slide slide level1">
 <h1>Parallel summation</h1>
-<p>How to compute means or global sums?</p>
+<p>How to compute reproducible means or global sums?</p>
 <ol type="1">
-<li><p>Enforce ordering:</p>
+<li><p>Enforce ordering</p>
 <p><span class="math display">\[\sum{\phi} = (\phi_1 + (\phi_2 + ( \phi_3 + ... )))\]</span></p></li>
-<li><p>Fixed-precision arithmetic:</p>
-<p><img data-src="img/fixedprec.svg" alt="image" /></p>
-<p>Hallberg and Adcroft, Parallel Computing (2014)</p></li>
+<li><p>Fixed-precision arithmetic</p>
+<p><a href="https://doi.org/10.1016/j.parco.2014.04.007"><img data-src="img/fixedprec.svg" alt="image" /></a></p></li>
 </ol>
 </section>
 
@@ -365,7 +359,7 @@ gfortran -Ofast ...              # Sets -fno-protect-parens</code></pre>
 <h1>Associative Scaling</h1>
 <p>Recall the floating point format:</p>
 <p><span class="math display">\[\phi \equiv (-1)^s \times 2^M \times  (1 + \alpha)\]</span></p>
-<p>Power-of-two multiplication is associative, i.e.</p>
+<p>Power-of-two multiplication is associative:</p>
 <p><span class="math display">\[2^N \times \phi \times 2^{-N} \equiv \phi\]</span></p>
 </section>
 
@@ -373,10 +367,10 @@ gfortran -Ofast ...              # Sets -fno-protect-parens</code></pre>
 <h1>Dimension Scaling</h1>
 <p>Rescale quantities by dimensions should be invariant:</p>
 <p><span class="math display">\[\begin{aligned}
-u^{n+1} &amp;= u^{n} +  \Delta t \times \text{diffu} \\
+u^{n+1} &amp;= u^{n} +  \Delta t \times \mathcal{F} \\
 {\color{yellow}2^{L-T}} u^{n+1} &amp;= {\color{yellow}2^{L-T}} u^{n}
    + {\color{yellow}2^T} \Delta t
-   \times {\color{yellow}2^{L - 2T}} \text{diffu}
+   \times {\color{yellow}2^{L - 2T}} \mathcal{F}
 \end{aligned}\]</span></p>
 </section>
 
@@ -392,9 +386,9 @@ u^{n+1} &amp;= u^{n} +  \Delta t \times \text{diffu} \\
 </thead>
 <tbody>
 <tr class="odd">
-<td>m</td>
-<td>Z</td>
-<td>Vertical length</td>
+<td>s</td>
+<td>T</td>
+<td>Time</td>
 </tr>
 <tr class="even">
 <td>m</td>
@@ -402,16 +396,21 @@ u^{n+1} &amp;= u^{n} +  \Delta t \times \text{diffu} \\
 <td>Horizontal length</td>
 </tr>
 <tr class="odd">
-<td>s</td>
-<td>T</td>
-<td>Time</td>
+<td>m</td>
+<td>H</td>
+<td>Layer thickness</td>
 </tr>
 <tr class="even">
+<td>m</td>
+<td>Z</td>
+<td>Vertical length</td>
+</tr>
+<tr class="odd">
 <td>kg/m3</td>
 <td>R</td>
 <td>Density</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>J/kg</td>
 <td>Q</td>
 <td>Enthalpy</td>
@@ -426,7 +425,15 @@ u^{n+1} &amp;= u^{n} +  \Delta t \times \text{diffu} \\
 
 <section id="rotational-invariance" class="title-slide slide level1">
 <h1>Rotational Invariance</h1>
-<p>TODO</p>
+<table>
+<tbody>
+<tr class="odd">
+<td><img data-src="img/rotate_grid1.svg" style="width:70.0%" alt="image" /></td>
+<td><img data-src="img/rotate_grid2.svg" style="width:70.0%" alt="image" /></td>
+</tr>
+</tbody>
+</table>
+<p><img data-src="img/rotate_mem.svg" style="width:65.0%" alt="image" /></p>
 </section>
 
 <section id="invariant-stencils" class="title-slide slide level1">

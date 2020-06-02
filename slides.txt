@@ -128,16 +128,6 @@ Verification is automatically submitted to a CI (e.g. Travis)
 
 .. image:: img/mom_verify.svg
    :width: 50%
-   :class: float
-
-* Build configs
-
-* Setup experiments
-
-* Run tests
-
-.. All builds must pass verification.
-
 
 
 Verification Tests
@@ -181,7 +171,7 @@ MOM6 Validation
 .. image:: img/mom_validate.svg
    :width: 80%
 
-Over 60 tests, requiring five executables, and tested on three compilers
+Current validation includes over 60 tests
 
 .. notes::
 
@@ -427,19 +417,20 @@ Note: Ignoring parentheses is non-compliant!  (J3/18-007r1, 10.1.5)
 Parallel summation
 ==================
 
-How to compute means or global sums?
+How to compute reproducible means or global sums?
 
-1. Enforce ordering:
+1. Enforce ordering
 
    .. math::
 
       \sum{\phi} = (\phi_1 + (\phi_2 + ( \phi_3 + ... )))
 
-2. Fixed-precision arithmetic:
+2. Fixed-precision arithmetic
 
    .. image:: img/fixedprec.svg
+      :target: https://doi.org/10.1016/j.parco.2014.04.007
 
-   Hallberg and Adcroft, Parallel Computing (2014)
+.. Hallberg and Adcroft, Parallel Computing (2014)
 
 
 Associative Scaling
@@ -451,7 +442,7 @@ Recall the floating point format:
 
    \phi \equiv (-1)^s \times 2^M \times  (1 + \alpha)
 
-Power-of-two multiplication is associative, i.e.
+Power-of-two multiplication is associative:
 
 .. math::
 
@@ -465,10 +456,10 @@ Rescale quantities by dimensions should be invariant:
 
 .. math::
 
-   u^{n+1} &= u^{n} +  \Delta t \times \text{diffu} \\
+   u^{n+1} &= u^{n} +  \Delta t \times \mathcal{F} \\
    {\color{yellow}2^{L-T}} u^{n+1} &= {\color{yellow}2^{L-T}} u^{n}
       + {\color{yellow}2^T} \Delta t
-      \times {\color{yellow}2^{L - 2T}} \text{diffu}
+      \times {\color{yellow}2^{L - 2T}} \mathcal{F}
 
 
 Dimensional factors
@@ -477,9 +468,10 @@ Dimensional factors
 ===== =======  =================
 Unit  Scaling  Name
 ===== =======  =================
-m     Z        Vertical length
-m     L        Horizontal length
 s     T        Time
+m     L        Horizontal length
+m     H        Layer thickness
+m     Z        Vertical length
 kg/m3 R        Density
 J/kg  Q        Enthalpy
 ===== =======  =================
@@ -493,7 +485,16 @@ J/kg  Q        Enthalpy
 Rotational Invariance
 =====================
 
-TODO
+.. list-table::
+
+   * - .. image:: img/rotate_grid1.svg
+          :width: 70%
+
+     - .. image:: img/rotate_grid2.svg
+          :width: 70%
+
+.. image:: img/rotate_mem.svg
+          :width: 65%
 
 
 Invariant stencils
