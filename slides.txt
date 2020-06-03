@@ -461,7 +461,7 @@ Rescale quantities by dimensions should be invariant:
 
 
 Dimensional factors
-===================
+-------------------
 
 ===== =======  =================
 Unit  Scaling  Name
