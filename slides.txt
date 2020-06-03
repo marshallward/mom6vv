@@ -154,15 +154,13 @@ Each test requires bit reproducibility
 Tests in Action
 ===============
 
-(TODO: make this pretty)
+.. list-table::
 
-A successful test:
-
-   https://travis-ci.org/github/marshallward/MOM6/jobs/687171621
-
-A failed test:
-
-   https://travis-ci.org/github/marshallward/MOM6/jobs/687177632
+   * - .. image:: img/travis_pass.png
+          :target: https://travis-ci.org/github/marshallward/MOM6/jobs/687171621
+   
+     - .. image:: img/travis_fail.png
+          :target: https://travis-ci.org/github/marshallward/MOM6/jobs/687177632
 
 
 MOM6 Validation
@@ -485,6 +483,20 @@ J/kg  Q        Enthalpy
 Rotational Invariance
 =====================
 
+Solutions must be invariant to **index rotation**, e.g.:
+
+.. math::
+
+   \phi(i',j') = \phi(j, N-i)
+
+Both *fields* and *coordinates* are remapped.
+
+Note: :math:`u` and :math:`v` are velocities along :math:`i` and :math:`j`!
+
+
+Index Rotation
+==============
+
 .. list-table::
 
    * - .. image:: img/rotate_grid1.svg
@@ -495,6 +507,27 @@ Rotational Invariance
 
 .. image:: img/rotate_mem.svg
           :width: 65%
+
+
+.. notes::
+
+   I call it an "index rotation" here since there is no physical rotation of
+   the system here.
+
+   No physical rotation is ever applied to the system, neither the fields
+   themselves nor the coordinates. 
+
+
+
+
+   What is being rotated is the index map of the fields.
+
+
+
+   Everything here is rotated: the fields, the topographies, the forcings, even
+   the coordinates.  The net result is nothing is r
+
+
 
 
 Invariant stencils
@@ -529,7 +562,7 @@ Invariant stencils
 Rotational ordering
 ===================
 
-When all else fails, re-order the algorithm...
+When all else fails, reorder the algorithm:
 
 .. code:: fortran
 

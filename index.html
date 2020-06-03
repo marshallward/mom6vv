@@ -197,15 +197,14 @@
 </section></section>
 <section id="tests-in-action" class="title-slide slide level1">
 <h1>Tests in Action</h1>
-<p>(TODO: make this pretty)</p>
-<p>A successful test:</p>
-<blockquote>
-<p><a href="https://travis-ci.org/github/marshallward/MOM6/jobs/687171621">https://travis-ci.org/github/marshallward/MOM6/jobs/687171621</a></p>
-</blockquote>
-<p>A failed test:</p>
-<blockquote>
-<p><a href="https://travis-ci.org/github/marshallward/MOM6/jobs/687177632">https://travis-ci.org/github/marshallward/MOM6/jobs/687177632</a></p>
-</blockquote>
+<table>
+<tbody>
+<tr class="odd">
+<td><a href="https://travis-ci.org/github/marshallward/MOM6/jobs/687171621"><img data-src="img/travis_pass.png" alt="image" /></a></td>
+<td><a href="https://travis-ci.org/github/marshallward/MOM6/jobs/687177632"><img data-src="img/travis_fail.png" alt="image" /></a></td>
+</tr>
+</tbody>
+</table>
 </section>
 
 <section id="mom6-validation" class="title-slide slide level1">
@@ -425,6 +424,14 @@ u^{n+1} &amp;= u^{n} +  \Delta t \times \mathcal{F} \\
 
 <section id="rotational-invariance" class="title-slide slide level1">
 <h1>Rotational Invariance</h1>
+<p>Solutions must be invariant to <strong>index rotation</strong>, e.g.:</p>
+<p><span class="math display">\[\phi(i&#39;,j&#39;) = \phi(j, N-i)\]</span></p>
+<p>Both <em>fields</em> and <em>coordinates</em> are remapped.</p>
+<p>Note: <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> are velocities along <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>!</p>
+</section>
+
+<section id="index-rotation" class="title-slide slide level1">
+<h1>Index Rotation</h1>
 <table>
 <tbody>
 <tr class="odd">
@@ -434,6 +441,12 @@ u^{n+1} &amp;= u^{n} +  \Delta t \times \mathcal{F} \\
 </tbody>
 </table>
 <p><img data-src="img/rotate_mem.svg" style="width:65.0%" alt="image" /></p>
+<aside class="notes">
+<p>I call it an "index rotation" here since there is no physical rotation of the system here.</p>
+<p>No physical rotation is ever applied to the system, neither the fields themselves nor the coordinates.</p>
+<p>What is being rotated is the index map of the fields.</p>
+<p>Everything here is rotated: the fields, the topographies, the forcings, even the coordinates. The net result is nothing is r</p>
+</aside>
 </section>
 
 <section id="invariant-stencils" class="title-slide slide level1">
@@ -461,7 +474,7 @@ u^{n+1} &amp;= u^{n} +  \Delta t \times \mathcal{F} \\
 
 <section id="rotational-ordering" class="title-slide slide level1">
 <h1>Rotational ordering</h1>
-<p>When all else fails, re-order the algorithm...</p>
+<p>When all else fails, reorder the algorithm:</p>
 <pre class="fortran"><code>subroutine advect_tracer(...)
    ! ...
    x_first = modulo(turns, 2) == 1
