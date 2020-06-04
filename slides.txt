@@ -1,4 +1,4 @@
-===================================
+\==================================
 Verification and Validation of MOM6
 ===================================
 
@@ -158,7 +158,7 @@ Tests in Action
 
    * - .. image:: img/travis_pass.png
           :target: https://travis-ci.org/github/marshallward/MOM6/jobs/687171621
-   
+
      - .. image:: img/travis_fail.png
           :target: https://travis-ci.org/github/marshallward/MOM6/jobs/687177632
 
@@ -200,13 +200,14 @@ Hub Validation
 
 .. image:: img/gitrepos.svg
    :width: 50%
-   :class: float
 
-Local contributions accumulate over time, becoming a ``dev/master`` PR.
+.. notes::
 
-Local hub submits PR, and each hub validates the PR.
+   Local contributions accumulate over time, becoming a ``dev/master`` PR.
 
-Upon consensus, PR is merged into ``dev/master``.
+   Local hub submits PR, and each hub validates the PR.
+
+   Upon consensus, PR is merged into ``dev/master``.
 
 
 Solution verification
@@ -515,7 +516,7 @@ Associative Scaling
 
 Recall the floating point format
 
-.. math:: 
+.. math::
 
    \phi \equiv (-1)^{\color{yellow}s} \times 2^{\color{yellow}M}
       \times (1 + {\color{yellow}\alpha})
@@ -555,9 +556,47 @@ J/kg  Q        Enthalpy
 ===== =======  =================
 
 .. notes::
+
    The currently tracked units are shown in this table.
 
-   Enthalpy is the fundamental 
+
+Defining Dimensions
+===================
+
+Input parameters
+
+.. code::
+
+   call get_param(... , "DT", ... , scale=US%s_to_T)
+
+Explicit constants
+
+.. code:: fortran
+
+   eps_vel = 1.0e-10 * US%m_s_to_L_T
+   ustar = 0.01 * US%m_to_Z * US%T_to_s
+
+Diagnostic registration
+
+.. code::
+
+   call register_diag_field(..., "u", ... , conversion=US%L_T_to_m_s)
+
+
+.. notes::
+
+   The intention is that all variables will be immediately converted from MKS
+   to rescaled units, and manipulated in rescaled form, and then converted back
+   to MKS on output (typically as diagnostic).
+
+   The exception is any hard-coded dimensional constants, such as a minimum
+   threshold velocity or perhaps a ustar in some mixing algorithm.
+
+   For the most part, Bob has completed this work, and all equations are being
+   tested for dimensional consistency.
+
+   But if for some reason something has not been scaled, it is possible to
+   rescale and descale any intermediate variables.
 
 
 Rotational Invariance
@@ -572,6 +611,8 @@ Solutions must be invariant to **index rotation**, e.g.:
 Both *fields* and *coordinates* are remapped.
 
 Note: :math:`u` and :math:`v` are velocities along :math:`i` and :math:`j`!
+
+Stencils are not rotated!
 
 
 Index Rotation
@@ -595,7 +636,7 @@ Index Rotation
    the system here.
 
    No physical rotation is ever applied to the system, neither the fields
-   themselves nor the coordinates. 
+   themselves nor the coordinates.
 
 
 
@@ -625,7 +666,7 @@ Invariant stencils
      - :math:`\frac{1}{4} ( (\phi_A + \phi_B) + (\phi_C + \phi_D) )`
 
    * - .. image:: img/stencil2.svg
-       
+
      - :math:`\frac{1}{4} ( (\phi_A + \phi_D) + (\phi_B + \phi_C) )`
 
 .. notes::
@@ -674,7 +715,7 @@ TODO?
 
 .. Test build configuration
    ========================
-   
+
    * GCC Fortran 9.x
    * Full warnings
       * Permit float inequality with zero
@@ -685,11 +726,11 @@ TODO?
 
 .. And the future
    ==============
-   
+
    * Cyclomatic (McCabe) complexity
-   
+
    * AST analyzer
-   
+
    * Fortran lint tools (flint??)
 
 
@@ -796,4 +837,6 @@ Development Guidelines
 
    a. Even better: Don't do global sums!
 
-3. Use rotationally invariant stencils
+3. Register dimensions
+
+4. Use rotationally invariant stencils

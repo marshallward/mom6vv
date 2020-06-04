@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <title>Verification and Validation of MOM6</title>
+  <title>slides</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -50,22 +50,26 @@
 
     <div class="slides">
 
-<section id="title-slide">
-  <!--div class="reveal" style="text-align: right;">
-    <img src="img/noaa_logo.png"
-         style="background: none; border: none; box-shadow: none;
-         width: 30%"
-         alt="NCI">
-  </div-->
-  <h1 class="title">Verification and Validation of MOM6</h1>
-  <p class="author" style="text-align: right;"><ul>
+
+<section class="slide level2">
+
+<p>================================== Verification and Validation of MOM6 ===================================</p>
+<dl>
+<dt>authors</dt>
+<dd><ul>
 <li>Alistair Adcroft</li>
 <li>Robert Hallberg</li>
 <li><strong>Marshall Ward</strong></li>
-</ul></p>
-  <p class="date" style="text-align: right;">2020 June 8</p>
+</ul>
+</dd>
+<dt>description</dt>
+<dd><p>An overview of the MOM6 testing framework</p>
+</dd>
+<dt>date</dt>
+<dd><p>2020 June 8</p>
+</dd>
+</dl>
 </section>
-
 <section class="slide level2">
 
 <p><strong>Verification</strong></p>
@@ -225,10 +229,12 @@
 
 <section id="hub-validation" class="title-slide slide level1">
 <h1>Hub Validation</h1>
-<p><img data-src="img/gitrepos.svg" class="float float" style="width:50.0%" alt="image" /></p>
+<p><img data-src="img/gitrepos.svg" style="width:50.0%" alt="image" /></p>
+<aside class="notes">
 <p>Local contributions accumulate over time, becoming a <code>dev/master</code> PR.</p>
 <p>Local hub submits PR, and each hub validates the PR.</p>
 <p>Upon consensus, PR is merged into <code>dev/master</code>.</p>
+</aside>
 </section>
 
 <section id="solution-verification" class="title-slide slide level1">
@@ -483,15 +489,32 @@ u^{n+1} &amp;= u^{n} +  \Delta t \times \mathcal{F} \\
 </table>
 <aside class="notes">
 <p>The currently tracked units are shown in this table.</p>
-<p>Enthalpy is the fundamental</p>
 </aside>
 </section></section>
+<section id="defining-dimensions" class="title-slide slide level1">
+<h1>Defining Dimensions</h1>
+<p>Input parameters</p>
+<pre class=""><code>call get_param(... , &quot;DT&quot;, ... , scale=US%s_to_T)</code></pre>
+<p>Explicit constants</p>
+<pre class="fortran"><code>eps_vel = 1.0e-10 * US%m_s_to_L_T
+ustar = 0.01 * US%m_to_Z * US%T_to_s</code></pre>
+<p>Diagnostic registration</p>
+<pre class=""><code>call register_diag_field(..., &quot;u&quot;, ... , conversion=US%L_T_to_m_s)</code></pre>
+<aside class="notes">
+<p>The intention is that all variables will be immediately converted from MKS to rescaled units, and manipulated in rescaled form, and then converted back to MKS on output (typically as diagnostic).</p>
+<p>The exception is any hard-coded dimensional constants, such as a minimum threshold velocity or perhaps a ustar in some mixing algorithm.</p>
+<p>For the most part, Bob has completed this work, and all equations are being tested for dimensional consistency.</p>
+<p>But if for some reason something has not been scaled, it is possible to rescale and descale any intermediate variables.</p>
+</aside>
+</section>
+
 <section id="rotational-invariance" class="title-slide slide level1">
 <h1>Rotational Invariance</h1>
 <p>Solutions must be invariant to <strong>index rotation</strong>, e.g.:</p>
 <p><span class="math display">\[\phi(i&#39;,j&#39;) = \phi(j, N-i)\]</span></p>
 <p>Both <em>fields</em> and <em>coordinates</em> are remapped.</p>
 <p>Note: <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> are velocities along <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>!</p>
+<p>Stencils are not rotated!</p>
 </section>
 
 <section id="index-rotation" class="title-slide slide level1">
@@ -515,7 +538,7 @@ u^{n+1} &amp;= u^{n} +  \Delta t \times \mathcal{F} \\
 
 <section id="invariant-stencils" class="title-slide slide level1">
 <h1>Invariant stencils</h1>
-<p><span class="math inline">\(\phi^{(c)}_{i,j} = \frac{1}{4} (\phi_a + \phi_b + \phi_c + \phi_d)\)</span></p>
+<p><span class="math inline">\(\phi^{(c)}_{i,j} = \frac{1}{4} (\phi_A + \phi_B + \phi_C + \phi_D)\)</span></p>
 <p><img data-src="img/stencil.svg" class="float float" alt="image" /></p>
 <table>
 <tbody>
@@ -623,6 +646,7 @@ enddo ; enddo</code></pre>
 <ol type="a">
 <li>Even better: Don't do global sums!</li>
 </ol></li>
+<li>Register dimensions</li>
 <li>Use rotationally invariant stencils</li>
 </ol>
 </section>
