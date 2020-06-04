@@ -11,13 +11,13 @@
 <!-- 11 -->
 <g id="node1" class="node">
 <title>11</title>
-<ellipse fill="red" stroke="black" cx="72" cy="-162" rx="18" ry="18"/>
+<ellipse fill="#e41a1c" stroke="black" cx="72" cy="-162" rx="18" ry="18"/>
 <text text-anchor="middle" x="72" y="-158.3" font-family="Helvetica,sans-Serif" font-size="14.00" fill="white">A</text>
 </g>
 <!-- 12 -->
 <g id="node2" class="node">
 <title>12</title>
-<ellipse fill="blue" stroke="black" cx="126" cy="-162" rx="18" ry="18"/>
+<ellipse fill="#4daf4a" stroke="black" cx="126" cy="-162" rx="18" ry="18"/>
 <text text-anchor="middle" x="126" y="-158.3" font-family="Helvetica,sans-Serif" font-size="14.00" fill="white">B</text>
 </g>
 <!-- 11&#45;&#45;12 -->
@@ -28,7 +28,7 @@
 <!-- 21 -->
 <g id="node3" class="node">
 <title>21</title>
-<ellipse fill="green" stroke="black" cx="72" cy="-90" rx="18" ry="18"/>
+<ellipse fill="#984ea3" stroke="black" cx="72" cy="-90" rx="18" ry="18"/>
 <text text-anchor="middle" x="72" y="-86.3" font-family="Helvetica,sans-Serif" font-size="14.00" fill="white">C</text>
 </g>
 <!-- 11&#45;&#45;21 -->
@@ -39,7 +39,7 @@
 <!-- 22 -->
 <g id="node4" class="node">
 <title>22</title>
-<ellipse fill="black" stroke="black" cx="126" cy="-90" rx="18" ry="18"/>
+<ellipse fill="#ff7f00" stroke="black" cx="126" cy="-90" rx="18" ry="18"/>
 <text text-anchor="middle" x="126" y="-86.3" font-family="Helvetica,sans-Serif" font-size="14.00" fill="white">D</text>
 </g>
 <!-- 12&#45;&#45;22 -->

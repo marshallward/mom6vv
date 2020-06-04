@@ -6,13 +6,19 @@ graph stencil {
         fillcolor = white
         fontname = helvetica
         fontcolor = white
+        colorscheme = set15
     ]
     bgcolor = transparent
 
-    11 [label="A", fillcolor=red]
-    12 [label="B", fillcolor=blue]
-    21 [label="C", fillcolor=green]
-    22 [label="D", fillcolor=black]
+    //11 [label="A", fillcolor=red]
+    //12 [label="B", fillcolor=blue]
+    //21 [label="C", fillcolor=green]
+    //22 [label="D", fillcolor=black]
+
+    11 [label="A", fillcolor=1]
+    12 [label="B", fillcolor=3]
+    21 [label="C", fillcolor=4]
+    22 [label="D", fillcolor=5]
 
     //{node[shape=none]
     //    00; 01; 02; 03

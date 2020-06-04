@@ -231,6 +231,55 @@
 <p>Upon consensus, PR is merged into <code>dev/master</code>.</p>
 </section>
 
+<section id="solution-verification" class="title-slide slide level1">
+<h1>Solution verification</h1>
+<p><code>ocean.stats</code>:</p>
+<pre><code>Step,       Day,  Truncs,      Energy/Mass,      Maximum CFL,  Mean Sea Level,  Total Mass,  Mean Salin, Mean Temp, Frac Mass Err,   Salin Err,    Temp Err
+          [days]                 [m2 s-2]           [Nondim]       [m]             [kg]         [PSU]      [degC]       [Nondim]        [PSU]        [degC]
+   0,       0.000,     0, En 7.2161166068132286E-27, CFL  0.00000, SL  1.8190E-12, M 1.39637E+20, S 35.0000, T 13.3483, Me  0.00E+00, Se  0.00E+00, Te  0.00E+00
+  12,       0.500,     0, En 2.7781004671136538E-04, CFL  0.00011, SL  1.1369E-12, M 1.39637E+20, S 35.0000, T 13.3484, Me -6.09E-17, Se -3.90E-15, Te -1.17E-15
+  24,       1.000,     0, En 2.7734897826598717E-04, CFL  0.00014, SL  1.8190E-12, M 1.39637E+20, S 35.0000, T 13.3486, Me  2.89E-17, Se  8.80E-17, Te -2.88E-16</code></pre>
+<p>Based on global metrics (energy, mass, etc)</p>
+</section>
+
+<section id="diagnostic-verification" class="title-slide slide level1">
+<h1>Diagnostic verification</h1>
+<p><code>chksum_diag</code>:</p>
+<pre><code>u-point: mean=   1.1239682303793666E-04 min=  -6.7187595818683776E-03 max=   3.3480219779204019E-02 ocean_model-u
+u-point: c=     21851 ocean_model-u
+ column: mean=   1.2142284359736260E-04 min=  -3.3825897670462635E-06 max=   7.9266878285473325E-04 ocean_model-u_xyave
+ column: c=       276 ocean_model-u_xyave
+u-point: mean=   3.6442721276962604E-04 min=  -6.7187595818683776E-03 max=   3.3480219779204019E-02 ocean_model_z-u
+u-point: c=     84323 ocean_model_z-u
+ column: mean=   3.7252883050797810E-04 min=  -2.3761877018668929E-05 max=   7.9266878285473325E-04 ocean_model_z-u_xyave
+ column: c=      1098 ocean_model_z-u_xyave
+v-point: mean=   1.2076392816784489E-03 min=  -8.3469699425156359E-03 max=   6.8420831486068704E-03 ocean_model-v
+v-point: c=     18606 ocean_model-v
+ column: mean=   1.6305167686279899E-03 min=   1.3060287257008845E-03 max=   1.7892395238934757E-03 ocean_model-v_xyave
+ column: c=       275 ocean_model-v_xyave
+v-point: mean=   1.4290723910598869E-03 min=  -8.3469699425156359E-03 max=   6.8420831486068704E-03 ocean_model_z-v
+v-point: c=     72299 ocean_model_z-v
+ column: mean=   1.7194255440632058E-03 min=   1.3060344422280463E-03 max=   1.7948242423318677E-03 ocean_model_z-v_xyave
+ column: c=      1115 ocean_model_z-v_xyave
+h-point: mean=   3.6490088139048595E+02 min=   9.9999999999999915E-04 max=   5.6265092225099863E+02 ocean_model-h
+h-point: c=     18673 ocean_model-h
+ column: mean=   3.6810471584836824E+02 min=   1.2203636793942378E+02 max=   5.6250059062408047E+02 ocean_model-h_xyave
+ column: c=       218 ocean_model-h_xyave
+h-point: mean=   9.4167969391093152E+01 min=   0.0000000000000000E+00 max=   5.0005664888815596E+02 ocean_model_z-h
+h-point: c=     63170 ocean_model_z-h
+ column: mean=   1.3164426874862630E+02 min=   5.0000065780216882E+00 max=   5.0000001162626262E+02 ocean_model_z-h_xyave
+ column: c=       847 ocean_model_z-h_xyave
+h-point: mean=  -1.7380330739934577E+03 min=  -4.4154552337742143E+03 max=   4.2186301382082547E-01 ocean_model-e
+h-point: c=     20756 ocean_model-e
+ column: mean=  -1.7489127457746706E+03 min=  -2.9448377267869464E+03 max=  -2.5739527589596594E-13 ocean_model-e_xyave
+ column: c=       250 ocean_model-e_xyave
+h-point: mean=  -7.3645997170533087E+02 min=  -4.4154552337742143E+03 max=   4.2186301382082547E-01 ocean_model_z-e
+h-point: c=     62532 ocean_model_z-e
+ column: mean=  -7.4335128058531780E+02 min=  -2.0367396644260416E+03 max=  -2.5739527589596594E-13 ocean_model_z-e_xyave
+ column: c=       830 ocean_model_z-e_xyave</code></pre>
+<p>Min, max, mean, bitcount for every diagnostic</p>
+</section>
+
 <section id="bit-reproducibility" class="title-slide slide level1">
 <h1>Bit Reproducibility</h1>
 <p>Verification requires bit reproducibility</p>
@@ -343,29 +392,45 @@ gfortran -Ofast ...              # Sets -fno-protect-parens</code></pre>
 <p>Note: Ignoring parentheses is non-compliant! (J3/18-007r1, 10.1.5)</p>
 </section>
 
+<section id="division-performance" class="title-slide slide level1">
+<h1>Division Performance</h1>
+<p>Minimize division operations:</p>
+<pre class="fortran"><code>x = a / b / c           ! Bad
+x = a / (b * c)         ! Good
+
+y = 1. / (1. + 1./c)    ! Bad
+y = c / (c + 1.)        ! Good</code></pre>
+<p>Store common divisions:</p>
+<pre class="fortran"><code>I_dx = 1.0 / dx
+dudx = I_dx * (u(i+1) - u(i))
+dvdx = I_dx * (v(i+1) - v(i))</code></pre>
+<p>Divisions are slower and more unpredictable</p>
+</section>
+
 <section id="parallel-summation" class="title-slide slide level1">
 <h1>Parallel summation</h1>
 <p>How to compute reproducible means or global sums?</p>
-<ol type="1">
+<ul>
 <li><p>Enforce ordering</p>
 <p><span class="math display">\[\sum{\phi} = (\phi_1 + (\phi_2 + ( \phi_3 + ... )))\]</span></p></li>
 <li><p>Fixed-precision arithmetic</p>
 <p><a href="https://doi.org/10.1016/j.parco.2014.04.007"><img data-src="img/fixedprec.svg" alt="image" /></a></p></li>
-</ol>
+</ul>
 </section>
 
 <section id="associative-scaling" class="title-slide slide level1">
 <h1>Associative Scaling</h1>
-<p>Recall the floating point format:</p>
-<p><span class="math display">\[\phi \equiv (-1)^s \times 2^M \times  (1 + \alpha)\]</span></p>
-<p>Power-of-two multiplication is associative:</p>
+<p>Recall the floating point format</p>
+<p><span class="math display">\[\phi \equiv (-1)^{\color{yellow}s} \times 2^{\color{yellow}M}
+   \times (1 + {\color{yellow}\alpha})\]</span></p>
+<p>Power-of-two multiplication is associative</p>
 <p><span class="math display">\[2^N \times \phi \times 2^{-N} \equiv \phi\]</span></p>
 </section>
 
 <section>
 <section id="dimension-scaling" class="title-slide slide level1">
 <h1>Dimension Scaling</h1>
-<p>Rescale quantities by dimensions should be invariant:</p>
+<p>Fields rescaled by dimensions should be invariant</p>
 <p><span class="math display">\[\begin{aligned}
 u^{n+1} &amp;= u^{n} +  \Delta t \times \mathcal{F} \\
 {\color{yellow}2^{L-T}} u^{n+1} &amp;= {\color{yellow}2^{L-T}} u^{n}
@@ -490,55 +555,6 @@ end subroutine advect_tracer</code></pre>
 <section id="negative-zero" class="title-slide slide level1">
 <h1>Negative zero?</h1>
 <p>TODO?</p>
-</section>
-
-<section id="solution-verification" class="title-slide slide level1">
-<h1>Solution verification</h1>
-<p><code>ocean.stats</code>:</p>
-<pre><code>Step,       Day,  Truncs,      Energy/Mass,      Maximum CFL,  Mean Sea Level,  Total Mass,  Mean Salin, Mean Temp, Frac Mass Err,   Salin Err,    Temp Err
-          [days]                 [m2 s-2]           [Nondim]       [m]             [kg]         [PSU]      [degC]       [Nondim]        [PSU]        [degC]
-   0,       0.000,     0, En 7.2161166068132286E-27, CFL  0.00000, SL  1.8190E-12, M 1.39637E+20, S 35.0000, T 13.3483, Me  0.00E+00, Se  0.00E+00, Te  0.00E+00
-  12,       0.500,     0, En 2.7781004671136538E-04, CFL  0.00011, SL  1.1369E-12, M 1.39637E+20, S 35.0000, T 13.3484, Me -6.09E-17, Se -3.90E-15, Te -1.17E-15
-  24,       1.000,     0, En 2.7734897826598717E-04, CFL  0.00014, SL  1.8190E-12, M 1.39637E+20, S 35.0000, T 13.3486, Me  2.89E-17, Se  8.80E-17, Te -2.88E-16</code></pre>
-<p>Solution regressions are detected in total energy, mass, etc.</p>
-</section>
-
-<section id="diagnostic-verification" class="title-slide slide level1">
-<h1>Diagnostic verification</h1>
-<p><code>chksum_diag</code>:</p>
-<pre><code>u-point: mean=   1.1239682303793666E-04 min=  -6.7187595818683776E-03 max=   3.3480219779204019E-02 ocean_model-u
-u-point: c=     21851 ocean_model-u
- column: mean=   1.2142284359736260E-04 min=  -3.3825897670462635E-06 max=   7.9266878285473325E-04 ocean_model-u_xyave
- column: c=       276 ocean_model-u_xyave
-u-point: mean=   3.6442721276962604E-04 min=  -6.7187595818683776E-03 max=   3.3480219779204019E-02 ocean_model_z-u
-u-point: c=     84323 ocean_model_z-u
- column: mean=   3.7252883050797810E-04 min=  -2.3761877018668929E-05 max=   7.9266878285473325E-04 ocean_model_z-u_xyave
- column: c=      1098 ocean_model_z-u_xyave
-v-point: mean=   1.2076392816784489E-03 min=  -8.3469699425156359E-03 max=   6.8420831486068704E-03 ocean_model-v
-v-point: c=     18606 ocean_model-v
- column: mean=   1.6305167686279899E-03 min=   1.3060287257008845E-03 max=   1.7892395238934757E-03 ocean_model-v_xyave
- column: c=       275 ocean_model-v_xyave
-v-point: mean=   1.4290723910598869E-03 min=  -8.3469699425156359E-03 max=   6.8420831486068704E-03 ocean_model_z-v
-v-point: c=     72299 ocean_model_z-v
- column: mean=   1.7194255440632058E-03 min=   1.3060344422280463E-03 max=   1.7948242423318677E-03 ocean_model_z-v_xyave
- column: c=      1115 ocean_model_z-v_xyave
-h-point: mean=   3.6490088139048595E+02 min=   9.9999999999999915E-04 max=   5.6265092225099863E+02 ocean_model-h
-h-point: c=     18673 ocean_model-h
- column: mean=   3.6810471584836824E+02 min=   1.2203636793942378E+02 max=   5.6250059062408047E+02 ocean_model-h_xyave
- column: c=       218 ocean_model-h_xyave
-h-point: mean=   9.4167969391093152E+01 min=   0.0000000000000000E+00 max=   5.0005664888815596E+02 ocean_model_z-h
-h-point: c=     63170 ocean_model_z-h
- column: mean=   1.3164426874862630E+02 min=   5.0000065780216882E+00 max=   5.0000001162626262E+02 ocean_model_z-h_xyave
- column: c=       847 ocean_model_z-h_xyave
-h-point: mean=  -1.7380330739934577E+03 min=  -4.4154552337742143E+03 max=   4.2186301382082547E-01 ocean_model-e
-h-point: c=     20756 ocean_model-e
- column: mean=  -1.7489127457746706E+03 min=  -2.9448377267869464E+03 max=  -2.5739527589596594E-13 ocean_model-e_xyave
- column: c=       250 ocean_model-e_xyave
-h-point: mean=  -7.3645997170533087E+02 min=  -4.4154552337742143E+03 max=   4.2186301382082547E-01 ocean_model_z-e
-h-point: c=     62532 ocean_model_z-e
- column: mean=  -7.4335128058531780E+02 min=  -2.0367396644260416E+03 max=  -2.5739527589596594E-13 ocean_model_z-e_xyave
- column: c=       830 ocean_model_z-e_xyave</code></pre>
-<p>Record min, max, mean, and bitcount for every diagnostic.</p>
 </section>
 
 <section>
