@@ -512,6 +512,22 @@ ustar = 0.01 * US%m_to_Z * US%T_to_s</code></pre>
 <p>Note: <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> are velocities along <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>!</p>
 </section>
 
+<section id="rotational-consistency" class="title-slide slide level1">
+<h1>Rotational Consistency</h1>
+<pre class="fortran"><code>beta_topo_x = -CS%MEKE_topographic_beta * FatH * 0.5 * ( &amp;
+              (G%bathyT(i+1,j)-G%bathyT(i,j)) * G%IdxCu(I,j)  &amp;
+          / max(G%bathyT(i+1,j),G%bathyT(i,j), GV%H_subroundoff) &amp;
+      +       (G%bathyT(i,j)-G%bathyT(i-1,j)) * G%IdxCu(I-1,j) &amp;
+          / max(G%bathyT(i,j),G%bathyT(i-1,j), GV%H_subroundoff) )
+
+beta_topo_y = -CS%MEKE_topographic_beta * FatH * 0.5 * ( &amp;
+              (G%bathyT(i,j+1)-G%bathyT(i,j)) * G%IdyCv(i,J)  &amp;
+          / max(G%bathyT(i,j+1),G%bathyT(i,j), GV%H_subroundoff) + &amp;
+              (G%bathyT(i,j)-G%bathyT(i,j-1)) * G%IdyCv(i,J-1) &amp;
+          / max(G%bathyT(i,j),G%bathyT(i,j-1), GV%H_subroundoff) )</code></pre>
+<p>Index rotation ensures directional consistency</p>
+</section>
+
 <section id="index-rotation" class="title-slide slide level1">
 <h1>Index Rotation</h1>
 <table>
