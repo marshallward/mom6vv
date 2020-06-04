@@ -612,8 +612,6 @@ Both *fields* and *coordinates* are remapped.
 
 Note: :math:`u` and :math:`v` are velocities along :math:`i` and :math:`j`!
 
-Stencils are not rotated!
-
 
 Index Rotation
 ==============
