@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <title>slides</title>
+  <title>Verification and Validation of MOM6</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -50,26 +50,22 @@
 
     <div class="slides">
 
-
-<section class="slide level2">
-
-<p>================================== Verification and Validation of MOM6 ===================================</p>
-<dl>
-<dt>authors</dt>
-<dd><ul>
+<section id="title-slide">
+  <!--div class="reveal" style="text-align: right;">
+    <img src="img/noaa_logo.png"
+         style="background: none; border: none; box-shadow: none;
+         width: 30%"
+         alt="NCI">
+  </div-->
+  <h1 class="title">Verification and Validation of MOM6</h1>
+  <p class="author" style="text-align: right;"><ul>
 <li>Alistair Adcroft</li>
 <li>Robert Hallberg</li>
 <li><strong>Marshall Ward</strong></li>
-</ul>
-</dd>
-<dt>description</dt>
-<dd><p>An overview of the MOM6 testing framework</p>
-</dd>
-<dt>date</dt>
-<dd><p>2020 June 8</p>
-</dd>
-</dl>
+</ul></p>
+  <p class="date" style="text-align: right;">2020 June 8</p>
 </section>
+
 <section class="slide level2">
 
 <p><strong>Verification</strong></p>
@@ -514,7 +510,6 @@ ustar = 0.01 * US%m_to_Z * US%T_to_s</code></pre>
 <p><span class="math display">\[\phi(i&#39;,j&#39;) = \phi(j, N-i)\]</span></p>
 <p>Both <em>fields</em> and <em>coordinates</em> are remapped.</p>
 <p>Note: <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> are velocities along <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>!</p>
-<p>Stencils are not rotated!</p>
 </section>
 
 <section id="index-rotation" class="title-slide slide level1">
