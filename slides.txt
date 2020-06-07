@@ -9,6 +9,24 @@ Verification and Validation of MOM6
 :description: An overview of the MOM6 testing framework
 :date: 2020 June 8
 
+.. notes::
+
+   As the community around MOM6 becomes more developed, the code will start to
+   branch out in new and unexpected directions - which is a very good thing -
+   but with that will come more potential mistakes.
+
+   And for every bug that gets fixed, we could easily end up introducing two
+   more.
+
+   All of this puts a greater emphasis on the testing and quality control of
+   the code.
+
+   Now no one can even know if a code is "right", but there are ways to at
+   least assure that it's doing what we expect.
+
+   In a lot of software engineering models, they introduce the concepts of
+   *verification* and *validation* when describing the testing of software.
+
 
 ----
 
@@ -21,6 +39,12 @@ Verification and Validation of MOM6
    Am I building the right product?
 
 Barry Boehm, *Software Risk Management* (1989)
+
+.. notes::
+
+   Now I don't think one would be faulted for thinking that these are pretty
+   much the same thing, but CS professor Barry Boehm has a pretty pithy way of
+   distinguishing the two.
 
 
 Verification
@@ -124,10 +148,10 @@ All contributions must pass verification and validation before merge.
 MOM6 Verification
 =================
 
-Verification is automatically submitted to a CI (e.g. Travis)
-
 .. image:: img/mom_verify.svg
    :width: 50%
+
+All changes sent to CI (Travis) for verification
 
 
 Verification Tests
@@ -718,10 +742,10 @@ When all else fails, reorder the algorithm:
    end subroutine advect_tracer
 
 
-Negative zero?
-==============
+.. Negative zero?
+   ==============
 
-TODO?
+   TODO?
 
 
 .. other info to mention:
