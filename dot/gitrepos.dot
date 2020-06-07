@@ -1,13 +1,9 @@
 digraph GitRepos {
     node [
         shape = circle,
-        color = white,
         style = filled,
         fontcolor = white
         fontname = helvetica
-    ]
-    edge [
-        color = white,
     ]
 
     ncep [
