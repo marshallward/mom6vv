@@ -71,7 +71,10 @@ What are the *design specifications* of my model?
 
 .. notes::
 
-   These are very concrete and specific criteria which guide our 
+   These are very concrete and specific criteria which guide our development,
+   and can be independently confirmed.
+
+   These are most useful if they can be verified during development.
 
 
 Validation
@@ -97,13 +100,13 @@ Does our model meet operational needs?
 
    In a way, it separates the mechanics from the theoretical analysis.
 
-      - A strong verification system can let us declare with great confidence
-        that our code is free of dumb bugs, that our stencils are correct, and
-        that we are getting the microphysics right.
+   -  A strong verification system can let us declare with great confidence
+      that our code is free of dumb bugs, that our stencils are correct, and
+      that we are getting the microphysics right.
 
-      - A strong validation system is the assessment process, where we produce
-        output in a careful, controlled, and *reproducible* manner, and can
-        confidently declare that the model output is what we say it is.
+   -  A strong validation system is the assessment process, where we produce
+      output in a careful, controlled, and *reproducible* manner, and can
+      confidently declare that the model output is what we say it is.
 
    Looking past semantics, I think this are clear and independent concepts, and
    they map well onto the climate model development process.
@@ -173,6 +176,10 @@ V&V in MOM6
 All contributions must pass verification and validation before merge.
 
 .. notes::
+
+   It's probably been at least a decade since scientists have been encouraged
+   to burn their CVS directories and switch to git for code management, but the
+   figure here illustrates the basic lifecycle of a contribution.
 
    A contributer first creates a fork of the active development branch, say
    ``dev/gfdl``.

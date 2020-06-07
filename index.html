@@ -94,7 +94,8 @@
 </ul>
 <p><em>Verification is the confirmation of design specifications.</em></p>
 <aside class="notes">
-<p>These are very concrete and specific criteria which guide our</p>
+<p>These are very concrete and specific criteria which guide our development, and can be independently confirmed.</p>
+<p>These are most useful if they can be verified during development.</p>
 </aside>
 </section>
 
@@ -112,8 +113,8 @@
 <p>We don't design something like a AMOC into the model. We get the microphysics, the momentum and mass transport, and so on to the best of our ability, and then we essentially assert from physical principles that it all works out.</p>
 <p>In a way, it separates the mechanics from the theoretical analysis.</p>
 <ul>
-<li class="fragment">A strong verification system can let us declare with great confidence that our code is free of dumb bugs, that our stencils are correct, and that we are getting the microphysics right.</li>
-<li class="fragment">A strong validation system is the assessment process, where we produce output in a careful, controlled, and <em>reproducible</em> manner, and can confidently declare that the model output is what we say it is.</li>
+<li>A strong verification system can let us declare with great confidence that our code is free of dumb bugs, that our stencils are correct, and that we are getting the microphysics right.</li>
+<li>A strong validation system is the assessment process, where we produce output in a careful, controlled, and <em>reproducible</em> manner, and can confidently declare that the model output is what we say it is.</li>
 </ul>
 <p>Looking past semantics, I think this are clear and independent concepts, and they map well onto the climate model development process.</p>
 </aside>
@@ -156,6 +157,7 @@
 </ul>
 <p>All contributions must pass verification and validation before merge.</p>
 <aside class="notes">
+<p>It's probably been at least a decade since scientists have been encouraged to burn their CVS directories and switch to git for code management, but the figure here illustrates the basic lifecycle of a contribution.</p>
 <p>A contributer first creates a fork of the active development branch, say <code>dev/gfdl</code>.</p>
 <p>Contributor works on their new feature. Meanwhile, <code>dev/gfdl</code> is also evolving.</p>
 <p>Once completed, the contributer submits it as a Pull Request via GitHub.</p>
