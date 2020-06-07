@@ -9,7 +9,10 @@ Verification and Validation of MOM6
 :description: An overview of the MOM6 testing framework
 :date: 2020 June 8
 
-.. notes::
+.. These don't get placed correctly, so I can't yet tag these as "notes" but
+   hopefully will work on it.
+
+   .. notes::
 
    As the community around MOM6 becomes more developed, the code will start to
    branch out in new and unexpected directions - which is a very good thing -
@@ -42,9 +45,17 @@ Barry Boehm, *Software Risk Management* (1989)
 
 .. notes::
 
-   Now I don't think one would be faulted for thinking that these are pretty
-   much the same thing, but CS professor Barry Boehm has a pretty pithy way of
+   Now I don't think one would be faulted for thinking that these two words are
+   pretty much the same thing (and I might even agree), but they are trying to
+   communicate two particular testing criteria, which I do think happens to map
+   pretty well onto out MOM6 testing framework.
+
+   CS professor Barry Boehm quoted here has a pretty pithy way of
    distinguishing the two.
+
+   (Read slide)
+
+   Let's pick that apart in a bit more detail.
 
 
 Verification
@@ -58,6 +69,10 @@ What are the *design specifications* of my model?
 
 *Verification is the confirmation of design specifications.*
 
+.. notes::
+
+   These are very concrete and specific criteria which guide our 
+
 
 Validation
 ==========
@@ -69,6 +84,29 @@ Does our model meet operational needs?
 * Can I reproduce my old simulations?
 
 *Validation is an assessment of the final product.*
+
+.. notes::
+
+   These are the broader goals which cannot be confirmed until the project is
+   done.
+
+   We don't design something like a AMOC into the model.  We get the
+   microphysics, the momentum and mass transport, and so on to the best of our
+   ability, and then we essentially assert from physical principles that it all
+   works out.
+
+   In a way, it separates the mechanics from the theoretical analysis.
+
+      - A strong verification system can let us declare with great confidence
+        that our code is free of dumb bugs, that our stencils are correct, and
+        that we are getting the microphysics right.
+
+      - A strong validation system is the assessment process, where we produce
+        output in a careful, controlled, and *reproducible* manner, and can
+        confidently declare that the model output is what we say it is.
+
+   Looking past semantics, I think this are clear and independent concepts, and
+   they map well onto the climate model development process.
 
 
 V&V in Development
