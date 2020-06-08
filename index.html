@@ -170,6 +170,11 @@
 </aside>
 </section>
 
+<section id="mom6-repository" class="title-slide slide level1">
+<h1>MOM6 Repository</h1>
+<p><a href="https://github.com/NOAA-GFDL/MOM6/"><img data-src="img/mom6_github.png" style="width:50.0%" alt="image" /></a></p>
+</section>
+
 <section id="vv-in-mom6" class="title-slide slide level1">
 <h1>V&amp;V in MOM6</h1>
 <p><img data-src="img/mom_submit.svg" class="float float" style="width:20.0%" alt="image" /></p>
@@ -336,11 +341,11 @@ h-point: c=     18673 ocean_model-h</code></pre>
 <section id="floating-point-review" class="title-slide slide level1">
 <h1>Floating Point Review</h1>
 <p><a href="https://commons.wikimedia.org/wiki/File:Float_example.svg"><img data-src="img/IEEE_754_Double_Floating_Point_Format.svg" alt="image" /></a></p>
-<p><span class="math display">\[(-1)^s \times 1.\{\text{frac}\}\times 2^{\{\text{exp}\}}\]</span></p>
+<p><span class="math display">\[\phi \equiv (-1)^{\color{yellow}s} \times 2^{\color{aquamarine}M}
+   \times (1 + {\color{pink}\alpha})\]</span></p>
 <ul>
 <li>Smallest fractional diff: <span class="math inline">\(2^{-52} \approx 2.2 \times 10^{-16}\)</span></li>
 <li>17 digits to uniquely specify a result</li>
-<li>Two unique representations of zero: <span class="math inline">\(\pm 0\)</span></li>
 </ul>
 <aside class="notes">
 <p>Probably old news to everyone, but just as a quick review:</p>

@@ -164,6 +164,14 @@ V&V in Development
    if you're feeling generous), but we do embrace V&V in our development cycle.
 
 
+MOM6 Repository
+===============
+
+.. image:: img/mom6_github.png
+   :width: 50%
+   :target: https://github.com/NOAA-GFDL/MOM6/
+
+
 V&V in MOM6
 ===========
 
@@ -391,15 +399,21 @@ Floating Point Review
 .. image:: img/IEEE_754_Double_Floating_Point_Format.svg
    :target: https://commons.wikimedia.org/wiki/File:Float_example.svg
 
-.. math::
+.. xxx  math::
 
    (-1)^s \times 1.\{\text{frac}\}\times 2^{\{\text{exp}\}}
+
+.. math::
+
+   \phi \equiv (-1)^{\color{yellow}s} \times 2^{\color{aquamarine}M}
+      \times (1 + {\color{pink}\alpha})
 
 * Smallest fractional diff: :math:`2^{-52} \approx 2.2 \times 10^{-16}`
 
 * 17 digits to uniquely specify a result
 
-* Two unique representations of zero: :math:`\pm 0`
+.. * Two unique representations of zero: :math:`\pm 0`
+   cut for time
 
 .. notes::
 
