@@ -164,8 +164,8 @@ V&V in Development
    if you're feeling generous), but we do embrace V&V in our development cycle.
 
 
-MOM6 Repository
-===============
+MOM6 Development
+================
 
 .. image:: img/mom6_github.png
    :width: 50%
