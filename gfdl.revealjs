@@ -104,6 +104,34 @@ $endfor$
 $if(date)$
   <p class="date" style="text-align: right;">$date$</p>
 $endif$
+  <!-- Currently cannot add notes to a title slide, so have to do manually-->
+  <aside class="notes">
+    <p>So I think everyone here would agree that the MOM6 community is growing,
+    and will probably continue to grow...</p>
+
+    <p>which means the code will start to evolve in new and unexpected ways -
+    which is a good thing...<p>
+
+    <p>But that evolution will probably come with errors and mistakes, and we
+    of course need to be ready for them.</p>
+
+    <p>So I'm going to go over some of the elements of the MOM6 testing
+    framework...</p>
+
+    <p>Partly to give you all confidence in the model, but also to help prepare
+    anyone who plans to contribute.</p>
+
+    <p>Now no one can even know if a code is "right", but there are ways to at
+    least ways to show if it's wrong, anr assure ourselves that it's at least
+    basically doing what we expect.</p>
+
+    <p>So when software engineering talk about this stuff, they introduce the
+    concepts of *verification* and *validation* when describing the testing of
+    software.</p>
+
+    <p>Which I think is a good perspective for understading how we do the
+    testing of MOM6.</p>
+  </aside>
 </section>
 $endif$
 $if(toc)$

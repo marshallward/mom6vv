@@ -12,23 +12,33 @@ Verification and Validation of MOM6
 .. These don't get placed correctly, so I can't yet tag these as "notes" but
    hopefully will work on it.
 
-   .. notes::
+.. notes
 
-   As the community around MOM6 becomes more developed, the code will start to
-   branch out in new and unexpected directions - which is a very good thing -
-   but with that will come more potential mistakes.
+   So I think everyone here would agree that the MOM6 community is growing,
+   and will probably continue to grow...
 
-   And for every bug that gets fixed, we could easily end up introducing two
-   more.
+   which means the code will start to evolve in new and unexpected ways -
+   which is a good thing...
 
-   All of this puts a greater emphasis on the testing and quality control of
-   the code.
+   But that evolution will probably come with errors and mistakes, and we
+   of course need to be ready for them.
+
+   So I'm going to go over some of the elements of the MOM6 testing
+   framework...
+
+   Partly to give you all confidence in the model, but also to help prepare
+   anyone who plans to contribute.
 
    Now no one can even know if a code is "right", but there are ways to at
-   least assure that it's doing what we expect.
+   least ways to show if it's wrong, anr assure ourselves that it's at least
+   basically doing what we expect.
 
-   In a lot of software engineering models, they introduce the concepts of
-   *verification* and *validation* when describing the testing of software.
+   So when software engineering talk about this stuff, they introduce the
+   concepts of *verification* and *validation* when describing the testing of
+   software.
+
+   Which I think is a good perspective for understading how we do the
+   testing of MOM6.
 
 
 ----
