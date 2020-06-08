@@ -543,7 +543,9 @@ Intel Fortran
 
    ifort -assume protect-parens     # Not default
 
-Note: Ignoring parentheses is non-compliant!  (J3/18-007r1, 10.1.5)
+Note: Fortran requires this!
+
+.. If anyone asks: J3/18-007r1, 10.1.5
 
 
 .. Kahan summation
