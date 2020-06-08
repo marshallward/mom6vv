@@ -86,6 +86,8 @@ What are the *design specifications* of my model?
 
    These are most useful if they can be verified during development.
 
+   Verification is sometimes said to be an *internal* assessment.
+
 
 Validation
 ==========
@@ -117,6 +119,9 @@ Does our model meet operational needs?
    -  A strong validation system is the assessment process, where we produce
       output in a careful, controlled, and *reproducible* manner, and can
       confidently declare that the model output is what we say it is.
+
+   Since it is often based on client evaluation, it's often considered an
+   *external* assessment.
 
    Looking past semantics, I think this are clear and independent concepts, and
    they map well onto the climate model development process.
