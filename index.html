@@ -72,8 +72,8 @@
     <p>which means the code will start to evolve in new and unexpected ways -
     which is a good thing...<p>
 
-    <p>But that evolution will probably come with errors and mistakes, and we
-    of course need to be ready for them.</p>
+    <p>But that also probably means more errors and mistakes, and we of course
+    need to be ready for them.</p>
 
     <p>So I'm going to go over some of the elements of the MOM6 testing
     framework...</p>
@@ -245,39 +245,6 @@
 </table>
 <p>Each test requires bit reproducibility</p>
 </section></section>
-<section id="solution-verification" class="title-slide slide level1">
-<h1>Solution verification</h1>
-<p><code>ocean.stats</code>:</p>
-<pre><code>Step,       Day,  Truncs,      Energy/Mass,      Maximum CFL,  Mean Sea Level,  Total Mass,  Mean Salin, Mean Temp, Frac Mass Err,   Salin Err,    Temp Err
-          [days]                 [m2 s-2]           [Nondim]       [m]             [kg]         [PSU]      [degC]       [Nondim]        [PSU]        [degC]
-   0,       0.000,     0, En 7.2161166068132286E-27, CFL  0.00000, SL  1.8190E-12, M 1.39637E+20, S 35.0000, T 13.3483, Me  0.00E+00, Se  0.00E+00, Te  0.00E+00
-  12,       0.500,     0, En 2.7781004671136538E-04, CFL  0.00011, SL  1.1369E-12, M 1.39637E+20, S 35.0000, T 13.3484, Me -6.09E-17, Se -3.90E-15, Te -1.17E-15
-  24,       1.000,     0, En 2.7734897826598717E-04, CFL  0.00014, SL  1.8190E-12, M 1.39637E+20, S 35.0000, T 13.3486, Me  2.89E-17, Se  8.80E-17, Te -2.88E-16</code></pre>
-<p>Based on global metrics (energy, mass, etc)</p>
-<aside class="notes">
-<p>We declare agreement if the so-called <code>ocean.stats</code> output files match.</p>
-<p>This file periodoically reports several global metrics, such as the total energy (per unit mass), total mass, mean sea level, mean temperature and so it.</p>
-<p>It is not perfect, and not all of the metrics are reported to full precision, but the energy is reported to full precision, and in nearly all cases this is sufficient to detect a regression.</p>
-</aside>
-</section>
-
-<section id="diagnostic-verification" class="title-slide slide level1">
-<h1>Diagnostic verification</h1>
-<p><code>chksum_diag</code>:</p>
-<pre><code>u-point: mean=   1.1239682303793666E-04 min=  -6.7187595818683776E-03 max=   3.3480219779204019E-02 ocean_model-u
-u-point: c=     21851 ocean_model-u
-v-point: mean=   1.2076392816784489E-03 min=  -8.3469699425156359E-03 max=   6.8420831486068704E-03 ocean_model-v
-v-point: c=     18606 ocean_model-v
-h-point: mean=   3.6490088139048595E+02 min=   9.9999999999999915E-04 max=   5.6265092225099863E+02 ocean_model-h
-h-point: c=     18673 ocean_model-h</code></pre>
-<p>Min, max, mean, bitcount for every diagnostic</p>
-<aside class="notes">
-<p>A more recent, and possibly more robust, check is the <code>chksum_diag</code> output.</p>
-<p>When a particular flag is enabled, this turns on every possible diagnostic and then reports its mean, min, and max values, as well as a bitcount checksum.</p>
-<p>Not every checksum is enabled, since some can only be conditionally set based on input parameters, but generally this will include most of them.</p>
-</aside>
-</section>
-
 <section id="tests-in-action" class="title-slide slide level1">
 <h1>Tests in Action</h1>
 <table>
@@ -313,6 +280,39 @@ h-point: c=     18673 ocean_model-h</code></pre>
 <p>Local contributions accumulate over time, becoming a <code>dev/master</code> PR.</p>
 <p>Local hub submits PR, and each hub validates the PR.</p>
 <p>Upon consensus, PR is merged into <code>dev/master</code>.</p>
+</aside>
+</section>
+
+<section id="solution-verification" class="title-slide slide level1">
+<h1>Solution verification</h1>
+<p><code>ocean.stats</code>:</p>
+<pre><code>Step,       Day,  Truncs,      Energy/Mass,      Maximum CFL,  Mean Sea Level,  Total Mass,  Mean Salin, Mean Temp, Frac Mass Err,   Salin Err,    Temp Err
+          [days]                 [m2 s-2]           [Nondim]       [m]             [kg]         [PSU]      [degC]       [Nondim]        [PSU]        [degC]
+   0,       0.000,     0, En 7.2161166068132286E-27, CFL  0.00000, SL  1.8190E-12, M 1.39637E+20, S 35.0000, T 13.3483, Me  0.00E+00, Se  0.00E+00, Te  0.00E+00
+  12,       0.500,     0, En 2.7781004671136538E-04, CFL  0.00011, SL  1.1369E-12, M 1.39637E+20, S 35.0000, T 13.3484, Me -6.09E-17, Se -3.90E-15, Te -1.17E-15
+  24,       1.000,     0, En 2.7734897826598717E-04, CFL  0.00014, SL  1.8190E-12, M 1.39637E+20, S 35.0000, T 13.3486, Me  2.89E-17, Se  8.80E-17, Te -2.88E-16</code></pre>
+<p>Based on global metrics (energy, mass, etc)</p>
+<aside class="notes">
+<p>We declare agreement if the so-called <code>ocean.stats</code> output files match.</p>
+<p>This file periodoically reports several global metrics, such as the total energy (per unit mass), total mass, mean sea level, mean temperature and so it.</p>
+<p>It is not perfect, and not all of the metrics are reported to full precision, but the energy is reported to full precision, and in nearly all cases this is sufficient to detect a regression.</p>
+</aside>
+</section>
+
+<section id="diagnostic-verification" class="title-slide slide level1">
+<h1>Diagnostic verification</h1>
+<p><code>chksum_diag</code>:</p>
+<pre><code>u-point: mean=   1.1239682303793666E-04 min=  -6.7187595818683776E-03 max=   3.3480219779204019E-02 ocean_model-u
+u-point: c=     21851 ocean_model-u
+v-point: mean=   1.2076392816784489E-03 min=  -8.3469699425156359E-03 max=   6.8420831486068704E-03 ocean_model-v
+v-point: c=     18606 ocean_model-v
+h-point: mean=   3.6490088139048595E+02 min=   9.9999999999999915E-04 max=   5.6265092225099863E+02 ocean_model-h
+h-point: c=     18673 ocean_model-h</code></pre>
+<p>Min, max, mean, bitcount for every diagnostic</p>
+<aside class="notes">
+<p>A more recent, and possibly more robust, check is the <code>chksum_diag</code> output.</p>
+<p>When a particular flag is enabled, this turns on every possible diagnostic and then reports its mean, min, and max values, as well as a bitcount checksum.</p>
+<p>Not every checksum is enabled, since some can only be conditionally set based on input parameters, but generally this will include most of them.</p>
 </aside>
 </section>
 
@@ -417,6 +417,7 @@ a \times (b \times c) &amp;\equiv 2.25 + 2^{-50}
   print &#39;(a, es23.17)&#39;, &quot;a * (b * c) = &quot;, a * (b * c)
 end program rounding</code></pre>
 </section></section>
+<section>
 <section id="integrity-of-parentheses" class="title-slide slide level1">
 <h1>Integrity of parentheses</h1>
 <p>V&amp;V requires integrity of parentheses</p>
@@ -427,9 +428,8 @@ gfortran -Ofast ...              # Sets -fno-protect-parens</code></pre>
 <pre class="sh"><code>ifort -assume protect-parens     # Not default</code></pre>
 <p>Note: Ignoring parentheses is non-compliant! (J3/18-007r1, 10.1.5)</p>
 </section>
-
-<section id="division-performance" class="title-slide slide level1">
-<h1>Division Performance</h1>
+<section id="division-performance" class="slide level2">
+<h2>Division Performance</h2>
 <p>Minimize division operations:</p>
 <pre class="fortran"><code>x = a / b / c           ! Bad
 x = a / (b * c)         ! Good
@@ -444,8 +444,7 @@ dvdx = I_dx * (v(i+1) - v(i))</code></pre>
 <aside class="notes">
 <p>While not directly related to reproducibility...</p>
 </aside>
-</section>
-
+</section></section>
 <section id="parallel-summation" class="title-slide slide level1">
 <h1>Parallel Summation</h1>
 <p>How to compute reproducible means or global sums?</p>
@@ -552,31 +551,7 @@ ustar = 0.01 * US%m_to_Z * US%T_to_s</code></pre>
 </aside>
 </section>
 
-<section id="rotation-invariance" class="title-slide slide level1">
-<h1>Rotation Invariance</h1>
-<p><img data-src="img/mom_rotate.svg" class="float float" style="width:25.0%" alt="image" /></p>
-<p>Solutions must be invariant to <strong>index rotation</strong>, e.g.:</p>
-<p><span class="math display">\[\phi(i&#39;,j&#39;) = \phi(j, N-i)\]</span></p>
-<p>Both <em>fields</em> and <em>coordinates</em> are remapped.</p>
-<p>Note: <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> are velocities along <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>!</p>
-</section>
-
-<section id="rotational-consistency" class="title-slide slide level1">
-<h1>Rotational Consistency</h1>
-<pre class="fortran"><code>beta_topo_x = -CS%MEKE_topographic_beta * FatH * 0.5 * ( &amp;
-              (G%bathyT(i+1,j)-G%bathyT(i,j)) * G%IdxCu(I,j)  &amp;
-          / max(G%bathyT(i+1,j),G%bathyT(i,j), GV%H_subroundoff) &amp;
-      +       (G%bathyT(i,j)-G%bathyT(i-1,j)) * G%IdxCu(I-1,j) &amp;
-          / max(G%bathyT(i,j),G%bathyT(i-1,j), GV%H_subroundoff) )
-
-beta_topo_y = -CS%MEKE_topographic_beta * FatH * 0.5 * ( &amp;
-              (G%bathyT(i,j+1)-G%bathyT(i,j)) * G%IdyCv(i,J)  &amp;
-          / max(G%bathyT(i,j+1),G%bathyT(i,j), GV%H_subroundoff) + &amp;
-              (G%bathyT(i,j)-G%bathyT(i,j-1)) * G%IdyCv(i,J-1) &amp;
-          / max(G%bathyT(i,j),G%bathyT(i,j-1), GV%H_subroundoff) )</code></pre>
-<p>Index rotation ensures directional consistency</p>
-</section>
-
+<section>
 <section id="index-rotation" class="title-slide slide level1">
 <h1>Index Rotation</h1>
 <table>
@@ -594,6 +569,29 @@ beta_topo_y = -CS%MEKE_topographic_beta * FatH * 0.5 * ( &amp;
 <p>What is being rotated is the index map of the fields.</p>
 <p>Everything here is rotated: the fields, the topographies, the forcings, even the coordinates. The net result is nothing is r</p>
 </aside>
+</section>
+<section id="rotation-invariance" class="slide level2">
+<h2>Rotation Invariance</h2>
+<p><img data-src="img/mom_rotate.svg" class="float float" style="width:25.0%" alt="image" /></p>
+<p>Solutions must be invariant to <strong>index rotation</strong>, e.g.:</p>
+<p><span class="math display">\[\phi(i&#39;,j&#39;) = \phi(j, N-i)\]</span></p>
+<p>Both <em>fields</em> and <em>coordinates</em> are remapped.</p>
+<p>Note: <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> are velocities along <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>!</p>
+</section></section>
+<section id="rotational-consistency" class="title-slide slide level1">
+<h1>Rotational Consistency</h1>
+<pre class="fortran"><code>beta_topo_x = -CS%MEKE_topographic_beta * FatH * 0.5 * ( &amp;
+              (G%bathyT(i+1,j)-G%bathyT(i,j)) * G%IdxCu(I,j)  &amp;
+          / max(G%bathyT(i+1,j),G%bathyT(i,j), GV%H_subroundoff) &amp;
+      +       (G%bathyT(i,j)-G%bathyT(i-1,j)) * G%IdxCu(I-1,j) &amp;
+          / max(G%bathyT(i,j),G%bathyT(i-1,j), GV%H_subroundoff) )
+
+beta_topo_y = -CS%MEKE_topographic_beta * FatH * 0.5 * ( &amp;
+              (G%bathyT(i,j+1)-G%bathyT(i,j)) * G%IdyCv(i,J)  &amp;
+          / max(G%bathyT(i,j+1),G%bathyT(i,j), GV%H_subroundoff) + &amp;
+              (G%bathyT(i,j)-G%bathyT(i,j-1)) * G%IdyCv(i,J-1) &amp;
+          / max(G%bathyT(i,j),G%bathyT(i,j-1), GV%H_subroundoff) )</code></pre>
+<p>Index rotation ensures directional consistency</p>
 </section>
 
 <section id="invariant-stencils" class="title-slide slide level1">

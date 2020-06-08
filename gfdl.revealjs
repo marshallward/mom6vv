@@ -112,8 +112,8 @@ $endif$
     <p>which means the code will start to evolve in new and unexpected ways -
     which is a good thing...<p>
 
-    <p>But that evolution will probably come with errors and mistakes, and we
-    of course need to be ready for them.</p>
+    <p>But that also probably means more errors and mistakes, and we of course
+    need to be ready for them.</p>
 
     <p>So I'm going to go over some of the elements of the MOM6 testing
     framework...</p>

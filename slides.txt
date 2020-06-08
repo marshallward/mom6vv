@@ -234,60 +234,6 @@ dim         Dimensional scaling
 Each test requires bit reproducibility
 
 
-Solution verification
-=====================
-
-``ocean.stats``::
-
-  Step,       Day,  Truncs,      Energy/Mass,      Maximum CFL,  Mean Sea Level,  Total Mass,  Mean Salin, Mean Temp, Frac Mass Err,   Salin Err,    Temp Err
-            [days]                 [m2 s-2]           [Nondim]       [m]             [kg]         [PSU]      [degC]       [Nondim]        [PSU]        [degC]
-     0,       0.000,     0, En 7.2161166068132286E-27, CFL  0.00000, SL  1.8190E-12, M 1.39637E+20, S 35.0000, T 13.3483, Me  0.00E+00, Se  0.00E+00, Te  0.00E+00
-    12,       0.500,     0, En 2.7781004671136538E-04, CFL  0.00011, SL  1.1369E-12, M 1.39637E+20, S 35.0000, T 13.3484, Me -6.09E-17, Se -3.90E-15, Te -1.17E-15
-    24,       1.000,     0, En 2.7734897826598717E-04, CFL  0.00014, SL  1.8190E-12, M 1.39637E+20, S 35.0000, T 13.3486, Me  2.89E-17, Se  8.80E-17, Te -2.88E-16
-
-Based on global metrics (energy, mass, etc)
-
-.. notes::
-
-   We declare agreement if the so-called ``ocean.stats`` output files match.
-
-   This file periodoically reports several global metrics, such as the total
-   energy (per unit mass), total mass, mean sea level, mean temperature and so
-   it.
-
-   It is not perfect, and not all of the metrics are reported to full
-   precision, but the energy is reported to full precision, and in nearly all
-   cases this is sufficient to detect a regression.
-
-
-Diagnostic verification
-=======================
-
-
-``chksum_diag``::
-
-  u-point: mean=   1.1239682303793666E-04 min=  -6.7187595818683776E-03 max=   3.3480219779204019E-02 ocean_model-u
-  u-point: c=     21851 ocean_model-u
-  v-point: mean=   1.2076392816784489E-03 min=  -8.3469699425156359E-03 max=   6.8420831486068704E-03 ocean_model-v
-  v-point: c=     18606 ocean_model-v
-  h-point: mean=   3.6490088139048595E+02 min=   9.9999999999999915E-04 max=   5.6265092225099863E+02 ocean_model-h
-  h-point: c=     18673 ocean_model-h
-
-Min, max, mean, bitcount for every diagnostic
-
-.. notes::
-
-   A more recent, and possibly more robust, check is the ``chksum_diag``
-   output.
-
-   When a particular flag is enabled, this turns on every possible diagnostic
-   and then reports its mean, min, and max values, as well as a bitcount
-   checksum.
-
-   Not every checksum is enabled, since some can only be conditionally set
-   based on input parameters, but generally this will include most of them.
-
-
 Tests in Action
 ===============
 
@@ -345,6 +291,60 @@ Hub Validation
    Local hub submits PR, and each hub validates the PR.
 
    Upon consensus, PR is merged into ``dev/master``.
+
+
+Solution verification
+=====================
+
+``ocean.stats``::
+
+  Step,       Day,  Truncs,      Energy/Mass,      Maximum CFL,  Mean Sea Level,  Total Mass,  Mean Salin, Mean Temp, Frac Mass Err,   Salin Err,    Temp Err
+            [days]                 [m2 s-2]           [Nondim]       [m]             [kg]         [PSU]      [degC]       [Nondim]        [PSU]        [degC]
+     0,       0.000,     0, En 7.2161166068132286E-27, CFL  0.00000, SL  1.8190E-12, M 1.39637E+20, S 35.0000, T 13.3483, Me  0.00E+00, Se  0.00E+00, Te  0.00E+00
+    12,       0.500,     0, En 2.7781004671136538E-04, CFL  0.00011, SL  1.1369E-12, M 1.39637E+20, S 35.0000, T 13.3484, Me -6.09E-17, Se -3.90E-15, Te -1.17E-15
+    24,       1.000,     0, En 2.7734897826598717E-04, CFL  0.00014, SL  1.8190E-12, M 1.39637E+20, S 35.0000, T 13.3486, Me  2.89E-17, Se  8.80E-17, Te -2.88E-16
+
+Based on global metrics (energy, mass, etc)
+
+.. notes::
+
+   We declare agreement if the so-called ``ocean.stats`` output files match.
+
+   This file periodoically reports several global metrics, such as the total
+   energy (per unit mass), total mass, mean sea level, mean temperature and so
+   it.
+
+   It is not perfect, and not all of the metrics are reported to full
+   precision, but the energy is reported to full precision, and in nearly all
+   cases this is sufficient to detect a regression.
+
+
+Diagnostic verification
+=======================
+
+
+``chksum_diag``::
+
+  u-point: mean=   1.1239682303793666E-04 min=  -6.7187595818683776E-03 max=   3.3480219779204019E-02 ocean_model-u
+  u-point: c=     21851 ocean_model-u
+  v-point: mean=   1.2076392816784489E-03 min=  -8.3469699425156359E-03 max=   6.8420831486068704E-03 ocean_model-v
+  v-point: c=     18606 ocean_model-v
+  h-point: mean=   3.6490088139048595E+02 min=   9.9999999999999915E-04 max=   5.6265092225099863E+02 ocean_model-h
+  h-point: c=     18673 ocean_model-h
+
+Min, max, mean, bitcount for every diagnostic
+
+.. notes::
+
+   A more recent, and possibly more robust, check is the ``chksum_diag``
+   output.
+
+   When a particular flag is enabled, this turns on every possible diagnostic
+   and then reports its mean, min, and max values, as well as a bitcount
+   checksum.
+
+   Not every checksum is enabled, since some can only be conditionally set
+   based on input parameters, but generally this will include most of them.
 
 
 Bit Reproducibility
@@ -554,7 +554,9 @@ Note: Ignoring parentheses is non-compliant!  (J3/18-007r1, 10.1.5)
 
 
 Division Performance
-====================
+--------------------
+
+.. There is not enough time to review this, but may be able to squeeze it in
 
 Minimize division operations:
 
@@ -710,44 +712,6 @@ Diagnostic registration
    rescale and descale any intermediate variables.
 
 
-Rotation Invariance
-===================
-
-.. image:: img/mom_rotate.svg
-   :width: 25%
-   :class: float
-
-Solutions must be invariant to **index rotation**, e.g.:
-
-.. math::
-
-   \phi(i',j') = \phi(j, N-i)
-
-Both *fields* and *coordinates* are remapped.
-
-Note: :math:`u` and :math:`v` are velocities along :math:`i` and :math:`j`!
-
-
-Rotational Consistency
-======================
-
-.. code:: fortran
-
-   beta_topo_x = -CS%MEKE_topographic_beta * FatH * 0.5 * ( &
-                 (G%bathyT(i+1,j)-G%bathyT(i,j)) * G%IdxCu(I,j)  &
-             / max(G%bathyT(i+1,j),G%bathyT(i,j), GV%H_subroundoff) &
-         +       (G%bathyT(i,j)-G%bathyT(i-1,j)) * G%IdxCu(I-1,j) &
-             / max(G%bathyT(i,j),G%bathyT(i-1,j), GV%H_subroundoff) )
-
-   beta_topo_y = -CS%MEKE_topographic_beta * FatH * 0.5 * ( &
-                 (G%bathyT(i,j+1)-G%bathyT(i,j)) * G%IdyCv(i,J)  &
-             / max(G%bathyT(i,j+1),G%bathyT(i,j), GV%H_subroundoff) + &
-                 (G%bathyT(i,j)-G%bathyT(i,j-1)) * G%IdyCv(i,J-1) &
-             / max(G%bathyT(i,j),G%bathyT(i,j-1), GV%H_subroundoff) )
-
-Index rotation ensures directional consistency
-
-
 Index Rotation
 ==============
 
@@ -771,17 +735,51 @@ Index Rotation
    No physical rotation is ever applied to the system, neither the fields
    themselves nor the coordinates.
 
-
-
-
    What is being rotated is the index map of the fields.
-
-
 
    Everything here is rotated: the fields, the topographies, the forcings, even
    the coordinates.  The net result is nothing is r
 
 
+Rotation Invariance
+-------------------
+
+.. Again, no time to explain this, need to cut it
+
+.. image:: img/mom_rotate.svg
+   :width: 25%
+   :class: float
+
+Solutions must be invariant to **index rotation**, e.g.:
+
+.. math::
+
+   \phi(i',j') = \phi(j, N-i)
+
+Both *fields* and *coordinates* are remapped.
+
+Note: :math:`u` and :math:`v` are velocities along :math:`i` and :math:`j`!
+
+
+
+Rotational Consistency
+======================
+
+.. code:: fortran
+
+   beta_topo_x = -CS%MEKE_topographic_beta * FatH * 0.5 * ( &
+                 (G%bathyT(i+1,j)-G%bathyT(i,j)) * G%IdxCu(I,j)  &
+             / max(G%bathyT(i+1,j),G%bathyT(i,j), GV%H_subroundoff) &
+         +       (G%bathyT(i,j)-G%bathyT(i-1,j)) * G%IdxCu(I-1,j) &
+             / max(G%bathyT(i,j),G%bathyT(i-1,j), GV%H_subroundoff) )
+
+   beta_topo_y = -CS%MEKE_topographic_beta * FatH * 0.5 * ( &
+                 (G%bathyT(i,j+1)-G%bathyT(i,j)) * G%IdyCv(i,J)  &
+             / max(G%bathyT(i,j+1),G%bathyT(i,j), GV%H_subroundoff) + &
+                 (G%bathyT(i,j)-G%bathyT(i,j-1)) * G%IdyCv(i,J-1) &
+             / max(G%bathyT(i,j),G%bathyT(i,j-1), GV%H_subroundoff) )
+
+Index rotation ensures directional consistency
 
 
 Invariant stencils
