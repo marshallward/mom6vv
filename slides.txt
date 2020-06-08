@@ -700,8 +700,12 @@ Diagnostic registration
    rescale and descale any intermediate variables.
 
 
-Rotational Invariance
-=====================
+Rotation Invariance
+===================
+
+.. image:: img/mom_rotate.svg
+   :width: 25%
+   :class: float
 
 Solutions must be invariant to **index rotation**, e.g.:
 
@@ -858,13 +862,17 @@ Summary
 
 * MOM6 test suite:
 
-  * Verification of fundamental rules
+  * Verification of design requirements
 
-  * Validation of emergent physics
+    * Universal invariance rules
+
+  * Validation of solutions
+
+    * Site-specific regression tests
 
 * Bit reproducibility is essential, and achievable!
 
-* Over 40 issues and bugs have been detected and fixed:
+* Over 40 bugs have been detected and fixed
 
 
 Dimensional scaling example
@@ -945,8 +953,6 @@ Extended domain to accommodate symmetric grids:
 Development Guidelines
 ======================
 
-0. Verification must have bit reproducibility
-
 1. Use parentheses!
 
    a. Are they honored?
@@ -956,6 +962,8 @@ Development Guidelines
 
    a. Even better: Don't do global sums!
 
-3. Register dimensions
+3. Assign dimensions
 
 4. Use rotationally invariant stencils
+
+5. Test early and often

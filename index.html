@@ -524,8 +524,9 @@ ustar = 0.01 * US%m_to_Z * US%T_to_s</code></pre>
 </aside>
 </section>
 
-<section id="rotational-invariance" class="title-slide slide level1">
-<h1>Rotational Invariance</h1>
+<section id="rotation-invariance" class="title-slide slide level1">
+<h1>Rotation Invariance</h1>
+<p><img data-src="img/mom_rotate.svg" class="float float" style="width:25.0%" alt="image" /></p>
 <p>Solutions must be invariant to <strong>index rotation</strong>, e.g.:</p>
 <p><span class="math display">\[\phi(i&#39;,j&#39;) = \phi(j, N-i)\]</span></p>
 <p>Both <em>fields</em> and <em>coordinates</em> are remapped.</p>
@@ -612,11 +613,17 @@ end subroutine advect_tracer</code></pre>
 <ul>
 <li>MOM6 test suite:
 <ul>
-<li>Verification of fundamental rules</li>
-<li>Validation of emergent physics</li>
+<li>Verification of design requirements
+<ul>
+<li>Universal invariance rules</li>
+</ul></li>
+<li>Validation of solutions
+<ul>
+<li>Site-specific regression tests</li>
+</ul></li>
 </ul></li>
 <li>Bit reproducibility is essential, and achievable!</li>
-<li>Over 40 issues and bugs have been detected and fixed:</li>
+<li>Over 40 bugs have been detected and fixed</li>
 </ul>
 </section>
 <section id="dimensional-scaling-example" class="slide level2">
@@ -664,8 +671,7 @@ enddo ; enddo</code></pre>
 </section></section>
 <section id="development-guidelines" class="title-slide slide level1">
 <h1>Development Guidelines</h1>
-<ol start="0" type="1">
-<li>Verification must have bit reproducibility</li>
+<ol type="1">
 <li>Use parentheses!
 <ol type="a">
 <li>Are they honored?</li>
@@ -675,8 +681,9 @@ enddo ; enddo</code></pre>
 <ol type="a">
 <li>Even better: Don't do global sums!</li>
 </ol></li>
-<li>Register dimensions</li>
+<li>Assign dimensions</li>
 <li>Use rotationally invariant stencils</li>
+<li>Test early and often</li>
 </ol>
 </section>
     </div>

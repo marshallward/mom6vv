@@ -1,0 +1,29 @@
+digraph mom_pr {
+    node [
+        style = filled,
+        fontname = helvetica
+    ]
+
+    concentrate = true
+    bgcolor = transparent
+    rankdir = TB
+
+    subgraph main_ {
+        start -> coupler_init -> coupler_step
+        coupler_step_end -> {coupler_step, final} [weight=0]
+    }
+
+    subgraph init {
+        coupler_init -> ocean_init [weight=0]
+        ocean_init -> {std_init, rotated_init} [weight=0]
+        {std_init, rotated_init} -> finalize_init
+        finalize_init -> coupler_step [weight=0]
+    }
+
+    subgraph ocean_step_grp {
+        coupler_step -> rotate_forcing [weight=0]
+        rotate_forcing -> ocean_step
+        ocean_step -> derotate_forcing
+        derotate_forcing -> coupler_step_end [weight=0]
+    } 
+}
